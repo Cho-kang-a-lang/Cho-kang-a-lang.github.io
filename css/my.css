@@ -1,1 +1,11 @@
 /* Here is your custom css styles. */
+/* 定義字體 */
+@font-face {
+  font-family: 'Iansui';
+  src: url('/medias/Iansui.ttf'); /* 根據實際路徑調整 */
+}
+
+/* 應用字體到全站 */
+body {
+  font-family: 'Iansui', sans-serif !important;
+}
