@@ -2,10 +2,22 @@
 <html lang="en">
 
 
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').then(reg => {
+        console.log('Service Worker 註冊成功！範圍:', reg.scope);
+      }).catch(err => {
+        console.log('Service Worker 註冊失敗:', err);
+      });
+    });
+  }
+</script>
+
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="打狗舊地號名線頂ī第2 pha, 做工á人">
-    <meta name="description" content="">
+    <meta name="keywords" content="打狗舊地號名線頂ī第2 pha, 台語學習, 台文翻譯, 台語廣播劇, POJ 教學">
+    <meta name="description" content="台語學習, 台文翻譯, 台語廣播劇, POJ 教學">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -16,7 +28,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>打狗舊地號名線頂ī第2 pha | 做工á人</title>
+    <title>打狗舊地號名線頂ī第2 pha | 做工á人台語工作室</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -29,7 +41,10 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="做工á人" type="application/atom+xml">
+	<link rel="manifest" href="/manifest.json">
+	<meta name="theme-color" content="#42b983">
+	
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="做工á人台語工作室" type="application/atom+xml">
 </head>
 
 
@@ -44,7 +59,7 @@
                     
                     <img src="/medias/logo.png" class="logo-img" alt="LOGO">
                     
-                    <span class="logo-span">做工á人</span>
+                    <span class="logo-span">做工á人台語工作室</span>
                 </a>
             </div>
             
@@ -325,10 +340,10 @@
         
         <img src="/medias/logo.png" class="logo-img circle responsive-img">
         
-        <div class="logo-name">做工á人</div>
+        <div class="logo-name">做工á人台語工作室</div>
         <div class="logo-desc">
             
-            Never really desperate, only the lost of the soul.
+            台語學習, 台文翻譯, 台語廣播劇, POJ 教學
             
         </div>
     </div>
@@ -718,7 +733,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://Cho-kang-a-lang.github.io/games/kutemia_kh02/index.html">https://Cho-kang-a-lang.github.io/games/kutemia_kh02/index.html</a>
+                    <a href="https://Cho-kang-a-lang.github.io/games/kutemia_kh02/">https://Cho-kang-a-lang.github.io/games/kutemia_kh02/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -802,7 +817,7 @@
                 <i class="far fa-dot-circle"></i>&nbsp;Current
             </div>
             <div class="card">
-                <a href="/games/kutemia_kh02/index.html">
+                <a href="/games/kutemia_kh02/">
                     <div class="card-image">
                         
                         
@@ -840,7 +855,7 @@
                 Current&nbsp;<i class="far fa-dot-circle"></i>
             </div>
             <div class="card">
-                <a href="/games/kutemia_kh02/index.html">
+                <a href="/games/kutemia_kh02/">
                     <div class="card-image">
                         
                         

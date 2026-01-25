@@ -2,10 +2,22 @@
 <html lang="en">
 
 
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').then(reg => {
+        console.log('Service Worker 註冊成功！範圍:', reg.scope);
+      }).catch(err => {
+        console.log('Service Worker 註冊失敗:', err);
+      });
+    });
+  }
+</script>
+
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Category: 英國囡仔古, 做工á人">
-    <meta name="description" content="">
+    <meta name="keywords" content="Category: 英國囡仔古, 台語學習, 台文翻譯, 台語廣播劇, POJ 教學">
+    <meta name="description" content="台語學習, 台文翻譯, 台語廣播劇, POJ 教學">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -16,7 +28,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Category: 英國囡仔古 | 做工á人</title>
+    <title>Category: 英國囡仔古 | 做工á人台語工作室</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -29,7 +41,10 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="做工á人" type="application/atom+xml">
+	<link rel="manifest" href="/manifest.json">
+	<meta name="theme-color" content="#42b983">
+	
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="做工á人台語工作室" type="application/atom+xml">
 </head>
 
 
@@ -44,7 +59,7 @@
                     
                     <img src="/medias/logo.png" class="logo-img" alt="LOGO">
                     
-                    <span class="logo-span">做工á人</span>
+                    <span class="logo-span">做工á人台語工作室</span>
                 </a>
             </div>
             
@@ -325,10 +340,10 @@
         
         <img src="/medias/logo.png" class="logo-img circle responsive-img">
         
-        <div class="logo-name">做工á人</div>
+        <div class="logo-name">做工á人台語工作室</div>
         <div class="logo-desc">
             
-            Never really desperate, only the lost of the soul.
+            台語學習, 台文翻譯, 台語廣播劇, POJ 教學
             
         </div>
     </div>
@@ -725,11 +740,11 @@
                 </a>
                 
                 
-                <a href="/categories/%E5%8F%B0%E8%AA%9E%E8%AC%9B%E6%80%AA%E5%A5%87/" title="台語講怪奇: 6">
+                <a href="/categories/%E7%9B%B8%E6%8B%9B%E4%BE%86%E7%9C%8B%E6%88%B2/" title="相招來看戲: 3">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #F8F9F9;">台語講怪奇
-                        <span class="tag-length">6</span>
+                            style="background-color: #F8F9F9;">相招來看戲
+                        <span class="tag-length">3</span>
                     </span>
                 </a>
                 
@@ -743,19 +758,10 @@
                 </a>
                 
                 
-                <a href="/categories/%E7%9B%B8%E6%8B%9B%E4%BE%86%E7%9C%8B%E6%88%B2/" title="相招來看戲: 3">
+                <a href="/categories/%E5%8F%B0%E8%AA%9E%E8%AC%9B%E6%80%AA%E5%A5%87/" title="台語講怪奇: 6">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #D7BDE2;">相招來看戲
-                        <span class="tag-length">3</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/%E7%99%BD%E8%94%A5%E4%BB%94%E5%85%AC%E4%B8%BB/" title="白蔥仔公主: 6">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #A3E4D7;">白蔥仔公主
+                            style="background-color: #D7BDE2;">台語講怪奇
                         <span class="tag-length">6</span>
                     </span>
                 </a>
@@ -764,8 +770,17 @@
                 <a href="/categories/%E7%84%A1%E7%B3%BB%E5%88%97/" title="無系列: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #85C1E9;">無系列
+                            style="background-color: #A3E4D7;">無系列
                         <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/categories/%E7%99%BD%E8%94%A5%E4%BB%94%E5%85%AC%E4%B8%BB/" title="白蔥仔公主: 6">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            style="background-color: #85C1E9;">白蔥仔公主
+                        <span class="tag-length">6</span>
                     </span>
                 </a>
                 
@@ -792,7 +807,7 @@
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/%5Bobject%20Object%5D/ukkidstory17/">
+                    <a href="/%E8%8B%B1%E5%9C%8B%E5%9B%A1%E4%BB%94%E5%8F%A4/ukkidstory17/">
                         <div class="card-image tag-image">
                             
                             <img src="/medias/featureimages/ukkidstory17.png" class="responsive-img" alt="【英國Gín-á古】Niáu鼠á Thí-thih Kah Niáu鼠á Thá-thih︱Titty Mouse And Tatty Mouse">
@@ -873,7 +888,7 @@ Niáu鼠á Thí-thih Kah Niáu鼠á Thá-thih
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/%5Bobject%20Object%5D/ukkidstory16/">
+                    <a href="/%E8%8B%B1%E5%9C%8B%E5%9B%A1%E4%BB%94%E5%8F%A4/ukkidstory16/">
                         <div class="card-image tag-image">
                             
                             <img src="/medias/featureimages/ukkidstory16.jpg" class="responsive-img" alt="【英國Gín-á古】金球︱The Golden Ball">
@@ -953,7 +968,7 @@ Once upon a time there lived two lasses, who were sisters, and as they came from
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/%5Bobject%20Object%5D/ukkidstory15/">
+                    <a href="/%E8%8B%B1%E5%9C%8B%E5%9B%A1%E4%BB%94%E5%8F%A4/ukkidstory15/">
                         <div class="card-image tag-image">
                             
                             <img src="/medias/featureimages/ukkidstory15.jpg" class="responsive-img" alt="【英國Gín-á古】2姊妹 下集︱The 2 Sisters Part 2">
@@ -1014,16 +1029,16 @@ Once upon a time there were two sisters who were as like each other as two peas 
                             <span class="chip bg-color">英國囡仔古</span>
                         </a>
                         
-                        <a href="/tags/2chi-moe/">
-                            <span class="chip bg-color">2chí-mōe</span>
-                        </a>
-                        
                         <a href="/tags/2%E5%A7%8A%E5%A6%B9/">
                             <span class="chip bg-color">2姊妹</span>
                         </a>
                         
                         <a href="/tags/The-2-Sisters/">
                             <span class="chip bg-color">The 2 Sisters</span>
+                        </a>
+                        
+                        <a href="/tags/2chi-moe/">
+                            <span class="chip bg-color">2chí-mōe</span>
                         </a>
                         
                     </div>
@@ -1033,7 +1048,7 @@ Once upon a time there were two sisters who were as like each other as two peas 
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/%5Bobject%20Object%5D/ukkidstory14/">
+                    <a href="/%E8%8B%B1%E5%9C%8B%E5%9B%A1%E4%BB%94%E5%8F%A4/ukkidstory14/">
                         <div class="card-image tag-image">
                             
                             <img src="/medias/featureimages/ukkidstory14.jpg" class="responsive-img" alt="【英國Gín-á古】2姊妹 上集︱The 2 Sisters Part 1">
@@ -1094,16 +1109,16 @@ Once upon a time there were two sisters who were as like each other as two peas 
                             <span class="chip bg-color">英國囡仔古</span>
                         </a>
                         
+                        <a href="/tags/Nn%CC%84g-chi-moe/">
+                            <span class="chip bg-color">Nn̄g chí-mōe</span>
+                        </a>
+                        
                         <a href="/tags/2%E5%A7%8A%E5%A6%B9/">
                             <span class="chip bg-color">2姊妹</span>
                         </a>
                         
                         <a href="/tags/The-2-Sisters/">
                             <span class="chip bg-color">The 2 Sisters</span>
-                        </a>
-                        
-                        <a href="/tags/Nn%CC%84g-chi-moe/">
-                            <span class="chip bg-color">Nn̄g chí-mōe</span>
                         </a>
                         
                     </div>
@@ -1113,7 +1128,7 @@ Once upon a time there were two sisters who were as like each other as two peas 
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/%5Bobject%20Object%5D/ukkidstory13/">
+                    <a href="/%E8%8B%B1%E5%9C%8B%E5%9B%A1%E4%BB%94%E5%8F%A4/ukkidstory13/">
                         <div class="card-image tag-image">
                             
                             <img src="/medias/featureimages/ukkidstory13.jpg" class="responsive-img" alt="【英國Gín-á古】巨人殺手Jia̍k 第5~7 Pha︱Jack the Giant Killer Part 5~7">
@@ -1193,7 +1208,7 @@ This, however, did not satisfy our hero, who was soon on the road again searchin
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/%5Bobject%20Object%5D/ukkidstory12/">
+                    <a href="/%E8%8B%B1%E5%9C%8B%E5%9B%A1%E4%BB%94%E5%8F%A4/ukkidstory12/">
                         <div class="card-image tag-image">
                             
                             <img src="/medias/featureimages/ukkidstory12.jpg" class="responsive-img" alt="【英國Gín-á古】巨人殺手Jia̍k 第4 Pha︱Jack the Giant Killer Part 4">
@@ -1273,7 +1288,7 @@ Now it so happened that in those days, when gallant knights were always seeking 
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/%5Bobject%20Object%5D/ukkidstory11/">
+                    <a href="/%E8%8B%B1%E5%9C%8B%E5%9B%A1%E4%BB%94%E5%8F%A4/ukkidstory11/">
                         <div class="card-image tag-image">
                             
                             <img src="/medias/featureimages/ukkidstory11.jpg" class="responsive-img" alt="【英國Gín-á古】巨人殺手Jia̍k 第1-3 Pha︱Jack the Giant Killer Part 1-3">
@@ -1353,7 +1368,7 @@ When good King Arthur reigned with Guinevere his Queen, there lived, near the La
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/%5Bobject%20Object%5D/ukkidstory10/">
+                    <a href="/%E8%8B%B1%E5%9C%8B%E5%9B%A1%E4%BB%94%E5%8F%A4/ukkidstory10/">
                         <div class="card-image tag-image">
                             
                             <img src="/medias/featureimages/ukkidstory10.png" class="responsive-img" alt="【英國Gín-á古】Pân-tōaⁿ Jia̍k︱Lazy Jack">
@@ -1428,7 +1443,7 @@ LAZY JACKOnce upon a time there was a boy whose name was Jack, and he lived with
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/%5Bobject%20Object%5D/ukkidstory09/">
+                    <a href="/%E8%8B%B1%E5%9C%8B%E5%9B%A1%E4%BB%94%E5%8F%A4/ukkidstory09/">
                         <div class="card-image tag-image">
                             
                             <img src="/medias/featureimages/ukkidstory09.png" class="responsive-img" alt="【英國Gín-á古】3支羽毛下集︱The Three Feathers Part 2">
@@ -1504,7 +1519,7 @@ So when the night came the girl held out her apron for the money, and as she was
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/%5Bobject%20Object%5D/ukkidstory08/">
+                    <a href="/%E8%8B%B1%E5%9C%8B%E5%9B%A1%E4%BB%94%E5%8F%A4/ukkidstory08/">
                         <div class="card-image tag-image">
                             
                             <img src="/medias/featureimages/ukkidstory08.png" class="responsive-img" alt="【英國Gín-á古】3支羽毛上集︱The Three Feathers Part 1">
@@ -1580,7 +1595,7 @@ Once upon a time there lived a girl who was wooed and married by a man she never
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/%5Bobject%20Object%5D/ukkidstory07/">
+                    <a href="/%E8%8B%B1%E5%9C%8B%E5%9B%A1%E4%BB%94%E5%8F%A4/ukkidstory07/">
                         <div class="card-image tag-image">
                             
                             <img src="/medias/featureimages/ukkidstory07.png" class="responsive-img" alt="【英國Gín-á古】破裘á︱Tattercoats">
@@ -1654,7 +1669,7 @@ TATTERCOATSIn a great Palace by the sea there once dwelt a very rich old lord, w
             
             <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/%5Bobject%20Object%5D/ukkidstory06/">
+                    <a href="/%E8%8B%B1%E5%9C%8B%E5%9B%A1%E4%BB%94%E5%8F%A4/ukkidstory06/">
                         <div class="card-image tag-image">
                             
                             <img src="/medias/featureimages/ukkidstory06.jpg" class="responsive-img" alt="【英國Gín-á古】金鼻薰Kheh-á下集︱The Golden Snuff-Box Part 3">

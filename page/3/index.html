@@ -2,10 +2,22 @@
 <html lang="en">
 
 
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').then(reg => {
+        console.log('Service Worker 註冊成功！範圍:', reg.scope);
+      }).catch(err => {
+        console.log('Service Worker 註冊失敗:', err);
+      });
+    });
+  }
+</script>
+
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="做工á人">
-    <meta name="description" content="">
+    <meta name="keywords" content="台語學習, 台文翻譯, 台語廣播劇, POJ 教學">
+    <meta name="description" content="台語學習, 台文翻譯, 台語廣播劇, POJ 教學">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -16,7 +28,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>做工á人</title>
+    <title>做工á人台語工作室</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -29,7 +41,10 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="做工á人" type="application/atom+xml">
+	<link rel="manifest" href="/manifest.json">
+	<meta name="theme-color" content="#42b983">
+	
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="做工á人台語工作室" type="application/atom+xml">
 </head>
 
 
@@ -44,7 +59,7 @@
                     
                     <img src="/medias/logo.png" class="logo-img" alt="LOGO">
                     
-                    <span class="logo-span">做工á人</span>
+                    <span class="logo-span">做工á人台語工作室</span>
                 </a>
             </div>
             
@@ -325,10 +340,10 @@
         
         <img src="/medias/logo.png" class="logo-img circle responsive-img">
         
-        <div class="logo-name">做工á人</div>
+        <div class="logo-name">做工á人台語工作室</div>
         <div class="logo-desc">
             
-            Never really desperate, only the lost of the soul.
+            台語學習, 台文翻譯, 台語廣播劇, POJ 教學
             
         </div>
     </div>
@@ -680,7 +695,7 @@
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/%5Bobject%20Object%5D/alongsiosutian37/">
+                    <a href="/A%E9%83%8E%E5%8F%B0%E8%AA%9E%E5%B0%8F%E8%A9%9E%E5%85%B8/alongsiosutian37/">
                         <div class="card-image">
                             
                             
@@ -765,7 +780,7 @@
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/%5Bobject%20Object%5D/alongsiosutian36/">
+                    <a href="/A%E9%83%8E%E5%8F%B0%E8%AA%9E%E5%B0%8F%E8%A9%9E%E5%85%B8/alongsiosutian36/">
                         <div class="card-image">
                             
                             
@@ -854,7 +869,7 @@
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/%5Bobject%20Object%5D/alongsiosutian35/">
+                    <a href="/A%E9%83%8E%E5%8F%B0%E8%AA%9E%E5%B0%8F%E8%A9%9E%E5%85%B8/alongsiosutian35/">
                         <div class="card-image">
                             
                             
@@ -939,7 +954,7 @@
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/%5Bobject%20Object%5D/alongsiosutian34/">
+                    <a href="/A%E9%83%8E%E5%8F%B0%E8%AA%9E%E5%B0%8F%E8%A9%9E%E5%85%B8/alongsiosutian34/">
                         <div class="card-image">
                             
                             
@@ -1021,7 +1036,7 @@
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/%5Bobject%20Object%5D/alongsiosutian33/">
+                    <a href="/A%E9%83%8E%E5%8F%B0%E8%AA%9E%E5%B0%8F%E8%A9%9E%E5%85%B8/alongsiosutian33/">
                         <div class="card-image">
                             
                             
@@ -1106,7 +1121,7 @@
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/%5Bobject%20Object%5D/folkstory03/">
+                    <a href="/%E6%B0%91%E9%96%93%E6%95%85%E4%BA%8B/folkstory03/">
                         <div class="card-image">
                             
                             <img src="/medias/featureimages/folkstory03.jpg" class="responsive-img" alt="【民間故事】虎姑婆 下集︱Hó͘-ko͘-pô Hā-chi̍p">
@@ -1183,7 +1198,7 @@
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/%5Bobject%20Object%5D/folkstory02/">
+                    <a href="/%E6%B0%91%E9%96%93%E6%95%85%E4%BA%8B/folkstory02/">
                         <div class="card-image">
                             
                             <img src="/medias/featureimages/folkstory02.jpg" class="responsive-img" alt="【民間故事】虎姑婆 上集︱Hó͘-ko͘-pô Siōng-chi̍p">
@@ -1260,7 +1275,7 @@ Khah早有1隻虎，伊to̍h有án-ne ê願望，向望ka-tī ē-tàng有ch
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/%5Bobject%20Object%5D/kaukoai01/">
+                    <a href="/%E7%8B%A1%E6%80%AA%E5%9B%A1%E4%BB%94%E5%8F%A4/kaukoai01/">
                         <div class="card-image">
                             
                             <img src="/medias/featureimages/kaukoai01.jpg" class="responsive-img" alt="【狡怪囡仔古】鴨Bî-á A-bái︱Ah-bî-á A-bái">
@@ -1336,7 +1351,7 @@ Chia是1 ê美麗ê城市，市郊有1 ê足大ê公園，公園內底有1 ê大
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/%5Bobject%20Object%5D/alongsiosutian32/">
+                    <a href="/A%E9%83%8E%E5%8F%B0%E8%AA%9E%E5%B0%8F%E8%A9%9E%E5%85%B8/alongsiosutian32/">
                         <div class="card-image">
                             
                             
@@ -1417,7 +1432,7 @@ Sak chò堆，mā有讀做sak chòe堆，chit tè詞tī台日大辭典記載ê�
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/%5Bobject%20Object%5D/ukkidstory07/">
+                    <a href="/%E8%8B%B1%E5%9C%8B%E5%9B%A1%E4%BB%94%E5%8F%A4/ukkidstory07/">
                         <div class="card-image">
                             
                             <img src="/medias/featureimages/ukkidstory07.png" class="responsive-img" alt="【英國Gín-á古】破裘á︱Tattercoats">
@@ -1492,7 +1507,7 @@ TATTERCOATSIn a great Palace by the sea there once dwelt a very rich old lord, w
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/%5Bobject%20Object%5D/ukkidstory06/">
+                    <a href="/%E8%8B%B1%E5%9C%8B%E5%9B%A1%E4%BB%94%E5%8F%A4/ukkidstory06/">
                         <div class="card-image">
                             
                             <img src="/medias/featureimages/ukkidstory06.jpg" class="responsive-img" alt="【英國Gín-á古】金鼻薰Kheh-á下集︱The Golden Snuff-Box Part 3">
@@ -1567,7 +1582,7 @@ But when they came to the King&#39;s chamber, where he sate surrounded by all ma
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/%5Bobject%20Object%5D/ukkidstory05/">
+                    <a href="/%E8%8B%B1%E5%9C%8B%E5%9B%A1%E4%BB%94%E5%8F%A4/ukkidstory05/">
                         <div class="card-image">
                             
                             <img src="/medias/featureimages/ukkidstory05.jpg" class="responsive-img" alt="【英國Gín-á古】金鼻薰Kheh-á中集︱The Golden Snuff-Box Part 2">

@@ -2,10 +2,22 @@
 <html lang="en">
 
 
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').then(reg => {
+        console.log('Service Worker 註冊成功！範圍:', reg.scope);
+      }).catch(err => {
+        console.log('Service Worker 註冊失敗:', err);
+      });
+    });
+  }
+</script>
+
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Tag: Kôaⁿ Joa̍h, 做工á人">
-    <meta name="description" content="">
+    <meta name="keywords" content="Tag: Kôaⁿ Joa̍h, 台語學習, 台文翻譯, 台語廣播劇, POJ 教學">
+    <meta name="description" content="台語學習, 台文翻譯, 台語廣播劇, POJ 教學">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -16,7 +28,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Tag: Kôaⁿ Joa̍h | 做工á人</title>
+    <title>Tag: Kôaⁿ Joa̍h | 做工á人台語工作室</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -29,7 +41,10 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="做工á人" type="application/atom+xml">
+	<link rel="manifest" href="/manifest.json">
+	<meta name="theme-color" content="#42b983">
+	
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="做工á人台語工作室" type="application/atom+xml">
 </head>
 
 
@@ -44,7 +59,7 @@
                     
                     <img src="/medias/logo.png" class="logo-img" alt="LOGO">
                     
-                    <span class="logo-span">做工á人</span>
+                    <span class="logo-span">做工á人台語工作室</span>
                 </a>
             </div>
             
@@ -325,10 +340,10 @@
         
         <img src="/medias/logo.png" class="logo-img circle responsive-img">
         
-        <div class="logo-name">做工á人</div>
+        <div class="logo-name">做工á人台語工作室</div>
         <div class="logo-desc">
             
-            Never really desperate, only the lost of the soul.
+            台語學習, 台文翻譯, 台語廣播劇, POJ 教學
             
         </div>
     </div>
@@ -769,10 +784,19 @@
                 </a>
                 
                 
+                <a href="/tags/Nauh/" title="Nauh: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Nauh" style="background-color: #F8C471;">Nauh
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
                 <a href="/tags/Chhe-siau/" title="Chhē-siàu: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="Chhē-siàu" style="background-color: #F8C471;">Chhē-siàu
+                            data-tagname="Chhē-siàu" style="background-color: #F9E79F;">Chhē-siàu
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -781,16 +805,7 @@
                 <a href="/tags/%E5%9D%90%E8%B3%AC/" title="坐賬: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="坐賬" style="background-color: #F9E79F;">坐賬
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Nauh/" title="Nauh: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Nauh" style="background-color: #D7BDE2;">Nauh
+                            data-tagname="坐賬" style="background-color: #F9EBEA;">坐賬
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -823,6 +838,15 @@
                 </a>
                 
                 
+                <a href="/tags/khan-jio%CD%98/" title="khăn-jió͘: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="khăn-jió͘" style="background-color: #FFF;">khăn-jió͘
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
                 <a href="/tags/%E8%AE%8A/" title="變: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
@@ -836,24 +860,6 @@
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
                             data-tagname="Pìⁿ" style="background-color: #D7BDE2;">Pìⁿ
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/%E4%BB%99/" title="仙: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="仙" style="background-color: #85C1E9;">仙
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Sian/" title="Sian: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Sian" style="background-color: #F8C471;">Sian
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -877,73 +883,19 @@
                 </a>
                 
                 
-                <a href="/tags/khan-jio%CD%98/" title="khăn-jió͘: 1">
+                <a href="/tags/%E4%BB%99/" title="仙: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="khăn-jió͘" style="background-color: #FFF;">khăn-jió͘
+                            data-tagname="仙" style="background-color: #85C1E9;">仙
                         <span class="tag-length">1</span>
                     </span>
                 </a>
                 
                 
-                <a href="/tags/%E8%B5%B4/" title="赴: 1">
+                <a href="/tags/Sian/" title="Sian: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="赴" style="background-color: #D7BDE2;">赴
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Hu/" title="Hù: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Hù" style="background-color: #F9E79F;">Hù
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Me/" title="Mé: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Mé" style="background-color: #D7BDE2;">Mé
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/%E5%9C%A8/" title="在: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="在" style="background-color: #FEF9E7;">在
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Chai/" title="Chāi: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Chāi" style="background-color: #D5F5E3;">Chāi
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/%E8%84%9A%E6%89%8B/" title="脚手: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="脚手" style="background-color: #D5F5E3;">脚手
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Kha-chhiu/" title="Kha-chhiú: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Kha-chhiú" style="background-color: #85C1E9;">Kha-chhiú
+                            data-tagname="Sian" style="background-color: #F8C471;">Sian
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -967,10 +919,64 @@
                 </a>
                 
                 
-                <a href="/tags/Sim/" title="Sìm: 1">
+                <a href="/tags/%E8%B5%B4/" title="赴: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="Sìm" style="background-color: #F8C471;">Sìm
+                            data-tagname="赴" style="background-color: #D7BDE2;">赴
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Hu/" title="Hù: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Hù" style="background-color: #F9E79F;">Hù
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E5%9C%A8/" title="在: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="在" style="background-color: #FEF9E7;">在
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Chai/" title="Chāi: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Chāi" style="background-color: #D5F5E3;">Chāi
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Me/" title="Mé: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Mé" style="background-color: #D7BDE2;">Mé
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E8%84%9A%E6%89%8B/" title="脚手: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="脚手" style="background-color: #D5F5E3;">脚手
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Kha-chhiu/" title="Kha-chhiú: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Kha-chhiú" style="background-color: #85C1E9;">Kha-chhiú
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -989,6 +995,51 @@
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
                             data-tagname="Iân-lō͘" style="background-color: #85C1E9;">Iân-lō͘
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Sim/" title="Sìm: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Sìm" style="background-color: #F8C471;">Sìm
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E6%AC%BE/" title="款: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="款" style="background-color: #F9E79F;">款
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Khoan/" title="Khoán: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Khoán" style="background-color: #E8F8F5;">Khoán
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E9%91%BF%E7%9B%AE/" title="鑿目: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="鑿目" style="background-color: #D5F5E3;">鑿目
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Chha%CC%8Dk-ba%CC%8Dk/" title="Chha̍k-ba̍k: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Chha̍k-ba̍k" style="background-color: #F9EBEA;">Chha̍k-ba̍k
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -1030,42 +1081,6 @@
                 </a>
                 
                 
-                <a href="/tags/%E7%AE%8D/" title="箍: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="箍" style="background-color: #F9EBEA;">箍
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Kho%CD%98/" title="Kho͘: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Kho͘" style="background-color: #85C1E9;">Kho͘
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/%E9%91%BF%E7%9B%AE/" title="鑿目: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="鑿目" style="background-color: #D5F5E3;">鑿目
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Chha%CC%8Dk-ba%CC%8Dk/" title="Chha̍k-ba̍k: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Chha̍k-ba̍k" style="background-color: #F9EBEA;">Chha̍k-ba̍k
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
                 <a href="/tags/%E4%B8%8A/" title="上: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
@@ -1084,6 +1099,24 @@
                 </a>
                 
                 
+                <a href="/tags/%E7%AE%8D/" title="箍: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="箍" style="background-color: #F9EBEA;">箍
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Kho%CD%98/" title="Kho͘: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Kho͘" style="background-color: #85C1E9;">Kho͘
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
                 <a href="/tags/Chhek/" title="Chhek: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
@@ -1093,28 +1126,10 @@
                 </a>
                 
                 
-                <a href="/tags/%E6%AC%BE/" title="款: 1">
+                <a href="/tags/Thoa%E2%81%BF/" title="Thòaⁿ: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="款" style="background-color: #F9E79F;">款
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Khoan/" title="Khoán: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Khoán" style="background-color: #E8F8F5;">Khoán
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Ti%E2%81%BF%E7%84%A1%E8%81%BD-leh/" title="Tìⁿ無聽--leh: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Tìⁿ無聽--leh" style="background-color: #D5F5E3;">Tìⁿ無聽--leh
+                            data-tagname="Thòaⁿ" style="background-color: #F5EEF8;">Thòaⁿ
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -1138,28 +1153,19 @@
                 </a>
                 
                 
+                <a href="/tags/Ti%E2%81%BF%E7%84%A1%E8%81%BD-leh/" title="Tìⁿ無聽--leh: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Tìⁿ無聽--leh" style="background-color: #D5F5E3;">Tìⁿ無聽--leh
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
                 <a href="/tags/Liap/" title="Liap: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
                             data-tagname="Liap" style="background-color: #A3E4D7;">Liap
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Ka/" title="Kā: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Kā" style="background-color: #A3E4D7;">Kā
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Kah/" title="Kah: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Kah" style="background-color: #D7BDE2;">Kah
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -1183,10 +1189,19 @@
                 </a>
                 
                 
-                <a href="/tags/Thoa%E2%81%BF/" title="Thòaⁿ: 1">
+                <a href="/tags/Ka/" title="Kā: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="Thòaⁿ" style="background-color: #F5EEF8;">Thòaⁿ
+                            data-tagname="Kā" style="background-color: #A3E4D7;">Kā
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Kah/" title="Kah: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Kah" style="background-color: #D7BDE2;">Kah
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -1210,19 +1225,10 @@
                 </a>
                 
                 
-                <a href="/tags/Chhiam%E6%93%94/" title="Chhiám擔: 1">
+                <a href="/tags/Thang/" title="Thang: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="Chhiám擔" style="background-color: #F8C471;">Chhiám擔
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/%E5%8B%BEa%E7%B4%A2/" title="勾á索: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="勾á索" style="background-color: #F8F9F9;">勾á索
+                            data-tagname="Thang" style="background-color: #E8F8F5;">Thang
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -1237,10 +1243,19 @@
                 </a>
                 
                 
-                <a href="/tags/Thang/" title="Thang: 1">
+                <a href="/tags/Chhiam%E6%93%94/" title="Chhiám擔: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="Thang" style="background-color: #E8F8F5;">Thang
+                            data-tagname="Chhiám擔" style="background-color: #F8C471;">Chhiám擔
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E5%8B%BEa%E7%B4%A2/" title="勾á索: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="勾á索" style="background-color: #F8F9F9;">勾á索
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -1300,6 +1315,24 @@
                 </a>
                 
                 
+                <a href="/tags/Kui/" title="Kúi: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Kúi" style="background-color: #82E0AA;">Kúi
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E9%AC%BC/" title="鬼: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="鬼" style="background-color: #FFF;">鬼
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
                 <a href="/tags/%E9%98%AE/" title="阮: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
@@ -1331,15 +1364,6 @@
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
                             data-tagname="粒" style="background-color: #F5EEF8;">粒
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Han-leh/" title="Hân--leh: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Hân--leh" style="background-color: #82E0AA;">Hân--leh
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -1381,6 +1405,69 @@
                 </a>
                 
                 
+                <a href="/tags/%E7%87%92%E5%86%B7/" title="燒冷: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="燒冷" style="background-color: #F5EEF8;">燒冷
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E5%AF%92%E7%86%B1/" title="寒熱: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="寒熱" style="background-color: #A3E4D7;">寒熱
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Sio-Leng/" title="Sio Léng: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Sio Léng" style="background-color: #85C1E9;">Sio Léng
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Koa%E2%81%BF-Joa%CC%8Dh/" title="Kôaⁿ Joa̍h: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-active "
+                            data-tagname="Kôaⁿ Joa̍h" style="background-color: #F9E79F;">Kôaⁿ Joa̍h
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E6%8B%98%E5%9F%B7/" title="拘執: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="拘執" style="background-color: #D7BDE2;">拘執
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Khu-chip/" title="Khu-chip: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Khu-chip" style="background-color: #85C1E9;">Khu-chip
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Han-leh/" title="Hân--leh: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Hân--leh" style="background-color: #82E0AA;">Hân--leh
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
                 <a href="/tags/Than-chhio/" title="Thán-chhiò: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
@@ -1394,24 +1481,6 @@
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
                             data-tagname="坦笑" style="background-color: #F9E79F;">坦笑
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Kui/" title="Kúi: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Kúi" style="background-color: #82E0AA;">Kúi
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/%E9%AC%BC/" title="鬼: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="鬼" style="background-color: #FFF;">鬼
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -1449,6 +1518,24 @@
                              chip-default "
                             data-tagname="紅孩兒" style="background-color: #F9E79F;">紅孩兒
                         <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Ho%CD%98%CC%81-ko%CD%98-po/" title="Hó͘-ko͘-pô: 2">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Hó͘-ko͘-pô" style="background-color: #FEF9E7;">Hó͘-ko͘-pô
+                        <span class="tag-length">2</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E8%99%8E%E5%A7%91%E5%A9%86/" title="虎姑婆: 2">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="虎姑婆" style="background-color: #F8F9F9;">虎姑婆
+                        <span class="tag-length">2</span>
                     </span>
                 </a>
                 
@@ -1507,82 +1594,55 @@
                 </a>
                 
                 
-                <a href="/tags/Ho%CD%98%CC%81-ko%CD%98-po/" title="Hó͘-ko͘-pô: 2">
+                <a href="/tags/Miau-sian-Kong-chu/" title="Miāu-siān Kong-chú: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="Hó͘-ko͘-pô" style="background-color: #FEF9E7;">Hó͘-ko͘-pô
-                        <span class="tag-length">2</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/%E8%99%8E%E5%A7%91%E5%A9%86/" title="虎姑婆: 2">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="虎姑婆" style="background-color: #F8F9F9;">虎姑婆
-                        <span class="tag-length">2</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/%E7%87%92%E5%86%B7/" title="燒冷: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="燒冷" style="background-color: #F5EEF8;">燒冷
+                            data-tagname="Miāu-siān Kong-chú" style="background-color: #F5EEF8;">Miāu-siān Kong-chú
                         <span class="tag-length">1</span>
                     </span>
                 </a>
                 
                 
-                <a href="/tags/%E5%AF%92%E7%86%B1/" title="寒熱: 1">
+                <a href="/tags/%E5%A6%99%E5%96%84%E5%85%AC%E4%B8%BB/" title="妙善公主: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="寒熱" style="background-color: #A3E4D7;">寒熱
+                            data-tagname="妙善公主" style="background-color: #D7BDE2;">妙善公主
                         <span class="tag-length">1</span>
                     </span>
                 </a>
                 
                 
-                <a href="/tags/Sio-Leng/" title="Sio Léng: 1">
+                <a href="/tags/Sio-chio-lai-khoa%E2%81%BF-hi/" title="Sio-chio lâi khòaⁿ-hì: 3">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="Sio Léng" style="background-color: #85C1E9;">Sio Léng
+                            data-tagname="Sio-chio lâi khòaⁿ-hì" style="background-color: #F8C471;">Sio-chio lâi khòaⁿ-hì
+                        <span class="tag-length">3</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E7%9B%B8%E6%8B%9B%E4%BE%86%E7%9C%8B%E6%88%B2/" title="相招來看戲: 3">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="相招來看戲" style="background-color: #85C1E9;">相招來看戲
+                        <span class="tag-length">3</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Violet-Evergarden/" title="Violet Evergarden: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Violet Evergarden" style="background-color: #F9E79F;">Violet Evergarden
                         <span class="tag-length">1</span>
                     </span>
                 </a>
                 
                 
-                <a href="/tags/Koa%E2%81%BF-Joa%CC%8Dh/" title="Kôaⁿ Joa̍h: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-active "
-                            data-tagname="Kôaⁿ Joa̍h" style="background-color: #F9E79F;">Kôaⁿ Joa̍h
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Tai-gi-Kong-Koai-ki/" title="Tâi-gí Kóng Koài-kî: 12">
+                <a href="/tags/%E7%B4%AB%E7%BE%85%E8%98%AD%E6%B0%B8%E4%B9%85%E8%8A%B1%E5%9C%92/" title="紫羅蘭永久花園: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="Tâi-gí Kóng Koài-kî" style="background-color: #D5F5E3;">Tâi-gí Kóng Koài-kî
-                        <span class="tag-length">12</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/%E5%8F%B0%E8%AA%9E%E8%AC%9B%E6%80%AA%E5%A5%87/" title="台語講怪奇: 6">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="台語講怪奇" style="background-color: #F8C471;">台語講怪奇
-                        <span class="tag-length">6</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Atlantis/" title="Atlantis: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Atlantis" style="background-color: #F8C471;">Atlantis
+                            data-tagname="紫羅蘭永久花園" style="background-color: #A3E4D7;">紫羅蘭永久花園
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -1615,20 +1675,29 @@
                 </a>
                 
                 
-                <a href="/tags/Sio-chio-lai-khoa%E2%81%BF-hi/" title="Sio-chio lâi khòaⁿ-hì: 3">
+                <a href="/tags/Behind-Her-Eyes/" title="Behind Her Eyes: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="Sio-chio lâi khòaⁿ-hì" style="background-color: #F8C471;">Sio-chio lâi khòaⁿ-hì
-                        <span class="tag-length">3</span>
+                            data-tagname="Behind Her Eyes" style="background-color: #82E0AA;">Behind Her Eyes
+                        <span class="tag-length">1</span>
                     </span>
                 </a>
                 
                 
-                <a href="/tags/%E7%9B%B8%E6%8B%9B%E4%BE%86%E7%9C%8B%E6%88%B2/" title="相招來看戲: 3">
+                <a href="/tags/3-e%E4%BA%BAbeh%E5%AE%88%E7%A5%95%E5%AF%86%EF%BC%8C%E5%85%B6%E4%B8%AD2-e-to%CC%8Dh-ai%E6%AD%BB/" title="3 ê人beh守祕密，其中2 ê to̍h ài死: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="相招來看戲" style="background-color: #85C1E9;">相招來看戲
-                        <span class="tag-length">3</span>
+                            data-tagname="3 ê人beh守祕密，其中2 ê to̍h ài死" style="background-color: #F9EBEA;">3 ê人beh守祕密，其中2 ê to̍h ài死
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/3-e-lang-beh-siu-pi-bi%CC%8Dt-ki-tiong-2-e-to%CC%8Dh-ai-si/" title="3 ê lâng beh siú pì-bi̍t, kî-tiong 2 ê to̍h ài sí: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="3 ê lâng beh siú pì-bi̍t, kî-tiong 2 ê to̍h ài sí" style="background-color: #F9EBEA;">3 ê lâng beh siú pì-bi̍t, kî-tiong 2 ê to̍h ài sí
+                        <span class="tag-length">1</span>
                     </span>
                 </a>
                 
@@ -1669,6 +1738,33 @@
                 </a>
                 
                 
+                <a href="/tags/Tai-gi-Kong-Koai-ki/" title="Tâi-gí Kóng Koài-kî: 12">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Tâi-gí Kóng Koài-kî" style="background-color: #D5F5E3;">Tâi-gí Kóng Koài-kî
+                        <span class="tag-length">12</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E5%8F%B0%E8%AA%9E%E8%AC%9B%E6%80%AA%E5%A5%87/" title="台語講怪奇: 6">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="台語講怪奇" style="background-color: #F8C471;">台語講怪奇
+                        <span class="tag-length">6</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Atlantis/" title="Atlantis: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Atlantis" style="background-color: #F8C471;">Atlantis
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
                 <a href="/tags/Ong-kiong-chhiu%E2%81%BF-Toa-Po%CC%8Dk-cha/" title="Ông-kiong-chhiúⁿ Tōa Po̍k-chà: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
@@ -1682,24 +1778,6 @@
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
                             data-tagname="王恭廠大爆炸" style="background-color: #85C1E9;">王恭廠大爆炸
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Miau-sian-Kong-chu/" title="Miāu-siān Kong-chú: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Miāu-siān Kong-chú" style="background-color: #F5EEF8;">Miāu-siān Kong-chú
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/%E5%A6%99%E5%96%84%E5%85%AC%E4%B8%BB/" title="妙善公主: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="妙善公主" style="background-color: #D7BDE2;">妙善公主
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -1732,51 +1810,6 @@
                 </a>
                 
                 
-                <a href="/tags/Behind-Her-Eyes/" title="Behind Her Eyes: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Behind Her Eyes" style="background-color: #82E0AA;">Behind Her Eyes
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/3-e%E4%BA%BAbeh%E5%AE%88%E7%A5%95%E5%AF%86%EF%BC%8C%E5%85%B6%E4%B8%AD2-e-to%CC%8Dh-ai%E6%AD%BB/" title="3 ê人beh守祕密，其中2 ê to̍h ài死: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="3 ê人beh守祕密，其中2 ê to̍h ài死" style="background-color: #F9EBEA;">3 ê人beh守祕密，其中2 ê to̍h ài死
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/3-e-lang-beh-siu-pi-bi%CC%8Dt-ki-tiong-2-e-to%CC%8Dh-ai-si/" title="3 ê lâng beh siú pì-bi̍t, kî-tiong 2 ê to̍h ài sí: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="3 ê lâng beh siú pì-bi̍t, kî-tiong 2 ê to̍h ài sí" style="background-color: #F9EBEA;">3 ê lâng beh siú pì-bi̍t, kî-tiong 2 ê to̍h ài sí
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Violet-Evergarden/" title="Violet Evergarden: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Violet Evergarden" style="background-color: #F9E79F;">Violet Evergarden
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/%E7%B4%AB%E7%BE%85%E8%98%AD%E6%B0%B8%E4%B9%85%E8%8A%B1%E5%9C%92/" title="紫羅蘭永久花園: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="紫羅蘭永久花園" style="background-color: #A3E4D7;">紫羅蘭永久花園
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
                 <a href="/tags/%E8%98%87%E7%BE%8E%E6%96%87%E6%98%8E/" title="蘇美文明: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
@@ -1804,19 +1837,10 @@
                 </a>
                 
                 
-                <a href="/tags/%E7%99%BD%E8%94%A5%E4%BB%94%E5%85%AC%E4%B8%BB/" title="白蔥仔公主: 6">
+                <a href="/tags/%E5%B7%A8%E7%9F%B3%E6%96%87%E6%98%8E/" title="巨石文明: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="白蔥仔公主" style="background-color: #F9EBEA;">白蔥仔公主
-                        <span class="tag-length">6</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/%E7%8E%8B%E5%90%8E%E6%8E%A0%E7%8B%82-%E4%BA%86/" title="王后掠狂--了: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="王后掠狂--了" style="background-color: #F5EEF8;">王后掠狂--了
+                            data-tagname="巨石文明" style="background-color: #F9EBEA;">巨石文明
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -1840,19 +1864,28 @@
                 </a>
                 
                 
-                <a href="/tags/%E5%B7%A8%E7%9F%B3%E6%96%87%E6%98%8E/" title="巨石文明: 1">
+                <a href="/tags/%E7%99%BD%E8%94%A5%E4%BB%94%E5%85%AC%E4%B8%BB/" title="白蔥仔公主: 6">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="巨石文明" style="background-color: #F9EBEA;">巨石文明
+                            data-tagname="白蔥仔公主" style="background-color: #F9EBEA;">白蔥仔公主
+                        <span class="tag-length">6</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E6%9C%89%E5%A4%A0%E7%9A%AEe%E6%B0%B4%E5%A7%91%E5%A8%98/" title="有夠皮ê水姑娘: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="有夠皮ê水姑娘" style="background-color: #D5F5E3;">有夠皮ê水姑娘
                         <span class="tag-length">1</span>
                     </span>
                 </a>
                 
                 
-                <a href="/tags/%E7%A5%9E%E7%A7%98e%E8%A8%AA%E5%AE%A2/" title="神秘ê訪客: 1">
+                <a href="/tags/%E7%8E%8B%E5%90%8E%E6%8E%A0%E7%8B%82-%E4%BA%86/" title="王后掠狂--了: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="神秘ê訪客" style="background-color: #82E0AA;">神秘ê訪客
+                            data-tagname="王后掠狂--了" style="background-color: #F5EEF8;">王后掠狂--了
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -1876,10 +1909,10 @@
                 </a>
                 
                 
-                <a href="/tags/%E6%9C%89%E5%A4%A0%E7%9A%AEe%E6%B0%B4%E5%A7%91%E5%A8%98/" title="有夠皮ê水姑娘: 1">
+                <a href="/tags/%E7%A5%9E%E7%A7%98e%E8%A8%AA%E5%AE%A2/" title="神秘ê訪客: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="有夠皮ê水姑娘" style="background-color: #D5F5E3;">有夠皮ê水姑娘
+                            data-tagname="神秘ê訪客" style="background-color: #82E0AA;">神秘ê訪客
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -1912,24 +1945,6 @@
                 </a>
                 
                 
-                <a href="/tags/TOM-TIT-TOT/" title="TOM-TIT-TOT: 2">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="TOM-TIT-TOT" style="background-color: #FEF9E7;">TOM-TIT-TOT
-                        <span class="tag-length">2</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Thom-Thit-Thok/" title="Thóm-Thit-Thok: 2">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Thóm-Thit-Thok" style="background-color: #85C1E9;">Thóm-Thit-Thok
-                        <span class="tag-length">2</span>
-                    </span>
-                </a>
-                
-                
                 <a href="/tags/THE-STORY-OF-THE-THREE-BEARS/" title="THE STORY OF THE THREE BEARS: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
@@ -1953,6 +1968,24 @@
                              chip-default "
                             data-tagname="三隻熊ê故事" style="background-color: #F9EBEA;">三隻熊ê故事
                         <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/TOM-TIT-TOT/" title="TOM-TIT-TOT: 2">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="TOM-TIT-TOT" style="background-color: #FEF9E7;">TOM-TIT-TOT
+                        <span class="tag-length">2</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Thom-Thit-Thok/" title="Thóm-Thit-Thok: 2">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Thóm-Thit-Thok" style="background-color: #85C1E9;">Thóm-Thit-Thok
+                        <span class="tag-length">2</span>
                     </span>
                 </a>
                 
@@ -2056,10 +2089,10 @@
                 </a>
                 
                 
-                <a href="/tags/2chi-moe/" title="2chí-mōe: 1">
+                <a href="/tags/Nn%CC%84g-chi-moe/" title="Nn̄g chí-mōe: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="2chí-mōe" style="background-color: #82E0AA;">2chí-mōe
+                            data-tagname="Nn̄g chí-mōe" style="background-color: #F9E79F;">Nn̄g chí-mōe
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -2083,55 +2116,10 @@
                 </a>
                 
                 
-                <a href="/tags/Nn%CC%84g-chi-moe/" title="Nn̄g chí-mōe: 1">
+                <a href="/tags/2chi-moe/" title="2chí-mōe: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="Nn̄g chí-mōe" style="background-color: #F9E79F;">Nn̄g chí-mōe
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Niau-chhi-a-Thi-thih-Kah-Niau-chhi-a-Tha-thih/" title="Niáu-chhí-á Thí-thih Kah Niáu-chhí-á Thá-thih: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Niáu-chhí-á Thí-thih Kah Niáu-chhí-á Thá-thih" style="background-color: #A3E4D7;">Niáu-chhí-á Thí-thih Kah Niáu-chhí-á Thá-thih
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Niau%E9%BC%A0a-Thi-thih-Kah-Niau%E9%BC%A0a-Tha-thih/" title="Niáu鼠á Thí-thih Kah Niáu鼠á Thá-thih: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Niáu鼠á Thí-thih Kah Niáu鼠á Thá-thih" style="background-color: #F5EEF8;">Niáu鼠á Thí-thih Kah Niáu鼠á Thá-thih
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Titty-Mouse-And-Tatty-Mouse/" title="Titty Mouse And Tatty Mouse: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Titty Mouse And Tatty Mouse" style="background-color: #D7BDE2;">Titty Mouse And Tatty Mouse
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/%E6%8B%98%E5%9F%B7/" title="拘執: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="拘執" style="background-color: #D7BDE2;">拘執
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Khu-chip/" title="Khu-chip: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Khu-chip" style="background-color: #85C1E9;">Khu-chip
+                            data-tagname="2chí-mōe" style="background-color: #82E0AA;">2chí-mōe
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -2163,6 +2151,33 @@
                     </span>
                 </a>
                 
+                
+                <a href="/tags/Niau-chhi-a-Thi-thih-Kah-Niau-chhi-a-Tha-thih/" title="Niáu-chhí-á Thí-thih Kah Niáu-chhí-á Thá-thih: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Niáu-chhí-á Thí-thih Kah Niáu-chhí-á Thá-thih" style="background-color: #A3E4D7;">Niáu-chhí-á Thí-thih Kah Niáu-chhí-á Thá-thih
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Niau%E9%BC%A0a-Thi-thih-Kah-Niau%E9%BC%A0a-Tha-thih/" title="Niáu鼠á Thí-thih Kah Niáu鼠á Thá-thih: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Niáu鼠á Thí-thih Kah Niáu鼠á Thá-thih" style="background-color: #F5EEF8;">Niáu鼠á Thí-thih Kah Niáu鼠á Thá-thih
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Titty-Mouse-And-Tatty-Mouse/" title="Titty Mouse And Tatty Mouse: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Titty Mouse And Tatty Mouse" style="background-color: #D7BDE2;">Titty Mouse And Tatty Mouse
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
             </div>
         </div>
     </div>
@@ -2176,7 +2191,7 @@
             
             <div class="article tag-post col s12 m6 l4" data-tags="Tâi-gí, 台語, Tâi-bûn, 台文, A-lông, A郎, A-lông sió-sû-tián, A郎台語小詞典, 燒冷, 寒熱, Sio Léng, Kôaⁿ Joa̍h" data-aos="fade-up">
                 <div class="card">
-                    <a href="/%5Bobject%20Object%5D/alongsiosutian41/">
+                    <a href="/A%E9%83%8E%E5%8F%B0%E8%AA%9E%E5%B0%8F%E8%A9%9E%E5%85%B8/alongsiosutian41/">
                         <div class="card-image tag-image">
                             
                             
