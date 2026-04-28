@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三語 Markdown 文章產生器（GitHub 版）</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body class="bg-gray-50">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        function App() {
+          const RSS_FEED_URL = 'https://feeds.soundon.fm/podcasts/7c6f4223-1e6f-4cad-86ca-48884313b43a.xml';
+
+          // --- State: RSS ---
+          const [rssEpisodes, setRssEpisodes] = useState([]);
+          const [isLoadingRss, setIsLoadingRss] = useState(false);
+          const [rssError, setRssError] = useState('');
+          const [showManualRss, setShowManualRss] = useState(false);
+          const [manualXmlText, setManualXmlText] = useState('');
+
+          // --- State: Metadata ---
+          const [meta, setMeta] = useState({
+            title: '【英國童話故事台語版】三個傻瓜 |【英國囡仔古】三ê戇á',
+            date: '2026-03-26T20:00',
+            img: '/medias/featureimages/ukkidstory19.png',
+            categories: '英國囡仔古',
+            description: '台語廣播劇, 英國文學',
+            tags: 'Tâi-gí, 台語, Tâi-bûn, 台文, Eng-kok gín-á-kó͘, 英國囡仔古, 3-ê gōng-á, 三ê戇á, 英國童話故事台語版, 三個傻瓜'
+          });
+
+          // --- State: Links ---
+          const [links, setLinks] = useState({ youtube: '', soundon: '', spotify: '', kkbox: '', apple: '' });
+          const [rawLinkText, setRawLinkText] = useState('');
+
+          // --- State: Text Contents ---
+          const [texts, setTexts] = useState({ en: [], hanji: [], poj: [] });
+
+          // --- State: Output & Save ---
+          const [output, setOutput] = useState('');
+          const [filename, setFilename] = useState('new-article');
+          const [savedName, setSavedName] = useState('');
+
+          // --- State: GitHub 連線 ---
+          const [githubToken, setGithubToken] = useState('');
+          const [repoOwner, setRepoOwner] = useState('cho-kang-a-lang');
+          const [repoName, setRepoName]   = useState('cho-kang-a-lang.github.io');
+          const [apiConnected, setApiConnected] = useState(false);
+          const [apiStatus, setApiStatus] = useState('');
+          const [postsJsonText, setPostsJsonText] = useState('');
+          const [postsJsonSha, setPostsJsonSha]   = useState('');
+          const [showPostsEditor, setShowPostsEditor] = useState(false);
+          const [postsJsonSaved, setPostsJsonSaved] = useState(false);
+          const [sitemapStatus, setSitemapStatus]   = useState('');
+
+          // --- State: 圖片 & 拖曳 ---
+          const [imageFile, setImageFile]       = useState(null);
+          const [imagePreview, setImagePreview] = useState('');
+          const [imageSaved, setImageSaved]     = useState(false);
+          const [txtDragOver, setTxtDragOver]   = useState({ en: false, hanji: false, poj: false });
+          const [imgDragOver, setImgDragOver]   = useState(false);
+
+          // ===================== RSS 函式 =====================
+          const parseXmlText = (xmlText) => {
+            if (!xmlText || typeof xmlText !== 'string') return [];
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+            if (xmlDoc.querySelector('parsererror')) return [];
+            return Array.from(xmlDoc.querySelectorAll('item')).map(item => ({
+              title: item.querySelector('title')?.textContent || '',
+              link: item.querySelector('link')?.textContent || '',
+              pubDate: item.querySelector('pubDate')?.textContent || '',
+              guid: item.querySelector('guid')?.textContent || item.querySelector('link')?.textContent,
+            }));
+          };
+
+          const fetchRss = async () => {
+            setIsLoadingRss(true); setRssError(''); setShowManualRss(false);
+            try {
+              let parsedEpisodes = [];
+              try {
+                const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(RSS_FEED_URL)}&_t=${Date.now()}`);
+                if (res.ok) {
+                  const data = await res.json();
+                  if (data.status === 'ok' && data.items?.length > 0)
+                    parsedEpisodes = data.items.map(i => ({ title: i.title, link: i.link, pubDate: i.pubDate, guid: i.guid || i.link }));
+                }
+              } catch(e) {}
+              if (parsedEpisodes.length === 0) {
+                try {
+                  const res = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(RSS_FEED_URL)}&_t=${Date.now()}`);
+                  if (res.ok) parsedEpisodes = parseXmlText(await res.text());
+                } catch(e) {}
+              }
+              if (parsedEpisodes.length > 0) { setRssEpisodes(parsedEpisodes); }
+              else { setRssError('無法自動取得最新單集，請使用下方「手動備用機制」。'); setShowManualRss(true); }
+            } catch(e) { setRssError('發生未預期的錯誤，請使用手動備用機制。'); setShowManualRss(true); }
+            setIsLoadingRss(false);
+          };
+
+          const handleParseManualXml = () => {
+            if (!manualXmlText.trim()) { alert("請先貼上內容！"); return; }
+            const items = parseXmlText(manualXmlText);
+            if (items?.length > 0) { setRssEpisodes(items); setRssError(''); setShowManualRss(false); setManualXmlText(''); }
+            else alert("解析失敗，請確認您複製的內容是否完整。");
+          };
+
+          const handleSelectEpisode = (e) => {
+            const selectedItem = rssEpisodes.find(i => i.guid === e.target.value);
+            if (!selectedItem) return;
+            let formattedDate = meta.date;
+            try {
+              const d = new Date(selectedItem.pubDate);
+              formattedDate = new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+            } catch(err) {}
+            setMeta(prev => ({ ...prev, title: selectedItem.title, date: formattedDate }));
+            setLinks(prev => ({ ...prev, soundon: selectedItem.link }));
+          };
+
+          // ===================== 連結擷取 =====================
+          const extractLinks = () => {
+            const extractUrl = (regex) => { const m = rawLinkText.match(regex); return m ? m[0].replace(/[)"'>\]!,]+$/, '') : ''; };
+            const newLinks = {
+              youtube: extractUrl(/(https?:\/\/(?:[\w-]+\.)*(?:youtube\.com|youtu\.be)[^\s"'>\])]*)/i),
+              soundon: extractUrl(/(https?:\/\/(?:[\w-]+\.)*(?:soundon\.fm|sndn\.link)[^\s"'>\])]*)/i),
+              spotify: extractUrl(/(https?:\/\/(?:[\w-]+\.)*(?:spotify\.com|spoti\.fi)[^\s"'>\])]*)/i),
+              kkbox:   extractUrl(/(https?:\/\/(?:[\w-]+\.)*(?:kkbox\.com|kkbox\.fm)[^\s"'>\])]*)/i),
+              apple:   extractUrl(/(https?:\/\/(?:[\w-]+\.)*(?:apple\.com|apple\.co|itunes\.apple\.com)[^\s"'>\])]*)/i)
+            };
+            setLinks(prev => ({ ...prev, ...Object.fromEntries(Object.entries(newLinks).filter(([,v]) => v)) }));
+            setRawLinkText('');
+          };
+
+          // ===================== 文字檔上傳 =====================
+          const processTextFile = (file, lang) => {
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+              const paragraphs = ev.target.result.split(/\r?\n\r?\n|\r?\n/).filter(p => p.trim() !== '');
+              setTexts(prev => ({ ...prev, [lang]: paragraphs }));
+            };
+            reader.readAsText(file);
+          };
+          const handleFileUpload = (e, lang) => { if (e.target.files[0]) processTextFile(e.target.files[0], lang); };
+          const handleClearFile = (lang) => {
+            setTexts(prev => ({ ...prev, [lang]: [] }));
+            const el = document.getElementById(`file-${lang}`); if (el) el.value = '';
+          };
+
+          // ===================== 圖片上傳 =====================
+          const handleImageSelect = (file) => {
+            if (!file || !file.type.startsWith('image/')) { alert('請選擇圖片檔案（jpg / png / webp 等）'); return; }
+            setImageFile(file);
+            setImageSaved(false);
+            const reader = new FileReader();
+            reader.onload = (ev) => setImagePreview(ev.target.result);
+            reader.readAsDataURL(file);
+            setMeta(prev => ({ ...prev, img: `/medias/featureimages/${file.name}` }));
+          };
+
+          const saveImage = async () => {
+            if (!imageFile || !apiConnected) return;
+            const reader = new FileReader();
+            reader.onload = async (ev) => {
+              const base64 = ev.target.result.split(',')[1];
+              const filePath = `medias/featureimages/${imageFile.name}`;
+              try {
+                let existingSha;
+                const checkRes = await fetch(ghUrl(filePath), { headers: ghHeaders() });
+                if (checkRes.ok) existingSha = (await checkRes.json()).sha;
+                const res = await fetch(ghUrl(filePath), {
+                  method: 'PUT',
+                  headers: { ...ghHeaders(), 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    message: existingSha ? `Update image: ${imageFile.name}` : `Add image: ${imageFile.name}`,
+                    content: base64,
+                    ...(existingSha ? { sha: existingSha } : {})
+                  })
+                });
+                if (!res.ok) { alert('圖片儲存失敗：' + ((await res.json()).message || res.status)); return; }
+                setImageSaved(true);
+              } catch(e) { alert('連線錯誤：' + e.message); }
+            };
+            reader.readAsDataURL(imageFile);
+          };
+
+          // ===================== GitHub API =====================
+          const ghHeaders = () => ({
+            'Authorization': `Bearer ${githubToken}`,
+            'Accept': 'application/vnd.github+json',
+            'X-GitHub-Api-Version': '2022-11-28'
+          });
+          const ghUrl = (path) => `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${path}`;
+          const toBase64   = (str) => btoa(unescape(encodeURIComponent(str)));
+          const fromBase64 = (b64) => decodeURIComponent(escape(atob(b64.replace(/\n/g, ''))));
+
+          // 步驟一：連線並讀取 posts.json
+          const connectApi = async () => {
+            if (!githubToken.trim()) { setApiStatus('❌ 請先輸入 GitHub Token'); return; }
+            setApiStatus('連線中...');
+            try {
+              const res = await fetch(ghUrl('posts.json'), { headers: ghHeaders() });
+              if (res.status === 401) { setApiStatus('❌ Token 無效或已過期'); return; }
+              if (res.status === 404) { setApiStatus('❌ 找不到 posts.json，請確認 repo 名稱正確'); return; }
+              if (!res.ok) { setApiStatus(`❌ GitHub API 錯誤 ${res.status}`); return; }
+              const data = await res.json();
+              setPostsJsonText(fromBase64(data.content));
+              setPostsJsonSha(data.sha);
+              setApiConnected(true);
+              setApiStatus('✅ 已連線，posts.json 載入成功');
+              setShowPostsEditor(false); setSavedName('');
+            } catch(e) { setApiStatus('❌ 連線失敗：' + e.message); }
+          };
+
+          // 步驟二：把 markdown 寫入 GitHub repo 的 markdowns/ 資料夾
+          const saveFile = async () => {
+            if (!output) return;
+            if (!apiConnected) { alert('請先完成步驟一（連線）再儲存'); return; }
+            const fname    = (filename.trim() || 'new-article').replace(/\.md$/i, '') + '.md';
+            const fileKey  = fname.replace(/\.md$/i, '');
+            const filePath = `markdowns/${fname}`;
+            try {
+              let existingSha;
+              const checkRes = await fetch(ghUrl(filePath), { headers: ghHeaders() });
+              if (checkRes.ok) existingSha = (await checkRes.json()).sha;
+              const res = await fetch(ghUrl(filePath), {
+                method: 'PUT',
+                headers: { ...ghHeaders(), 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: existingSha ? `Update: ${fname}` : `Add: ${fname}`, content: toBase64(output), ...(existingSha ? { sha: existingSha } : {}) })
+              });
+              if (!res.ok) { alert('儲存失敗：' + ((await res.json()).message || res.status)); return; }
+              setSavedName(fname); setPostsJsonSaved(false); setSitemapStatus('');
+              updateSitemap(fileKey);
+              try {
+                const parsed = JSON.parse(postsJsonText);
+                if (Array.isArray(parsed.files) && !parsed.files.includes(fileKey)) {
+                  parsed.files.push(fileKey);
+                  setPostsJsonText(JSON.stringify(parsed, null, 2));
+                }
+              } catch(e) {}
+              setShowPostsEditor(true);
+            } catch(e) { alert('連線錯誤：' + e.message); }
+          };
+
+          // 步驟三：把更新後的 posts.json 寫回 GitHub repo
+          const savePostsJson = async () => {
+            if (!postsJsonText || !apiConnected) return;
+            try {
+              const res = await fetch(ghUrl('posts.json'), {
+                method: 'PUT',
+                headers: { ...ghHeaders(), 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: 'Update posts.json', content: toBase64(postsJsonText), sha: postsJsonSha })
+              });
+              if (!res.ok) { alert('儲存失敗：' + ((await res.json()).message || res.status)); return; }
+              setPostsJsonSha((await res.json()).content.sha);
+              setPostsJsonSaved(true);
+            } catch(e) { alert('連線錯誤：' + e.message); }
+          };
+
+          // ===================== Sitemap 自動更新 =====================
+          const updateSitemap = async (fileKey) => {
+            const newUrl   = `https://cho-kang-a-lang.github.io/article.html?file=${fileKey}`;
+            const newEntry = `  <url><loc>${newUrl}</loc><priority>0.7</priority></url>`;
+            setSitemapStatus('🔄 更新 sitemap.xml...');
+            try {
+              const checkRes = await fetch(ghUrl('sitemap.xml'), { headers: ghHeaders() });
+              if (!checkRes.ok) { setSitemapStatus('⚠️ 無法讀取 sitemap.xml'); return; }
+              const data = await checkRes.json();
+              const currentSitemap = fromBase64(data.content);
+              if (currentSitemap.includes(newUrl)) { setSitemapStatus('✅ sitemap.xml 已包含此文章'); return; }
+              const updated = currentSitemap.replace('</urlset>', `${newEntry}\n\n</urlset>`);
+              const res = await fetch(ghUrl('sitemap.xml'), {
+                method: 'PUT',
+                headers: { ...ghHeaders(), 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: `Update sitemap: add ${fileKey}`, content: toBase64(updated), sha: data.sha })
+              });
+              if (res.ok) { setSitemapStatus('✅ sitemap.xml 已自動更新'); }
+              else { setSitemapStatus('⚠️ sitemap 更新失敗：' + ((await res.json()).message || res.status)); }
+            } catch(e) { setSitemapStatus('⚠️ sitemap 更新失敗：' + e.message); }
+          };
+
+          // ===================== 產生 Markdown =====================
+          const generateMarkdown = () => {
+            const formattedDate = meta.date.replace('T', ' ') + ':00';
+            const tagsArray = meta.tags.split(',').map(t => t.trim()).filter(t => t);
+            let md = `---\ntitle: ${meta.title}\ndate: ${formattedDate}\nimg: ${meta.img}\ncategories: [${meta.categories}]\ndescription: ${meta.description}\ntags:\n`;
+            tagsArray.forEach(tag => { md += `- ${tag}\n`; });
+            md += `---\n\n`;
+            let linkStr = '';
+            if (links.youtube) linkStr += `[<i class="fab fa-youtube fa-2x" aria-hidden="true"></i>](${links.youtube} "YouTube Podcast")　`;
+            if (links.soundon) linkStr += `[<i class="fa fa-podcast fa-2x" aria-hidden="true"></i>](${links.soundon} "SoundOn")　`;
+            if (links.spotify) linkStr += `[<i class="fab fa-spotify fa-2x" aria-hidden="true"></i>](${links.spotify} "Spotify")　`;
+            if (links.kkbox)   linkStr += `[<i class="fa fa-podcast fa-2x" aria-hidden="true"></i>](${links.kkbox} "KKBOX")　`;
+            if (links.apple)   linkStr += `[<i class="fab fa-apple fa-2x" aria-hidden="true"></i>](${links.apple} "Apple Podcast")`;
+            if (linkStr) md += `${linkStr.trim()}\n\n---\n\n`;
+            const maxLen = Math.max(texts.en.length, texts.hanji.length, texts.poj.length);
+            for (let i = 0; i < maxLen; i++) {
+              const size = i === 0 ? '6' : '5';
+              if (texts.en[i])    md += `<font size=${size} color=#3F48CC>${texts.en[i]}</font>\n<br>\n\n`;
+              if (texts.hanji[i]) md += `<font size=${size}>${texts.hanji[i]}</font>\n<br>\n\n`;
+              if (texts.poj[i])   md += `<font size=${size} color=#8E403A>${texts.poj[i]}</font>\n<br>\n\n`;
+              md += `\n`;
+            }
+            setOutput(md); setSavedName('');
+            if (meta.img) { const base = meta.img.split('/').pop().replace(/\.[^.]+$/, ''); if (base) setFilename(base); }
+          };
+
+          const downloadFile = () => {
+            if (!output) return;
+            const fname = (filename.trim() || 'new-article').replace(/\.md$/i, '') + '.md';
+            const blob = new Blob([output], { type: 'text/markdown' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a'); a.href = url; a.download = fname;
+            document.body.appendChild(a); a.click(); document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+          };
+
+          // ===================== UI =====================
+          return (
+            <div className="min-h-screen p-8 font-sans text-gray-800">
+              <div className="max-w-5xl mx-auto space-y-8">
+                <div>
+                  <h1 className="text-3xl font-bold text-blue-700">三語 Markdown 文章產生器</h1>
+                  <p className="text-blue-500 text-sm mt-1 font-medium">🐙 GitHub 版 — 直接儲存到 GitHub Repository</p>
+                </div>
+
+                {/* 使用說明 */}
+                <div className="bg-gray-800 text-gray-100 p-6 rounded-xl text-sm space-y-4">
+                  <p className="text-lg font-bold text-white">📖 使用說明</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <p className="font-bold text-blue-300 mb-2">🔑 首次設定（申請 GitHub Token）</p>
+                      <ol className="list-decimal ml-5 space-y-1 text-gray-300">
+                        <li>登入 GitHub → 右上角頭像 → <strong className="text-white">Settings</strong></li>
+                        <li>左側最底部 → <strong className="text-white">Developer settings</strong></li>
+                        <li><strong className="text-white">Personal access tokens</strong> → <strong className="text-white">Fine-grained tokens</strong> → Generate new token</li>
+                        <li><strong className="text-white">Repository access</strong> 選「Only select repositories」→ 選你的 repo</li>
+                        <li><strong className="text-white">Permissions</strong> → Repository permissions → <strong className="text-white">Contents</strong> → 設為 <strong className="text-white">Read and write</strong></li>
+                        <li>點 Generate token，複製產生的 <code className="bg-gray-700 px-1 rounded">ghp_...</code> 開頭金鑰</li>
+                        <li>將金鑰貼入下方「步驟一」欄位，確認 repo 帳號名稱後按連線</li>
+                      </ol>
+                    </div>
+                    <div>
+                      <p className="font-bold text-green-300 mb-2">📝 每次新增文章</p>
+                      <ol className="list-decimal ml-5 space-y-1 text-gray-300">
+                        <li>填入 Token → 按 <strong className="text-white">🔌 連線</strong>（載入 posts.json）</li>
+                        <li>點「自動讀取最新單集」從 SoundOn RSS 匯入標題與日期</li>
+                        <li>填入圖片路徑、分類、標籤等 Front Matter 資料</li>
+                        <li>貼上各平台連結 → 點「一鍵擷取」自動分類</li>
+                        <li>上傳英文、漢字、白話字 .txt 文字檔（可只上傳部分）</li>
+                        <li>按 <strong className="text-white">產生 Markdown</strong> → 確認預覽無誤</li>
+                        <li>輸入英文檔名 → 按 <strong className="text-white">💾 儲存到 GitHub markdowns/ 資料夾</strong></li>
+                        <li>確認 posts.json 內容 → 按 <strong className="text-white">💾 儲存 posts.json</strong></li>
+                        <li className="text-yellow-300">⏱️ GitHub Pages 約 1–2 分鐘後自動部署上線</li>
+                      </ol>
+                    </div>
+                  </div>
+                  <p className="text-gray-400 text-xs border-t border-gray-700 pt-3">⚠️ Token 有效期到期後需重新申請。建議將 Token 儲存在安全的地方（如密碼管理器）。此工具所有操作皆在瀏覽器端進行，Token 不會傳送到任何第三方伺服器。</p>
+                </div>
+
+                {/* RSS 匯入 */}
+                <div className="bg-gradient-to-r from-orange-50 to-orange-100 p-6 rounded-xl shadow-sm border border-orange-200">
+                  <div className="flex items-center justify-between mb-2">
+                    <h2 className="text-lg font-bold text-orange-800 flex items-center gap-2"><span className="text-2xl">🎙️</span> 從 SoundOn 快速匯入</h2>
+                    <button onClick={fetchRss} disabled={isLoadingRss} className="bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold py-2 px-4 rounded shadow transition disabled:opacity-50">
+                      {isLoadingRss ? '連線中...' : '自動讀取最新單集'}
+                    </button>
+                  </div>
+                  {rssError && <p className="text-red-600 text-sm mb-2 font-medium">{rssError}</p>}
+                  {showManualRss && (
+                    <div className="mt-3 p-4 bg-white border border-red-300 rounded-lg shadow-sm">
+                      <p className="text-sm text-red-700 font-bold mb-2">⚠️ 啟動手動解析備用機制：</p>
+                      <ol className="list-decimal ml-5 text-sm text-gray-700 mb-3 space-y-1">
+                        <li>請點擊開啟：<a href={RSS_FEED_URL} target="_blank" rel="noreferrer" className="text-blue-600 underline font-medium">專屬 SoundOn RSS 網頁</a></li>
+                        <li>按 <kbd className="bg-gray-100 border px-1 rounded">Ctrl</kbd>+<kbd className="bg-gray-100 border px-1 rounded">A</kbd> 全選並複製所有內容</li>
+                        <li>貼到下方文字框，點擊「解析貼上的內容」</li>
+                      </ol>
+                      <textarea className="w-full border rounded p-2 text-xs font-mono h-20 mb-2" placeholder="請在此貼上複製的 RSS 原始碼..." value={manualXmlText} onChange={e => setManualXmlText(e.target.value)} />
+                      <button onClick={handleParseManualXml} className="bg-red-600 hover:bg-red-700 text-white text-sm py-1.5 px-4 rounded shadow transition">解析貼上的內容</button>
+                    </div>
+                  )}
+                  {rssEpisodes.length > 0 && (
+                    <div className="mt-4 border-t border-orange-200 pt-4">
+                      <label className="block text-sm font-medium text-orange-900 mb-1">🎉 解析成功！請選擇要發布的單集：</label>
+                      <select onChange={handleSelectEpisode} defaultValue="" className="w-full border-orange-300 rounded p-2 text-sm shadow-sm bg-white">
+                        <option value="" disabled>-- 請選擇單集 --</option>
+                        {rssEpisodes.map(ep => <option key={ep.guid} value={ep.guid}>{ep.title} ({ep.pubDate.split(' ')[0]})</option>)}
+                      </select>
+                    </div>
+                  )}
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Metadata */}
+                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <h2 className="text-xl font-semibold mb-4 border-b pb-2">1. 基礎設定 (Front Matter)</h2>
+                    <div className="space-y-3">
+                      <div><label className="block text-sm font-medium mb-1">標題 (Title)</label><input type="text" className="w-full border rounded p-2 text-sm" value={meta.title} onChange={e => setMeta({...meta, title: e.target.value})} /></div>
+                      <div><label className="block text-sm font-medium mb-1">日期 (Date)</label><input type="datetime-local" className="w-full border rounded p-2 text-sm" value={meta.date} onChange={e => setMeta({...meta, date: e.target.value})} /></div>
+                      <div>
+                        <label className="block text-sm font-medium mb-1">圖片路徑 (Image Path)</label>
+                        <input type="text" className="w-full border rounded p-2 text-sm mb-2" value={meta.img} onChange={e => setMeta({...meta, img: e.target.value})} />
+                        <div
+                          className={`border-2 border-dashed rounded-lg p-3 text-center cursor-pointer transition ${imgDragOver ? 'border-blue-500 bg-blue-50' : 'border-gray-300 hover:border-gray-400 bg-gray-50'}`}
+                          onDragOver={e => { e.preventDefault(); setImgDragOver(true); }}
+                          onDragLeave={() => setImgDragOver(false)}
+                          onDrop={e => { e.preventDefault(); setImgDragOver(false); const f = e.dataTransfer.files[0]; if (f) handleImageSelect(f); }}
+                          onClick={() => document.getElementById('img-upload').click()}
+                        >
+                          {imagePreview
+                            ? <img src={imagePreview} alt="preview" className="max-h-28 mx-auto rounded shadow" />
+                            : <p className="text-xs text-gray-400 py-2">🖼️ 拖曳圖片到此，或點擊選擇<br/><span className="text-gray-300">（jpg / png / webp）</span></p>
+                          }
+                        </div>
+                        <input id="img-upload" type="file" accept="image/*" className="hidden" onChange={e => { if (e.target.files[0]) handleImageSelect(e.target.files[0]); }} />
+                        {imageFile && (
+                          <div className="mt-1 flex items-center justify-between text-xs">
+                            <span className="text-gray-500 truncate max-w-[60%]">✅ {imageFile.name}</span>
+                            {apiConnected && !imageSaved
+                              ? <button onClick={saveImage} className="bg-purple-600 text-white px-3 py-1 rounded hover:bg-purple-700 transition">💾 儲存圖片到 GitHub</button>
+                              : imageSaved ? <span className="text-green-600 font-semibold">✅ 圖片已儲存</span> : <span className="text-gray-400">連線後可儲存圖片</span>
+                            }
+                          </div>
+                        )}
+                      </div>
+                      <div><label className="block text-sm font-medium mb-1">分類 (Category)</label><input type="text" className="w-full border rounded p-2 text-sm" value={meta.categories} onChange={e => setMeta({...meta, categories: e.target.value})} /></div>
+                      <div><label className="block text-sm font-medium mb-1">描述 (Description)</label><input type="text" className="w-full border rounded p-2 text-sm" value={meta.description} onChange={e => setMeta({...meta, description: e.target.value})} /></div>
+                      <div><label className="block text-sm font-medium mb-1">標籤 (Tags, 請用半形逗號分隔)</label><textarea className="w-full border rounded p-2 text-sm h-20" value={meta.tags} onChange={e => setMeta({...meta, tags: e.target.value})} /></div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-6">
+                    {/* Podcast 連結 */}
+                    <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                      <h2 className="text-xl font-semibold mb-4 border-b pb-2">2. Podcast 連結</h2>
+                      <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                        <label className="block text-sm font-bold text-blue-800 mb-1">⚡ 智慧擷取工具</label>
+                        <p className="text-xs text-blue-600 mb-2">直接貼上包含多個平台網址的文案，系統將自動分類填入。</p>
+                        <div className="flex gap-2">
+                          <textarea className="flex-1 border border-blue-300 rounded p-2 text-sm h-12 resize-none" placeholder="例：YT: https://youtu.be/xxx Spotify: https://spoti.fi/..." value={rawLinkText} onChange={e => setRawLinkText(e.target.value)} />
+                          <button onClick={extractLinks} className="bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm px-4 rounded transition">一鍵擷取</button>
+                        </div>
+                      </div>
+                      <div className="space-y-3">
+                        {Object.keys(links).map(platform => (
+                          <div key={platform} className="flex items-center">
+                            <label className="w-24 text-sm font-medium capitalize">{platform}</label>
+                            <input type="text" className="flex-1 border rounded p-2 text-sm" placeholder="https://" value={links[platform]} onChange={e => setLinks({...links, [platform]: e.target.value})} />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* 文字檔上傳 */}
+                    <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                      <h2 className="text-xl font-semibold mb-4 border-b pb-2">3. 內文檔案 (.txt)</h2>
+                      <p className="text-xs text-red-500 mb-3">*可依需求上傳 1 到 3 個檔案（皆為選填）。第一段會被設定為標題字體大小。</p>
+                      <div className="space-y-4">
+                        {[{lang:'en',label:'英文內容 (English)',color:'text-blue-700'},{lang:'hanji',label:'台語漢字',color:'text-black'},{lang:'poj',label:'台語白話字 (POJ)',color:'text-red-800'}].map(({lang,label,color}) => (
+                          <div
+                            key={lang}
+                            className={`p-3 rounded border-2 border-dashed transition cursor-pointer ${txtDragOver[lang] ? 'border-blue-400 bg-blue-50' : 'bg-gray-50 border-gray-200 hover:border-gray-400'}`}
+                            onDragOver={e => { e.preventDefault(); setTxtDragOver(prev => ({ ...prev, [lang]: true })); }}
+                            onDragLeave={() => setTxtDragOver(prev => ({ ...prev, [lang]: false }))}
+                            onDrop={e => { e.preventDefault(); setTxtDragOver(prev => ({ ...prev, [lang]: false })); const f = e.dataTransfer.files[0]; if (f) processTextFile(f, lang); }}
+                            onClick={() => document.getElementById(`file-${lang}`).click()}
+                          >
+                            <div className="flex justify-between items-center mb-2">
+                              <label className={`block text-sm font-bold ${color} pointer-events-none`}>{label}</label>
+                              {texts[lang].length > 0 && <button onClick={e => { e.stopPropagation(); handleClearFile(lang); }} className="text-xs bg-red-100 text-red-600 px-2 py-1 rounded hover:bg-red-200 transition">移除檔案</button>}
+                            </div>
+                            <input id={`file-${lang}`} type="file" accept=".txt" onChange={e => handleFileUpload(e, lang)} className="hidden" />
+                            <div className="text-xs text-gray-400 text-center">{texts[lang].length > 0 ? `✅ 已讀取 ${texts[lang].length} 段` : '拖曳 .txt 到此，或點擊選擇'}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 步驟一：GitHub 連線 */}
+                <div className={`p-5 rounded-xl border-2 ${apiConnected ? 'bg-green-50 border-green-300' : 'bg-blue-50 border-blue-300'}`}>
+                  <p className="font-bold text-gray-700 mb-3">{apiConnected ? '🔗 已連線到 GitHub' : '⚠️ 步驟一：連線到 GitHub'}</p>
+                  <div className="space-y-2">
+                    <div className="flex gap-2">
+                      <input type="text" className="w-40 border rounded p-2 text-sm font-mono" placeholder="帳號" value={repoOwner} onChange={e => setRepoOwner(e.target.value)} />
+                      <span className="self-center text-gray-400">/</span>
+                      <input type="text" className="flex-1 border rounded p-2 text-sm font-mono" placeholder="repo 名稱" value={repoName} onChange={e => setRepoName(e.target.value)} />
+                    </div>
+                    <div className="flex gap-2">
+                      <input type="password" className="flex-1 border rounded p-2 text-sm font-mono" placeholder="GitHub Personal Access Token (ghp_...)" value={githubToken} onChange={e => setGithubToken(e.target.value)} onKeyDown={e => e.key === 'Enter' && connectApi()} />
+                      <button onClick={connectApi} className="whitespace-nowrap bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow transition">{apiConnected ? '🔄 重新連線' : '🔌 連線'}</button>
+                    </div>
+                  </div>
+                  {apiStatus && <p className="text-sm mt-2 text-gray-600">{apiStatus}</p>}
+                  {!apiConnected && <p className="text-xs text-blue-500 mt-2">Token 申請：GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens → 選 repo → Contents (Read and write)</p>}
+                </div>
+
+                {/* 產生 & 儲存 */}
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                  <button onClick={generateMarkdown} className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded transition mb-4">產生 Markdown</button>
+                  <textarea className="w-full border rounded p-4 font-mono text-sm bg-gray-50 h-96" readOnly value={output} placeholder="點擊產生按鈕後，這裡會顯示 Markdown 原始碼..."></textarea>
+                  <div className="mt-4 space-y-3">
+                    <div className="flex items-center gap-2">
+                      <label className="text-sm font-semibold whitespace-nowrap text-gray-700">檔案名稱</label>
+                      <div className="flex flex-1 items-center gap-1 font-mono text-sm">
+                        <span className="text-gray-400">markdowns/</span>
+                        <input type="text" className="flex-1 border rounded p-2 focus:ring-2 focus:ring-green-400" value={filename} onChange={e => setFilename(e.target.value.replace(/\.md$/i,'').replace(/[^a-zA-Z0-9_\-]/g,''))} placeholder="輸入英文檔名" />
+                        <span className="text-gray-500">.md</span>
+                      </div>
+                    </div>
+                    <button onClick={saveFile} disabled={!output} className={`w-full font-bold py-3 px-4 rounded transition text-lg flex items-center justify-center gap-2 ${output ? 'bg-green-600 hover:bg-green-700 text-white shadow' : 'bg-gray-300 text-gray-500 cursor-not-allowed'}`}>
+                      💾 儲存到 GitHub markdowns/ 資料夾
+                    </button>
+                    {savedName && <div className="bg-green-50 border border-green-300 rounded-lg p-3 text-sm text-green-800">✅ 已儲存到 GitHub：<code className="font-mono font-bold">markdowns/{savedName}</code>　（GitHub Pages 約 1-2 分鐘後自動更新）</div>}
+                    {sitemapStatus && <p className="text-xs text-center text-gray-500">{sitemapStatus}</p>}
+                    <p className="text-xs text-gray-400 text-center">{apiConnected ? '儲存後請記得也更新 posts.json（步驟三）' : '請先完成步驟一（連線）'}</p>
+                    <button onClick={downloadFile} disabled={!output} className={`w-full py-2 px-4 rounded transition text-sm ${output ? 'bg-gray-100 hover:bg-gray-200 text-gray-600 border border-gray-300' : 'bg-gray-100 text-gray-400 cursor-not-allowed'}`}>⬇ 只下載（不儲存到 GitHub）</button>
+                  </div>
+                </div>
+
+                {/* 步驟三：posts.json 編輯器 */}
+                {showPostsEditor && (
+                  <div className="bg-white p-6 rounded-xl shadow-sm border-2 border-indigo-300">
+                    <h2 className="text-xl font-bold mb-1 text-indigo-800">📋 步驟三：更新 posts.json</h2>
+                    <p className="text-sm text-gray-500 mb-3">
+                      <code className="bg-indigo-50 px-1 rounded font-mono font-bold">{savedName.replace(/\.md$/i,'')}</code> 已自動加入 files 陣列，確認後儲存到 GitHub。
+                    </p>
+                    <textarea className="w-full border rounded p-3 font-mono text-xs bg-gray-50 h-64 focus:ring-2 focus:ring-indigo-400" value={postsJsonText} onChange={e => { setPostsJsonText(e.target.value); setPostsJsonSaved(false); }} />
+                    <button onClick={savePostsJson} className="mt-3 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded transition">💾 儲存 posts.json 到 GitHub</button>
+                    {postsJsonSaved && <p className="mt-2 text-center text-green-700 font-semibold">✅ posts.json 已更新！GitHub Pages 約 1-2 分鐘後自動部署。</p>}
+                  </div>
+                )}
+
+              </div>
+            </div>
+          );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

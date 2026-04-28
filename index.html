@@ -1,2232 +1,806 @@
-<!DOCTYPE HTML>
-<html lang="en">
-
-
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js').then(reg => {
-        console.log('Service Worker 註冊成功！範圍:', reg.scope);
-      }).catch(err => {
-        console.log('Service Worker 註冊失敗:', err);
-      });
-    });
-  }
-</script>
-
+<!DOCTYPE html>
+<html lang="zh-Hant">
 <head>
-    <meta charset="utf-8">
-    <meta name="keywords" content="台語學習, 台文翻譯, 台語廣播劇, POJ 教學">
-    <meta name="description" content="台語學習, 台文翻譯, 台語廣播劇, POJ 教學">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="renderer" content="webkit|ie-stand|ie-comp">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>做工á人台語工作室 - 首頁</title>
 
+    <!-- SEO: 描述 & 關鍵字 -->
+    <meta name="description" content="做工á人台語工作室 — 用廣播劇、有聲故事、台語詞典守護台語。提供台語 Podcast 文字稿、台語學習資源，免費線上閱讀。">
+    <meta name="keywords" content="台語,台語Podcast,台語廣播劇,台語學習,台文,白話字,POJ,台語工作室,做工á人">
+    <meta name="author" content="做工á人台語工作室">
+    <link rel="canonical" href="https://cho-kang-a-lang.github.io/">
 
-    <title>做工á人台語工作室</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
+    <!-- Open Graph (Facebook / LINE / Discord 分享預覽) -->
+    <meta property="og:type"        content="website">
+    <meta property="og:url"         content="https://cho-kang-a-lang.github.io/">
+    <meta property="og:title"       content="做工á人台語工作室">
+    <meta property="og:description" content="用廣播劇、有聲故事、台語詞典守護台語。提供台語 Podcast 文字稿與學習資源，免費線上閱讀。">
+    <meta property="og:image"       content="https://cho-kang-a-lang.github.io/images/logo.png">
+    <meta property="og:image:alt"   content="做工á人台語工作室 Logo">
+    <meta property="og:locale"      content="zh_TW">
+    <meta property="og:site_name"   content="做工á人台語工作室">
 
-    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
-    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
-    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/matery.css">
-    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <!-- Twitter Card -->
+    <meta name="twitter:card"        content="summary_large_image">
+    <meta name="twitter:title"       content="做工á人台語工作室">
+    <meta name="twitter:description" content="用廣播劇、有聲故事、台語詞典守護台語。">
+    <meta name="twitter:image"       content="https://cho-kang-a-lang.github.io/images/logo.png">
 
-    <script src="/libs/jquery/jquery.min.js"></script>
-
-	<link rel="manifest" href="/manifest.json">
-	<meta name="theme-color" content="#42b983">
-	<meta property="og:type" content="website">
-	<meta property="og:url" content="https://Cho-kang-a-lang.github.ioindex.html">
-	<meta property="og:title" content="做工á人台語工作室 | 做工á人">
-	<meta property="og:description" content="台語學習, 台文翻譯, 台語廣播劇, POJ 教學">
-	<meta property="og:image" content="https://cho-kang-a-lang.github.io/medias/featureimages/default.png">
-
-	<meta name="twitter:card" content="summary_large_image">
-	<meta name="twitter:title" content="做工á人台語工作室">
-	<meta name="twitter:description" content="台語學習, 台文翻譯, 台語廣播劇, POJ 教學">
-	<meta name="twitter:image" content="https://cho-kang-a-lang.github.io/medias/featureimages/default.png">
-	
-	
-<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="做工á人台語工作室" type="application/atom+xml">
-</head>
-
-
-
-
-<body>
-    <header class="navbar-fixed">
-    <nav id="headNav" class="bg-color nav-transparent">
-        <div id="navContainer" class="nav-wrapper container">
-            <div class="brand-logo">
-                <a href="/" class="waves-effect waves-light">
-                    
-                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
-                    
-                    <span class="logo-span">做工á人台語工作室</span>
-                </a>
-            </div>
-            
-
-<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
-<ul class="right nav-menu">
-  
-  <li class="hide-on-med-and-down nav-item">
+    <!-- 設定網站 Favicon -->
+    <link rel="icon" href="./images/logo.png" type="image/png">
     
-    <a href="/" class="waves-effect waves-light">
-      
-      <i class="fas fa-home" style="zoom: 0.6;"></i>
-      
-      <span>首頁Home</span>
-    </a>
+    <!-- 引入外部共用 CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- 載入 Font Awesome 圖示庫 (搜尋與設定按鈕使用) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="" class="waves-effect waves-light">
-
-      
-      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
-      
-      <span>分類Categories</span>
-      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
-    </a>
-    <ul class="sub-nav menus_item_child ">
-      
-      <li>
-        <a href="/categories/A%E9%83%8E">
-          
-          <i class="fas fa-bookmark" style="margin-top: -20px; zoom: 0.6;"></i>
-          
-          <span>A郎</span>
-        </a>
-      </li>
-      
-      <li>
-        <a href="/categories/A%E9%83%8E%E7%89%87%E9%A0%AD%E5%B0%BE">
-          
-          <i class="fas fa-bookmark" style="margin-top: -20px; zoom: 0.6;"></i>
-          
-          <span>A郎片頭尾</span>
-        </a>
-      </li>
-      
-      <li>
-        <a href="/categories/A%E9%83%8E%E5%8F%B0%E8%AA%9E%E5%B0%8F%E8%A9%9E%E5%85%B8">
-          
-          <i class="fas fa-bookmark" style="margin-top: -20px; zoom: 0.6;"></i>
-          
-          <span>A郎台語小詞典</span>
-        </a>
-      </li>
-      
-      <li>
-        <a href="/categories/%E5%8F%B0%E8%AA%9E%E8%AC%9B%E6%80%AA%E5%A5%87">
-          
-          <i class="fas fa-bookmark" style="margin-top: -20px; zoom: 0.6;"></i>
-          
-          <span>台語講怪奇</span>
-        </a>
-      </li>
-      
-      <li>
-        <a href="/categories/%E7%99%BD%E8%94%A5%E4%BB%94%E5%85%AC%E4%B8%BB">
-          
-          <i class="fas fa-bookmark" style="margin-top: -20px; zoom: 0.6;"></i>
-          
-          <span>白蔥仔公主</span>
-        </a>
-      </li>
-      
-      <li>
-        <a href="/categories/%E8%8B%B1%E5%9C%8B%E5%9B%A1%E4%BB%94%E5%8F%A4">
-          
-          <i class="fas fa-bookmark" style="margin-top: -20px; zoom: 0.6;"></i>
-          
-          <span>英國囡仔古</span>
-        </a>
-      </li>
-      
-      <li>
-        <a href="/categories/%E6%B0%91%E9%96%93%E6%95%85%E4%BA%8B">
-          
-          <i class="fas fa-bookmark" style="margin-top: -20px; zoom: 0.6;"></i>
-          
-          <span>民間故事</span>
-        </a>
-      </li>
-      
-      <li>
-        <a href="/categories/%E7%8B%A1%E6%80%AA%E5%9B%A1%E4%BB%94%E5%8F%A4">
-          
-          <i class="fas fa-bookmark" style="margin-top: -20px; zoom: 0.6;"></i>
-          
-          <span>狡怪囡仔古</span>
-        </a>
-      </li>
-      
-      <li>
-        <a href="/categories/E%E6%9A%97%E9%A3%9F%E5%95%A5%E8%B2%A8">
-          
-          <i class="fas fa-bookmark" style="margin-top: -20px; zoom: 0.6;"></i>
-          
-          <span>E暗食啥貨</span>
-        </a>
-      </li>
-      
-      <li>
-        <a href="/categories/%E7%9B%B8%E6%8B%9B%E4%BE%86%E7%9C%8B%E6%88%B2">
-          
-          <i class="fas fa-bookmark" style="margin-top: -20px; zoom: 0.6;"></i>
-          
-          <span>相招來看戲</span>
-        </a>
-      </li>
-      
-      <li>
-        <a href="/categories/%E7%84%A1%E7%B3%BB%E5%88%97">
-          
-          <i class="fas fa-bookmark" style="margin-top: -20px; zoom: 0.6;"></i>
-          
-          <span>無系列</span>
-        </a>
-      </li>
-      
-    </ul>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/archives" class="waves-effect waves-light">
-      
-      <i class="fas fa-archive" style="zoom: 0.6;"></i>
-      
-      <span>文章Archives</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="" class="waves-effect waves-light">
-
-      
-      <i class="fas fa-gamepad" style="zoom: 0.6;"></i>
-      
-      <span>遊戲Games</span>
-      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
-    </a>
-    <ul class="sub-nav menus_item_child ">
-      
-      <li>
-        <a href="/games/zodiac">
-          
-          <i class="fas fa-gamepad" style="margin-top: -20px; zoom: 0.6;"></i>
-          
-          <span>12生相</span>
-        </a>
-      </li>
-      
-      <li>
-        <a href="/games/tone">
-          
-          <i class="fas fa-gamepad" style="margin-top: -20px; zoom: 0.6;"></i>
-          
-          <span>聲調</span>
-        </a>
-      </li>
-      
-      <li>
-        <a href="/games/tone2">
-          
-          <i class="fas fa-gamepad" style="margin-top: -20px; zoom: 0.6;"></i>
-          
-          <span>聲調2</span>
-        </a>
-      </li>
-      
-      <li>
-        <a href="/games/boim">
-          
-          <i class="fas fa-gamepad" style="margin-top: -20px; zoom: 0.6;"></i>
-          
-          <span>台語ê母音</span>
-        </a>
-      </li>
-      
-      <li>
-        <a href="/games/city">
-          
-          <i class="fas fa-gamepad" style="margin-top: -20px; zoom: 0.6;"></i>
-          
-          <span>台灣縣市地圖</span>
-        </a>
-      </li>
-      
-      <li>
-        <a href="/games/kutemia_kh01">
-          
-          <i class="fas fa-gamepad" style="margin-top: -20px; zoom: 0.6;"></i>
-          
-          <span>打狗舊地號名</span>
-        </a>
-      </li>
-      
-      <li>
-        <a href="/games/kutemia_kh02">
-          
-          <i class="fas fa-gamepad" style="margin-top: -20px; zoom: 0.6;"></i>
-          
-          <span>打狗舊地號名2</span>
-        </a>
-      </li>
-      
-      <li>
-        <a href="/games/along">
-          
-          <i class="fas fa-gamepad" style="margin-top: -20px; zoom: 0.6;"></i>
-          
-          <span>A郎</span>
-        </a>
-      </li>
-      
-    </ul>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="" class="waves-effect waves-light">
-
-      
-      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
-      
-      <span>關於About</span>
-      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
-    </a>
-    <ul class="sub-nav menus_item_child ">
-      
-      <li>
-        <a href="/about">
-          
-          <i class="fas fa-user-circle" style="margin-top: -20px; zoom: 0.6;"></i>
-          
-          <span>Koan-î 關於</span>
-        </a>
-      </li>
-      
-      <li>
-        <a href="/copyright">
-          
-          <i class="fas fa-user-circle" style="margin-top: -20px; zoom: 0.6;"></i>
-          
-          <span>Pán-koân 版權</span>
-        </a>
-      </li>
-      
-    </ul>
-    
-  </li>
-  
-  <li>
-    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
-      <i id="searchIcon" class="fas fa-search" title="Search" style="zoom: 0.85;"></i>
-    </a>
-  </li>
-</ul>
-
-
-<div id="mobile-nav" class="side-nav sidenav">
-
-    <div class="mobile-head bg-color">
-        
-        <img src="/medias/logo.png" class="logo-img circle responsive-img">
-        
-        <div class="logo-name">做工á人台語工作室</div>
-        <div class="logo-desc">
-            
-            台語學習, 台文翻譯, 台語廣播劇, POJ 教學
-            
-        </div>
-    </div>
-
-    
-
-    <ul class="menu-list mobile-menu-list">
-        
-        <li class="m-nav-item">
-	  
-		<a href="/" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-home"></i>
-			
-			首頁Home
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="javascript:;">
-			
-				<i class="fa-fw fas fa-bookmark"></i>
-			
-			分類Categories
-			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
-		</a>
-            <ul  style="background:  ;" >
-              
-                <li>
-
-                  <a href="/categories/A%E9%83%8E " style="margin-left:75px">
-				  
-				   <i class="fa fas fa-bookmark" style="position: absolute;left:50px" ></i>
-			      
-		          <span>A郎</span>
-                  </a>
-                </li>
-              
-                <li>
-
-                  <a href="/categories/A%E9%83%8E%E7%89%87%E9%A0%AD%E5%B0%BE " style="margin-left:75px">
-				  
-				   <i class="fa fas fa-bookmark" style="position: absolute;left:50px" ></i>
-			      
-		          <span>A郎片頭尾</span>
-                  </a>
-                </li>
-              
-                <li>
-
-                  <a href="/categories/A%E9%83%8E%E5%8F%B0%E8%AA%9E%E5%B0%8F%E8%A9%9E%E5%85%B8 " style="margin-left:75px">
-				  
-				   <i class="fa fas fa-bookmark" style="position: absolute;left:50px" ></i>
-			      
-		          <span>A郎台語小詞典</span>
-                  </a>
-                </li>
-              
-                <li>
-
-                  <a href="/categories/%E5%8F%B0%E8%AA%9E%E8%AC%9B%E6%80%AA%E5%A5%87 " style="margin-left:75px">
-				  
-				   <i class="fa fas fa-bookmark" style="position: absolute;left:50px" ></i>
-			      
-		          <span>台語講怪奇</span>
-                  </a>
-                </li>
-              
-                <li>
-
-                  <a href="/categories/%E7%99%BD%E8%94%A5%E4%BB%94%E5%85%AC%E4%B8%BB " style="margin-left:75px">
-				  
-				   <i class="fa fas fa-bookmark" style="position: absolute;left:50px" ></i>
-			      
-		          <span>白蔥仔公主</span>
-                  </a>
-                </li>
-              
-                <li>
-
-                  <a href="/categories/%E8%8B%B1%E5%9C%8B%E5%9B%A1%E4%BB%94%E5%8F%A4 " style="margin-left:75px">
-				  
-				   <i class="fa fas fa-bookmark" style="position: absolute;left:50px" ></i>
-			      
-		          <span>英國囡仔古</span>
-                  </a>
-                </li>
-              
-                <li>
-
-                  <a href="/categories/%E6%B0%91%E9%96%93%E6%95%85%E4%BA%8B " style="margin-left:75px">
-				  
-				   <i class="fa fas fa-bookmark" style="position: absolute;left:50px" ></i>
-			      
-		          <span>民間故事</span>
-                  </a>
-                </li>
-              
-                <li>
-
-                  <a href="/categories/%E7%8B%A1%E6%80%AA%E5%9B%A1%E4%BB%94%E5%8F%A4 " style="margin-left:75px">
-				  
-				   <i class="fa fas fa-bookmark" style="position: absolute;left:50px" ></i>
-			      
-		          <span>狡怪囡仔古</span>
-                  </a>
-                </li>
-              
-                <li>
-
-                  <a href="/categories/E%E6%9A%97%E9%A3%9F%E5%95%A5%E8%B2%A8 " style="margin-left:75px">
-				  
-				   <i class="fa fas fa-bookmark" style="position: absolute;left:50px" ></i>
-			      
-		          <span>E暗食啥貨</span>
-                  </a>
-                </li>
-              
-                <li>
-
-                  <a href="/categories/%E7%9B%B8%E6%8B%9B%E4%BE%86%E7%9C%8B%E6%88%B2 " style="margin-left:75px">
-				  
-				   <i class="fa fas fa-bookmark" style="position: absolute;left:50px" ></i>
-			      
-		          <span>相招來看戲</span>
-                  </a>
-                </li>
-              
-                <li>
-
-                  <a href="/categories/%E7%84%A1%E7%B3%BB%E5%88%97 " style="margin-left:75px">
-				  
-				   <i class="fa fas fa-bookmark" style="position: absolute;left:50px" ></i>
-			      
-		          <span>無系列</span>
-                  </a>
-                </li>
-              
-            </ul>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/archives" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-archive"></i>
-			
-			文章Archives
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="javascript:;">
-			
-				<i class="fa-fw fas fa-gamepad"></i>
-			
-			遊戲Games
-			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
-		</a>
-            <ul  style="background:  ;" >
-              
-                <li>
-
-                  <a href="/games/zodiac " style="margin-left:75px">
-				  
-				   <i class="fa fas fa-gamepad" style="position: absolute;left:50px" ></i>
-			      
-		          <span>12生相</span>
-                  </a>
-                </li>
-              
-                <li>
-
-                  <a href="/games/tone " style="margin-left:75px">
-				  
-				   <i class="fa fas fa-gamepad" style="position: absolute;left:50px" ></i>
-			      
-		          <span>聲調</span>
-                  </a>
-                </li>
-              
-                <li>
-
-                  <a href="/games/tone2 " style="margin-left:75px">
-				  
-				   <i class="fa fas fa-gamepad" style="position: absolute;left:50px" ></i>
-			      
-		          <span>聲調2</span>
-                  </a>
-                </li>
-              
-                <li>
-
-                  <a href="/games/boim " style="margin-left:75px">
-				  
-				   <i class="fa fas fa-gamepad" style="position: absolute;left:50px" ></i>
-			      
-		          <span>台語ê母音</span>
-                  </a>
-                </li>
-              
-                <li>
-
-                  <a href="/games/city " style="margin-left:75px">
-				  
-				   <i class="fa fas fa-gamepad" style="position: absolute;left:50px" ></i>
-			      
-		          <span>台灣縣市地圖</span>
-                  </a>
-                </li>
-              
-                <li>
-
-                  <a href="/games/kutemia_kh01 " style="margin-left:75px">
-				  
-				   <i class="fa fas fa-gamepad" style="position: absolute;left:50px" ></i>
-			      
-		          <span>打狗舊地號名</span>
-                  </a>
-                </li>
-              
-                <li>
-
-                  <a href="/games/kutemia_kh02 " style="margin-left:75px">
-				  
-				   <i class="fa fas fa-gamepad" style="position: absolute;left:50px" ></i>
-			      
-		          <span>打狗舊地號名2</span>
-                  </a>
-                </li>
-              
-                <li>
-
-                  <a href="/games/along " style="margin-left:75px">
-				  
-				   <i class="fa fas fa-gamepad" style="position: absolute;left:50px" ></i>
-			      
-		          <span>A郎</span>
-                  </a>
-                </li>
-              
-            </ul>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="javascript:;">
-			
-				<i class="fa-fw fas fa-user-circle"></i>
-			
-			關於About
-			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
-		</a>
-            <ul  style="background:  ;" >
-              
-                <li>
-
-                  <a href="/about " style="margin-left:75px">
-				  
-				   <i class="fa fas fa-user-circle" style="position: absolute;left:50px" ></i>
-			      
-		          <span>Koan-î 關於</span>
-                  </a>
-                </li>
-              
-                <li>
-
-                  <a href="/copyright " style="margin-left:75px">
-				  
-				   <i class="fa fas fa-user-circle" style="position: absolute;left:50px" ></i>
-			      
-		          <span>Pán-koân 版權</span>
-                  </a>
-                </li>
-              
-            </ul>
-          
-        </li>
-        
-        
-    </ul>
-</div>
-
-
-        </div>
-
-        
-    </nav>
-
-</header>
-
-    
-<style>
-    .carousel-control {
-        width: 45px;
-        height: 45px;
-        line-height: 55px;
-        border-radius: 45px;
-        background: transparent;
-        cursor: pointer;
-        z-index: 100;
-    }
-
-    #prev-cover {
-        position: absolute;
-        top: 48%;
-        left: 8px;
-    }
-
-    #next-cover {
-        position: absolute;
-        top: 48%;
-        right: 8px;;
-    }
-
-    #prev-cover i {
-        margin-right: 3px;
-    }
-
-    #next-cover i {
-        margin-left: 3px;
-    }
-
-    .carousel-control:hover {
-        background-color: rgba(0, 0, 0, .4);
-    }
-
-    .carousel-control i {
-        color: #fff;
-        font-size: 2.4rem;
-    }
-</style>
-
-
-
-<div class="carousel carousel-slider center index-cover" data-indicators="true" style="margin-top: -64px;">
-    
-
-    <div class="carousel-item red white-text bg-cover about-cover">
-        <div class="container">
-            <div class="row">
-    <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
-        <div class="brand">
-            <div class="title center-align">
-                
-                Hòng-sàng 放送
-                
-            </div>
-
-            <div class="description center-align">
-                
-                <span id="subtitle"></span>
-                <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
-                <script>
-                    var typed = new Typed("#subtitle", {
-                        strings: ['Eng-kok gín-á-kó͘ beh khai-sí hòng-sàng--ah-o͘h.','英國gín-á古beh開始放送--ah-o͘h'],
-                        startDelay: 300,
-                        typeSpeed: 100,
-                        loop: true,
-                        backSpeed: 50,
-                        showCursor: true
-                    });
-                </script>
-                
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<script>
-    $('.bg-cover').css('background-image', 'url(/medias/banner/0.jpg)');
-</script>
-
-
-
-            <div class="cover-btns">
-                <a href="#articles" class="waves-effect waves-light btn">
-                    <i class="fa fa-angle-double-down"></i>Start
-                </a>
-
-                
-            </div>
-            <div class="cover-social-link">
-
-
-    <a href="mailto:chokangalang@gmail.com" class="tooltipped" target="_blank" data-tooltip="連絡阮" data-position="top" data-delay="50">
-        <i class="fas fa-envelope-open"></i>
-    </a>
-
-
-
-    <a href="https://www.facebook.com/chokangalang" class="tooltipped" target="_blank" data-tooltip="阮ê Facebook: https://www.facebook.com/chokangalang" data-position="top" data-delay="50">
-        <i class="fab fa-facebook-f"></i>
-    </a>
-
-
-
-    <a href="https://twitter.com/chokangalang" class="tooltipped" target="_blank" data-tooltip="阮ê Twitter: https://twitter.com/chokangalang" data-position="top" data-delay="50">
-        <i class="fab fa-twitter"></i>
-    </a>
-
-
-
-    <a href="https://www.instagram.com/chokangalang/" class="tooltipped" target="_blank" data-tooltip="阮ê Instagram: https://www.instagram.com/chokangalang/" data-position="top" data-delay="50">
-        <i class="fab fa-instagram"></i>
-    </a>
-
-
-
-    <a href="https://www.youtube.com/channel/UCIGElrjWA38xISA9X5kq3kw" class="tooltipped" target="_blank" data-tooltip="阮ê Youtube: https://www.youtube.com/channel/UCIGElrjWA38xISA9X5kq3kw" data-position="top" data-delay="50">
-        <i class="fab fa-youtube"></i>
-    </a>
-
-
-
-    <a href="https://player.soundon.fm/p/7c6f4223-1e6f-4cad-86ca-48884313b43a" class="tooltipped" target="_blank" data-tooltip="阮ê soundon: https://player.soundon.fm/p/7c6f4223-1e6f-4cad-86ca-48884313b43a" data-position="top" data-delay="50">
-        <i class="fa fa-podcast"></i>
-    </a>
-
-
-
-    <a href="https://open.spotify.com/show/09TjHRbP0iGM4w8lfLXWOJ" class="tooltipped" target="_blank" data-tooltip="阮ê spotify: https://open.spotify.com/show/09TjHRbP0iGM4w8lfLXWOJ" data-position="top" data-delay="50">
-        <i class="fab fa-spotify"></i>
-    </a>
-
-
-
-    <a href="https://podcast.kkbox.com/tw/channel/4sqZZDe809E_zWjIkh" class="tooltipped" target="_blank" data-tooltip="阮ê kkbox: https://podcast.kkbox.com/tw/channel/4sqZZDe809E_zWjIkh" data-position="top" data-delay="50">
-        <i class="fa fa-podcast"></i>
-    </a>
-
-
-
-    <a href="https://podcasts.apple.com/podcast/1730745763" class="tooltipped" target="_blank" data-tooltip="阮ê Apple Podcast: https://podcasts.apple.com/podcast/1730745763" data-position="top" data-delay="50">
-        <i class="fab fa-apple"></i>
-    </a>
-
-
-
-
-
-</div>
-        </div>
-    </div>
-
-    
-</div>
-
-<script>
-    $(function () {
-        let coverSlider = $('.carousel');
-
-        //用户触摸轮播自动 restartPlay 是否生效
-        let initUserPressedOrDraggedActive = false
-
-        //用户触摸轮播自动 restartPlay
-        function initUserPressedOrDragged(instance) {
-            setInterval(() => {
-                if (instance.pressed || instance.dragged) {
-                    // console.log('initUserPressedOrDragged: ',instance.pressed,instance.dragged)
-                    restartPlay()
-                }
-            }, 1000)
+    <!-- 載入特殊字體: 粉圓體 (jf-openhuninn) 與 芫荽體 (Iansui) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jf-openhuninn@1.1/jf-openhuninn.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/iansui@0.9.1/dist/Iansui-Regular.min.css">
+
+    <!-- 從 markdown frontmatter 自動載入文章的共用工具 -->
+    <script src="posts-loader.js"></script>
+
+    <!-- 首頁專屬樣式 + 共用 Modal 樣式 -->
+    <style>
+        /* === 共用 Modal / 搜尋 / 設定 === */
+        .nav-actions { display: flex; align-items: center; gap: 15px; margin-left: 15px; }
+        .nav-btn { background: none; border: none; font-size: 1.2rem; color: var(--text-main); cursor: pointer; transition: color 0.2s; display: flex; align-items: center; justify-content: center; }
+        .nav-btn:hover { color: var(--primary-color); }
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(2px); }
+        .modal-content { background: var(--white); padding: 30px; border-radius: 12px; width: 90%; max-width: 500px; max-height: 85vh; overflow-y: auto; position: relative; box-shadow: var(--shadow-lg); }
+        .modal-close { position: absolute; top: 15px; right: 15px; font-size: 1.5rem; cursor: pointer; border: none; background: none; color: var(--text-muted); transition: color 0.2s; }
+        .modal-close:hover { color: #ef4444; }
+        .modal-title { font-size: 1.5rem; margin-bottom: 20px; color: var(--text-main); border-bottom: 2px solid var(--border-color); padding-bottom: 10px; }
+        .setting-group { margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px; }
+        .setting-group label { font-weight: 500; font-size: 1rem; color: var(--text-main); }
+        .setting-group input[type="color"] { width: 100%; height: 40px; border: none; border-radius: 6px; cursor: pointer; padding: 0; }
+        .setting-group input[type="range"] { width: 100%; cursor: pointer; }
+        .setting-group select { padding: 10px; border-radius: 6px; border: 1px solid var(--border-color); font-size: 1rem; background: var(--bg-color); color: var(--text-main); cursor: pointer; }
+        .reset-btn { width: 100%; padding: 12px; background: var(--border-color); color: var(--text-muted); border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: background 0.2s; margin-top: 10px; }
+        .reset-btn:hover { background: #475569; color: var(--text-main); }
+        .search-input-wrapper { display: flex; position: relative; margin-bottom: 20px; }
+        .search-input-wrapper i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+        #search-input { width: 100%; padding: 12px 15px 12px 40px; border: 2px solid var(--border-color); border-radius: 8px; font-size: 1rem; outline: none; transition: border-color 0.2s; background: var(--bg-color); color: var(--text-main); }
+        #search-input:focus { border-color: var(--primary-color); }
+        .search-result-item { padding: 12px 0; border-bottom: 1px solid var(--border-color); }
+        .search-result-item:last-child { border-bottom: none; }
+        .search-result-title { color: var(--primary-color); font-weight: 600; font-size: 1.1rem; display: block; margin-bottom: 5px; }
+        .search-result-title:hover { color: var(--primary-hover); text-decoration: underline; }
+        .search-result-meta { font-size: 0.85rem; color: var(--text-muted); }
+
+        /* 深色/淺色主題切換按鈕 */
+        .theme-switcher { display: flex; gap: 8px; margin-top: 4px; }
+        .theme-btn { flex: 1; padding: 10px 8px; border: 1px solid var(--border-color); border-radius: 6px; background: transparent; color: var(--text-muted); cursor: pointer; font-size: 0.9rem; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .theme-btn.active { background: var(--primary-color); color: #fff; border-color: var(--primary-color); font-weight: 600; }
+        .theme-btn:hover:not(.active) { border-color: var(--primary-color); color: var(--text-main); }
+
+        /* === 首頁專屬 === */
+        .home-container { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
+
+        /* Hero */
+        .home-hero {
+            background: linear-gradient(135deg, #0a5c40 0%, #0f7a52 40%, #24BF89 100%);
+            color: #fff;
+            padding: 90px 5% 80px;
+            position: relative;
+            overflow: hidden;
         }
+        .home-hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+            pointer-events: none;
+        }
+        .home-hero-inner { position: relative; max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; }
+        .home-hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 5px 14px; font-size: 0.85rem; letter-spacing: 0.5px; margin-bottom: 20px; }
+        .home-hero h1 { font-size: 3.2rem; font-weight: 900; line-height: 1.15; margin-bottom: 18px; letter-spacing: -0.5px; }
+        .home-hero h1 .poj { display: block; font-size: 1.5rem; font-weight: 400; opacity: 0.75; letter-spacing: 1px; margin-bottom: 6px; }
+        .home-hero p { font-size: 1.1rem; opacity: 0.85; max-width: 520px; line-height: 1.8; margin-bottom: 32px; }
+        .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+        .hero-btn-primary { background: #fff; color: #0a5c40; padding: 13px 28px; border-radius: 8px; font-weight: 700; font-size: 1rem; transition: transform 0.2s, box-shadow 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+        .hero-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+        .hero-btn-secondary { background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.35); padding: 13px 28px; border-radius: 8px; font-weight: 600; font-size: 1rem; transition: background 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+        .hero-btn-secondary:hover { background: rgba(255,255,255,0.25); }
+        .hero-platform-pills { display: flex; flex-wrap: wrap; gap: 10px; }
+        .hero-platform-pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 30px; padding: 8px 16px; font-size: 0.85rem; color: #fff; display: flex; align-items: center; gap: 7px; transition: background 0.2s; }
+        .hero-platform-pill:hover { background: rgba(255,255,255,0.22); }
 
-        coverSlider.carousel({
-            duration: Number('120'),
-            fullWidth: true,
-            indicators: 'true' === 'true',
-            onCycleTo() {
-                if (!initUserPressedOrDraggedActive) {
-                    // console.log('initUserPressedOrDraggedActive')
-                    initUserPressedOrDragged(this)
-                    initUserPressedOrDraggedActive = true
-                }
-            },
-        })
+        /* 統計數字列 */
+        .home-stats { background: var(--white); border-bottom: 1px solid var(--border-color); }
+        .home-stats-inner { max-width: 1100px; margin: 0 auto; padding: 0 5%; display: flex; }
+        .stat-item { flex: 1; padding: 28px 20px; text-align: center; border-right: 1px solid var(--border-color); }
+        .stat-item:last-child { border-right: none; }
+        .stat-num { font-size: 2.2rem; font-weight: 800; color: var(--primary-color); line-height: 1; }
+        .stat-label { font-size: 0.88rem; color: var(--text-muted); margin-top: 5px; }
 
-        let carouselIntervalId;
+        /* 關於工作室 */
+        .home-about { padding: 70px 0; }
+        .home-about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .home-about-text .section-eyebrow { font-size: 0.85rem; font-weight: 700; color: var(--primary-color); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
+        .home-about-text h2 { font-size: 2rem; font-weight: 800; margin-bottom: 18px; line-height: 1.3; }
+        .home-about-text p { color: var(--text-muted); line-height: 1.9; font-size: 1rem; margin-bottom: 14px; }
+        .home-about-text a.about-link { display: inline-flex; align-items: center; gap: 6px; color: var(--primary-color); font-weight: 600; font-size: 0.95rem; border-bottom: 2px solid transparent; transition: border-color 0.2s; }
+        .home-about-text a.about-link:hover { border-color: var(--primary-color); }
+        .home-about-quote { background: var(--about-quote-bg, linear-gradient(135deg, #0a2920, #0d3222)); border-left: 4px solid var(--primary-color); border-radius: 0 16px 16px 0; padding: 32px 36px; }
+        .home-about-quote blockquote { font-size: 1.15rem; line-height: 1.9; color: var(--text-main); font-style: italic; }
+        .home-about-quote cite { display: block; margin-top: 16px; font-size: 0.9rem; color: var(--text-muted); font-style: normal; }
+
+        /* 內容系列 */
+        .home-series { background: var(--bg-color); padding: 70px 0; }
+        .home-section-header { text-align: center; margin-bottom: 44px; }
+        .home-section-header .section-eyebrow { font-size: 0.85rem; font-weight: 700; color: var(--primary-color); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; }
+        .home-section-header h2 { font-size: 2rem; font-weight: 800; color: var(--text-main); }
+        .home-section-header p { color: var(--text-muted); margin-top: 10px; font-size: 1rem; }
+        .series-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .series-card { background: var(--white); border: 1px solid var(--border-color); border-radius: 14px; padding: 28px 24px; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; }
+        .series-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: #a7f3d0; }
+        .series-icon { font-size: 2.2rem; margin-bottom: 14px; display: block; }
+        .series-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; color: var(--text-main); }
+        .series-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 16px; }
+        .series-card a.series-link { font-size: 0.85rem; color: var(--primary-color); font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
+        .series-card a.series-link:hover { text-decoration: underline; }
+
+        /* 最新文章 */
+        .home-latest { padding: 70px 0; }
+        .latest-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+        .latest-card { background: var(--white); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; }
+        .latest-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+        .latest-card-img { width: 100%; height: 160px; object-fit: cover; background: #e2e8f0; display: block; }
+        .latest-card-img-placeholder { width: 100%; height: 160px; background: var(--placeholder-bg, linear-gradient(135deg, #0a2920, #0d3d28)); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; }
+        .latest-card-body { padding: 18px 20px; flex-grow: 1; display: flex; flex-direction: column; }
+        .latest-card-cat { font-size: 0.75rem; font-weight: 700; color: var(--primary-color); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 7px; }
+        .latest-card-title { font-size: 1rem; font-weight: 700; color: var(--text-main); line-height: 1.45; margin-bottom: 8px; flex-grow: 1; }
+        .latest-card-title a:hover { color: var(--primary-color); }
+        .latest-card-date { font-size: 0.82rem; color: var(--text-muted); }
+        .view-all-btn { display: block; text-align: center; margin-top: 36px; }
+        .view-all-btn a { display: inline-flex; align-items: center; gap: 8px; background: var(--white); border: 2px solid var(--primary-color); color: var(--primary-color); padding: 11px 28px; border-radius: 8px; font-weight: 700; font-size: 0.95rem; transition: background 0.2s, color 0.2s; }
+        .view-all-btn a:hover { background: var(--primary-color); color: #fff; }
+
+        /* 收聽平台 */
+        .home-platforms { background: #0a5c40; padding: 60px 0; }
+        .home-platforms .home-section-header h2 { color: #fff; }
+        .home-platforms .home-section-header p { color: rgba(255,255,255,0.7); }
+        .home-platforms .home-section-header .section-eyebrow { color: #6ee7b7; }
+        .platforms-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+        .platform-btn { display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 12px 24px; border-radius: 10px; font-weight: 600; font-size: 0.95rem; transition: background 0.2s, transform 0.2s; }
+        .platform-btn:hover { background: rgba(255,255,255,0.2); transform: translateY(-2px); }
+        .platform-btn i { font-size: 1.3rem; }
+        .social-row { display: flex; justify-content: center; gap: 16px; margin-top: 28px; }
+        .social-btn { width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; transition: background 0.2s; }
+        .social-btn:hover { background: rgba(255,255,255,0.25); }
+
+        /* RWD */
+        @media (max-width: 900px) {
+            .home-hero h1 { font-size: 2.4rem; }
+            .home-hero-inner { grid-template-columns: 1fr; }
+            .home-about-grid { grid-template-columns: 1fr; gap: 30px; }
+            .series-grid { grid-template-columns: repeat(2, 1fr); }
+            .latest-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .home-hero { padding: 60px 5%; }
+            .home-hero h1 { font-size: 1.9rem; }
+            .home-stats-inner { flex-wrap: wrap; }
+            .stat-item { flex: 1 1 50%; border-bottom: 1px solid var(--border-color); }
+            .stat-item:nth-child(even) { border-right: none; }
+            .series-grid { grid-template-columns: 1fr; }
+            .latest-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 套用使用者自訂設定的初始化腳本 (必須放在 body 最前面以避免畫面閃爍) -->
+    <script>
+        const DARK_DEFAULTS = { bg: '#0f172a', text: '#e2e8f0' };
+        const LIGHT_DEFAULTS = { bg: '#f8fafc', text: '#1e293b' };
+        function applyUserSettings() {
+            const theme = localStorage.getItem('site_theme') || 'dark';
+            const defaults = theme === 'light' ? LIGHT_DEFAULTS : DARK_DEFAULTS;
+            const bg = localStorage.getItem('site_bg') || defaults.bg;
+            const color = localStorage.getItem('site_color') || defaults.text;
+            const fsize = localStorage.getItem('site_fsize');
+            const ffamily = localStorage.getItem('site_ffamily');
+
+            // 設定 data-theme 屬性以觸發 CSS 淺/深色覆蓋 (white、border、muted、shadows)
+            document.documentElement.setAttribute('data-theme', theme);
+
+            // 套用背景色與字體色 (同時設定在 html 與 body，防止 article-page class 覆蓋)
+            [document.documentElement, document.body].forEach(el => {
+                el.style.setProperty('--bg-color', bg);
+                el.style.setProperty('--text-main', color);
+            });
+
+            if (fsize) document.documentElement.style.fontSize = fsize + 'px';
+            else document.documentElement.style.fontSize = '';
+            if (ffamily) document.body.style.fontFamily = ffamily;
+            else document.body.style.fontFamily = '';
+        }
+        applyUserSettings();
+    </script>
+
+    <!-- 頂部導覽列 -->
+    <header class="navbar">
+        <a href="index.html" class="nav-brand">
+            <img src="./images/logo.png" alt="做工á人 Logo">
+            做工á人台語工作室
+        </a>
         
-        // Loop to call the next cover article picture.
-        let autoCarousel = function () {
-            carouselIntervalId = setInterval(function () {
-                coverSlider.carousel('next');
-            }, 5000);
-        };
-        autoCarousel();
-        
-
-        function restartPlay() {
+        <!-- Navbar 右側：選單容器與新功能按鈕 -->
+        <div style="display: flex; align-items: center;">
+            <nav id="menu-container">
+                <span class="status-msg" style="padding:0;">載入中...</span>
+            </nav>
             
-            clearInterval(carouselIntervalId);
-            autoCarousel();
+            <div class="nav-actions">
+                <button class="nav-btn" id="open-search-btn" title="搜尋文章"><i class="fa fa-search"></i></button>
+                <button class="nav-btn" id="open-settings-btn" title="網站外觀設定"><i class="fa fa-cog"></i></button>
+            </div>
             
-        };
-
-        
-        // prev and next cover post.
-        $('#prev-cover').click(function () {
-            coverSlider.carousel('prev');
-            restartPlay();
-        });
-        $('#next-cover').click(function () {
-            coverSlider.carousel('next');
-            restartPlay();
-        });
-        
-    });
-</script>
-
-
-
-<main class="content">
-
-    
-    <div id="indexCard" class="index-card">
-        <div class="container ">
-            <div class="card">
-                <div class="card-content">
-                    
-                        <div class="dream">
-    
-    <div class="title center-align">
-        <i class="far fa-lightbulb"></i>&nbsp;&nbsp;工作室紹介
-    </div>
-    
-    <div class="row">
-        <div class="col l8 offset-l2 m10 offset-m1 s10 offset-s1 left-align text">
-            Goán是做工á人工作室，真歡喜hâm各位朋友tī網路ê世界相會。　　　　　　　　　　　　　　　　Goán是1 tīn真要意台語台文ê人，對台語有真深ê感情，tī chit-má這ê對台語，也tio̍h是咱　　　Formosa chit粒島嶼本底ê共同語，去hō͘ chē-chē人看輕ê時代，想beh出來做kóa tāi-chì，kā goán目前koh ē-hiáu ê物件，分享hō͘社會知影，mā ē-tàng kā goán chit tīn人ê記智保留--落來，to̍h án-ne，2023年，做工á人工作室成立。　　　　　　　　　　　　　　　　　　　　　　　　　　   目前工作室teh試做podcast kah YouTube影片，希望公開了後ē有好ê回應，當然goán koh有　　   chē-chē ê想法，m̄-koh受時間、人力、物力ê限制，目前kan-na ē-tàng專心做廣播劇。聽候製作完成，chiah繼續進行其他ê計畫，nā各位欣賞goán ê作品，歡迎繼續kā goán支持kah鼓勵，Ló͘-la̍t，多謝。
+            <button class="mobile-toggle" id="mobile-toggle" style="margin-left: 15px;">☰</button>
         </div>
-    </div>
-</div>
+    </header>
 
-                    
-
-                    
-
-                    
-                        <link rel="stylesheet" href="/libs/dplayer/DPlayer.min.css">
-<div class="video-player">
-    
-    <div class="title center-align">
-        <i class="fas fa-video-camera"></i>&nbsp;&nbsp;阮ê故事
-    </div>
-    
-    <div class="row">
-        <div class="col l8 offset-l2 m10 offset-m1 s12">
-		<iframe src='https://www.youtube.com/embed/rVFETlAqwLE?si=tgq1z-1_Al_Db_hl' scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" align="middle"  style="height: 400px;" width="100%"> </iframe>
-<!--            <div id="dplayer" class="dplayer-video"
-                     style="height: 400px;"></div> -->
-        </div>
-    </div>
-</div>
-
-<script src="/libs/dplayer/DPlayer.min.js"></script> 
-<script>
-    $(function () {
-        new DPlayer({
-            container: document.getElementById('dplayer'),
-            autoplay: 'true' === 'true',
-            theme: '#42b983',
-            loop: 'true' === 'true',
-            lang: 'en' === 'zh-CN' ? 'zh-cn' : 'en',
-            preload: 'auto',
-            volume: Number('0.7'),
-            video: {
-				iframeUrl: 'https://www.youtube.com/embed/rVFETlAqwLE?si=tgq1z-1_Al_Db_hl',
-                url: '',
-                pic: '',
-                thumbnails: ''
-            }
-        });
-    });
-</script>
-
-                    
-
-                    
-                    <div id="recommend-sections" class="recommend">
-                        
-
-
-
-                    </div>
-                    
+    <!-- Hero 主視覺 -->
+    <section class="home-hero">
+        <div class="home-hero-inner">
+            <div class="home-hero-text">
+                <div class="home-hero-badge"><img src="./images/logo.png" alt="logo" style="height:18px; vertical-align:middle; margin-right:4px;"> 做工仔人台語工作室</div>
+                <h1>
+                    <span class="poj">Tâi-gí Sè-kài</span>
+                    台語世界
+                </h1>
+                <p>用廣播劇、有聲故事、台語詞典，語詞解說，在來ê地號名解說，守護這ê島嶼ê共同語言。<br>用聲音kah文字kā咱ê母語留--落--來，hō͘後代ê人知影。</p>
+                <div class="hero-actions">
+                    <a href="article.html?file=archives" class="hero-btn-primary">📖 開始閱讀</a>
+                    <a href="#platforms" class="hero-btn-secondary">🎧 訂閱 Podcast</a>
                 </div>
+            </div>
+            <div class="hero-platform-pills">
+                <a href="https://www.youtube.com/@chokangalang" target="_blank" rel="noopener" class="hero-platform-pill">
+                    <i class="fab fa-youtube"></i> YouTube
+                </a>
+                <a href="https://open.spotify.com/show/09TjHRbP0iGM4w8lfLXWOJ" target="_blank" rel="noopener" class="hero-platform-pill">
+                    <i class="fab fa-spotify"></i> Spotify
+                </a>
+                <a href="https://podcasts.apple.com/tw/podcast/id1730745763" target="_blank" rel="noopener" class="hero-platform-pill">
+                    <i class="fab fa-apple"></i> Apple Podcasts
+                </a>
+                <a href="https://podcast.kkbox.com/tw/channel/4sqZZDe809E_zWjIkh" target="_blank" rel="noopener" class="hero-platform-pill">
+                    <i class="fa fa-music"></i> KKBOX
+                </a>
+                <a href="https://player.soundon.fm/p/7c6f4223-1e6f-4cad-86ca-48884313b43a" target="_blank" rel="noopener" class="hero-platform-pill">
+                    <i class="fa fa-broadcast-tower"></i> SoundOn
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 統計數字 -->
+    <div class="home-stats">
+        <div class="home-stats-inner">
+            <div class="stat-item">
+                <div class="stat-num" id="stat-articles">—</div>
+                <div class="stat-label">篇文章</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">9</div>
+                <div class="stat-label">個內容系列</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">44+</div>
+                <div class="stat-label">集台語小詞典</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">8</div>
+                <div class="stat-label">款互動遊戲</div>
             </div>
         </div>
     </div>
+
+    <!-- 關於工作室 -->
+    <section class="home-about">
+        <div class="home-container">
+            <div class="home-about-grid">
+                <div class="home-about-text">
+                    <div class="section-eyebrow">關於我們 · Koan-î Goán</div>
+                    <h2>用聲音守護<br>台語文化</h2>
+                    <p>做工仔人台語工作室是一陣對台灣話有真深ê感情ê人做夥經營拍拚--ê，tī 2023年成立。面對台語tī現代社會漸漸欲無--去ê危機，我們選擇用行動來回應——用廣播劇、有聲故事kah語詞教學ê節目，把台語ê súi留--落-來。</p>
+                    <p>目前一直有teh製作 Podcast 與 YouTube 節目，阮是攏先kā欲做ê影片內容寫做文字稿，雙人校對無問題了後，才開始錄音，當然錄音錄了嘛愛聽看語音，表情有重耽無，聽候攏完成，才有開始配樂做影片。字幕閣做甲2排，白話字甲漢羅濫，hō͘閣卡chē人通ná聽ná學，bē受tio̍h hō͘時間kah地點來限制。語詞紹介專欄是用短短ê文字用心解說阮揀ê台語詞愛按怎使用，有啥物變化。舊地號名ê專欄，盡量揣目前閣網路閣揣有ê資料，紹介咱過去是按怎kā 1 ê所在號名--ê，知過去，卽通創造未來。</p>
+                    <a href="article.html?file=about" class="about-link">閣了解卡chē關於工作室 →</a>
+                </div>
+                <div class="home-about-quote">
+                    <blockquote>
+                        「咱ê話，是這粒島嶼本底ê共同語。Tī chit-má台語去hō͘人看輕ê時代，咱ài出來做寡代誌，kā咱ê記智保留--落-來。」
+                    </blockquote>
+                    <cite>— 做工仔人台語工作室</cite>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 內容系列 -->
+    <section class="home-series">
+        <div class="home-container">
+            <div class="home-section-header">
+                <div class="section-eyebrow">內容系列 · Lōe-iông</div>
+                <h2>豐富多元的台語內容</h2>
+                <p>從廣播劇、童話故事到台語詞典，九大系列陪你學台語。</p>
+            </div>
+            <div class="series-grid">
+                <div class="series-card">
+                    <span class="series-icon">🎭</span>
+                    <h3>阿郎──中篇小說／囡仔古</h3>
+                    <p>以台語演出ê生活廣播劇，貼近日常、趣味趣味，引chhōa你感受台語氣口甲水。</p>
+                    <a href="category.html?cat=A郎 Podcast" class="series-link">瀏覽全部 →</a>
+                </div>
+                <div class="series-card">
+                    <span class="series-icon">📖</span>
+                    <h3>阿郎台語小詞典</h3>
+                    <p>逐齣揣1 ê語詞深入紹介，用講古ê理路配合例句說明，一步一步予你對台語ê理解閣卡詳細，辭彙愈濟，台語語感愈好。</p>
+                    <a href="category.html?cat=A郎台語小詞典" class="series-link">瀏覽全部 →</a>
+                </div>
+                <div class="series-card">
+                    <span class="series-icon">🏰</span>
+                    <h3>英國囡仔古</h3>
+                    <p>將經典ê英國童話故事翻譯做台語，予英國味變做咱鄉土ê台灣味，用趣味ê故事，hō͘囡á tī故事內底自然學習台語。</p>
+                    <a href="category.html?cat=英國囡仔古" class="series-link">瀏覽全部 →</a>
+                </div>
+                <div class="series-card">
+                    <span class="series-icon">🌕</span>
+                    <h3>民間故事</h3>
+                    <p>以台灣流傳真久ê民間傳說，hō͘古早人ê智慧tī現代繼續流傳。</p>
+                    <a href="category.html?cat=民間故事" class="series-link">瀏覽全部 →</a>
+                </div>
+                <div class="series-card">
+                    <span class="series-icon">🎬</span>
+                    <h3>相招來看戲</h3>
+                    <p>用台語評論A-ní-meh（動漫）、影集佮電影，hō͘娛樂變做學習台語動力。</p>
+                    <a href="category.html?cat=相招來看戲" class="series-link">瀏覽全部 →</a>
+                </div>
+                <div class="series-card">
+                    <span class="series-icon">🗺️</span>
+                    <h3>台灣舊地號名</h3>
+                    <p>用搜揣台灣各地舊地名ê由來佮歷史，重新熟似這片土地ê文化甲歷史記持。</p>
+                    <a href="category.html?cat=台灣舊地號名" class="series-link">瀏覽全部 →</a>
+                </div>
+                <div class="series-card">
+                    <span class="series-icon">🔮</span>
+                    <h3>台語講怪奇</h3>
+                    <p>用台語探討世界各地ê奇妙傳說kah奇奇怪怪ê譀古事件，外譀古你著愛家治來聽卽會知。</p>
+                    <a href="category.html?cat=台語講怪奇" class="series-link">瀏覽全部 →</a>
+                </div>
+                <div class="series-card">
+                    <span class="series-icon">👑</span>
+                    <h3>白蔥仔公主</h3>
+                    <p>原創台語故事，輕鬆趣味閣笑詼，那笑那學台語。</p>
+                    <a href="category.html?cat=白蔥仔公主" class="series-link">瀏覽全部 →</a>
+                </div>
+                <div class="series-card">
+                    <span class="series-icon">📦</span>
+                    <h3>其他</h3>
+                    <p>無特定系列ê台語內容，包含各種題材ê單篇節目。</p>
+                    <a href="category.html?cat=其他" class="series-link">瀏覽全部 →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 最新文章（動態載入） -->
+    <section class="home-latest">
+        <div class="home-container">
+            <div class="home-section-header">
+                <div class="section-eyebrow">最新內容 · SIĀNG-SIN</div>
+                <h2>最近發佈ê文章</h2>
+            </div>
+            <div class="latest-grid" id="latest-posts-grid">
+                <div class="status-msg">文章載入中...</div>
+            </div>
+            <div class="view-all-btn">
+                <a href="article.html?file=archives">查看所有文章 →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 收聽平台 -->
+    <section class="home-platforms" id="platforms">
+        <div class="home-container">
+            <div class="home-section-header">
+                <div class="section-eyebrow">收聽KAH追蹤 · PODCAST</div>
+                <h2>佇你佮意ê平台揣--阮</h2>
+                <p>訂閱Podcast，隨時學台語。</p>
+            </div>
+            <div class="platforms-row">
+                <a href="https://www.youtube.com/@chokangalang" target="_blank" rel="noopener" class="platform-btn">
+                    <i class="fab fa-youtube"></i> YouTube
+                </a>
+                <a href="https://open.spotify.com/show/09TjHRbP0iGM4w8lfLXWOJ" target="_blank" rel="noopener" class="platform-btn">
+                    <i class="fab fa-spotify"></i> Spotify
+                </a>
+                <a href="https://podcasts.apple.com/tw/podcast/id1730745763" target="_blank" rel="noopener" class="platform-btn">
+                    <i class="fab fa-apple"></i> Apple Podcasts
+                </a>
+                <a href="https://podcast.kkbox.com/tw/channel/4sqZZDe809E_zWjIkh" target="_blank" rel="noopener" class="platform-btn">
+                    <i class="fa fa-music"></i> KKBOX
+                </a>
+                <a href="https://player.soundon.fm/p/7c6f4223-1e6f-4cad-86ca-48884313b43a" target="_blank" rel="noopener" class="platform-btn">
+                    <i class="fa fa-podcast"></i> SoundOn
+                </a>
+            </div>
+            <div class="social-row">
+                <a href="https://www.facebook.com/chokangalang" target="_blank" rel="noopener" class="social-btn" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.youtube.com/@chokangalang" target="_blank" rel="noopener" class="social-btn" title="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.instagram.com/chokangalang" target="_blank" rel="noopener" class="social-btn" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.threads.com/@chokangalang" target="_blank" rel="noopener" class="social-btn" title="Threads"><i class="fab fa-threads"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 頁尾 -->
+    <footer class="footer">
+        <p>© 2023 做工仔人台語工作室 · Chò-kang-á-lâng Tâi-gí Kang-chok-sek</p>
+        <p style="margin-top:8px; font-size:0.85rem; opacity:0.7;">台語文化推廣佮保存 · Tâi-gí bûn-hòa ê chhui-kóng kap pó-chûn</p>
+        <p style="margin-top:12px;">
+            <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fcho-kang-a-lang.github.io%2F&count_bg=%2324BF89&title_bg=%23334155&icon=eye&icon_color=%23ffffff&title=%E7%B8%BD%E7%80%8F%E8%A6%BD&edge_flat=true" alt="總瀏覽次數" style="vertical-align:middle;">
+        </p>
+    </footer>
+
+    <!-- ================= 模態框 (Modals) 區塊 ================= -->
     
-
-    
-
-    <!-- 所有文章卡片 -->
-    <article id="articles" class="container articles">
-        <div class="row article-row">
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/%E8%8B%B1%E5%9C%8B%E5%9B%A1%E4%BB%94%E5%8F%A4/ukkidstory19/">
-                        <div class="card-image">
-                            
-                            <img src="/medias/featureimages/ukkidstory19.png" class="responsive-img" alt="【英國童話故事台語版】三個傻瓜 |【英國囡仔古】三ê戇á">
-                            
-                            <span class="card-title">【英國童話故事台語版】三個傻瓜 |【英國囡仔古】三ê戇á</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                　　　　
-
-THE THREE SILLIESOnce upon a time, when folk were not so wise as they are nowadays, there lived a farmer and his w
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2026-03-26
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E8%8B%B1%E5%9C%8B%E5%9B%A1%E4%BB%94%E5%8F%A4/" class="post-category">
-                                    英國囡仔古
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Tai-gi/">
-                            <span class="chip bg-color">Tâi-gí</span>
-                        </a>
-                        
-                        <a href="/tags/%E5%8F%B0%E8%AA%9E/">
-                            <span class="chip bg-color">台語</span>
-                        </a>
-                        
-                        <a href="/tags/Tai-bun/">
-                            <span class="chip bg-color">Tâi-bûn</span>
-                        </a>
-                        
-                        <a href="/tags/%E5%8F%B0%E6%96%87/">
-                            <span class="chip bg-color">台文</span>
-                        </a>
-                        
-                        <a href="/tags/Eng-kok-gin-a-ko%CD%98%CC%81/">
-                            <span class="chip bg-color">Eng-kok gín-á-kó͘</span>
-                        </a>
-                        
-                        <a href="/tags/%E8%8B%B1%E5%9C%8B%E5%9B%A1%E4%BB%94%E5%8F%A4/">
-                            <span class="chip bg-color">英國囡仔古</span>
-                        </a>
-                        
-                        <a href="/tags/3-e-gong-a/">
-                            <span class="chip bg-color">3-ê gōng-á</span>
-                        </a>
-                        
-                        <a href="/tags/%E4%B8%89e%E6%88%87a/">
-                            <span class="chip bg-color">三ê戇á</span>
-                        </a>
-                        
-                        <a href="/tags/%E8%8B%B1%E5%9C%8B%E7%AB%A5%E8%A9%B1%E6%95%85%E4%BA%8B%E5%8F%B0%E8%AA%9E%E7%89%88/">
-                            <span class="chip bg-color">英國童話故事台語版</span>
-                        </a>
-                        
-                        <a href="/tags/%E4%B8%89%E5%80%8B%E5%82%BB%E7%93%9C/">
-                            <span class="chip bg-color">三個傻瓜</span>
-                        </a>
-                        
-                    </div> 
-                    
-                </div>
+    <!-- 1. 搜尋模態框 -->
+    <div id="search-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" id="close-search-btn">&times;</button>
+            <h2 class="modal-title">搜尋文章</h2>
+            <div class="search-input-wrapper">
+                <i class="fa fa-search"></i>
+                <input type="text" id="search-input" placeholder="請輸入關鍵字 (如：A郎, 故事)..." autocomplete="off">
             </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/%E8%8B%B1%E5%9C%8B%E5%9B%A1%E4%BB%94%E5%8F%A4/ukkidstory18/">
-                        <div class="card-image">
-                            
-                            <img src="/medias/featureimages/ukkidstory18.png" class="responsive-img" alt="【英國Gín-á古】恐怖ê蛇龍 | KHIÓNG-PÒ͘ Ê CHÔA-LÊNG">
-                            
-                            <span class="card-title">【英國Gín-á古】恐怖ê蛇龍 | KHIÓNG-PÒ͘ Ê CHÔA-LÊNG</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                　　　　
-
-THE LAIDLY WORMIn Bamborough Castle there once lived a King who had two children, a son named Childe Wynde, and a 
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2026-03-05
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E8%8B%B1%E5%9C%8B%E5%9B%A1%E4%BB%94%E5%8F%A4/" class="post-category">
-                                    英國囡仔古
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Tai-gi/">
-                            <span class="chip bg-color">Tâi-gí</span>
-                        </a>
-                        
-                        <a href="/tags/%E5%8F%B0%E8%AA%9E/">
-                            <span class="chip bg-color">台語</span>
-                        </a>
-                        
-                        <a href="/tags/Tai-bun/">
-                            <span class="chip bg-color">Tâi-bûn</span>
-                        </a>
-                        
-                        <a href="/tags/%E5%8F%B0%E6%96%87/">
-                            <span class="chip bg-color">台文</span>
-                        </a>
-                        
-                        <a href="/tags/Eng-kok-gin-a-ko%CD%98%CC%81/">
-                            <span class="chip bg-color">Eng-kok gín-á-kó͘</span>
-                        </a>
-                        
-                        <a href="/tags/%E8%8B%B1%E5%9C%8B%E5%9B%A1%E4%BB%94%E5%8F%A4/">
-                            <span class="chip bg-color">英國囡仔古</span>
-                        </a>
-                        
-                        <a href="/tags/%E6%81%90%E6%80%96%E7%9A%84%E8%9B%87%E9%BE%8D/">
-                            <span class="chip bg-color">恐怖的蛇龍</span>
-                        </a>
-                        
-                        <a href="/tags/KHIONG-PO%CD%98-E-CHOA-LENG/">
-                            <span class="chip bg-color">KHIÓNG-PÒ͘ Ê CHÔA-LÊNG</span>
-                        </a>
-                        
-                    </div> 
-                    
-                </div>
+            <div id="search-results">
+                <div style="color: var(--text-muted); font-size: 0.95rem; text-align: center;">請在上方輸入關鍵字開始搜尋</div>
             </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/%E7%9B%B8%E6%8B%9B%E4%BE%86%E7%9C%8B%E6%88%B2/khoannhi03/">
-                        <div class="card-image">
-                            
-                            <img src="/medias/featureimages/khoannhi03.png" class="responsive-img" alt="【相招來看戲】靠譀古ê特殊能力，tī異世界流浪食好料|とんでもスキルで異世界放浪メシ">
-                            
-                            <span class="card-title">【相招來看戲】靠譀古ê特殊能力，tī異世界流浪食好料|とんでもスキルで異世界放浪メシ</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                　　　　
-
-各位朋友，ta̍k-ê好，我是主持人Niau-tāu，歡迎收聽做工á人phá-kheh-su̍h-to͘h。日本A-ní-meh足流行轉世到異世界ê故事，chit-kái，beh kā ta̍k-ê紹介1齣輕鬆koh好看，主角t
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-10-23
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E7%9B%B8%E6%8B%9B%E4%BE%86%E7%9C%8B%E6%88%B2/" class="post-category">
-                                    相招來看戲
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Tai-gi/">
-                            <span class="chip bg-color">Tâi-gí</span>
-                        </a>
-                        
-                        <a href="/tags/%E5%8F%B0%E8%AA%9E/">
-                            <span class="chip bg-color">台語</span>
-                        </a>
-                        
-                        <a href="/tags/Tai-bun/">
-                            <span class="chip bg-color">Tâi-bûn</span>
-                        </a>
-                        
-                        <a href="/tags/%E5%8F%B0%E6%96%87/">
-                            <span class="chip bg-color">台文</span>
-                        </a>
-                        
-                        <a href="/tags/Sio-chio-lai-khoa%E2%81%BF-hi/">
-                            <span class="chip bg-color">Sio-chio lâi khòaⁿ-hì</span>
-                        </a>
-                        
-                        <a href="/tags/%E7%9B%B8%E6%8B%9B%E4%BE%86%E7%9C%8B%E6%88%B2/">
-                            <span class="chip bg-color">相招來看戲</span>
-                        </a>
-                        
-                        <a href="/tags/%E3%81%A8%E3%82%93%E3%81%A7%E3%82%82%E3%82%B9%E3%82%AD%E3%83%AB%E3%81%A7%E7%95%B0%E4%B8%96%E7%95%8C%E6%94%BE%E6%B5%AA%E3%83%A1%E3%82%B7/">
-                            <span class="chip bg-color">とんでもスキルで異世界放浪メシ</span>
-                        </a>
-                        
-                        <a href="/tags/Kho-ham-ko%CD%98-e-te%CC%8Dk-su-leng-le%CC%8Dk/">
-                            <span class="chip bg-color">Khò hàm-kó͘ ê te̍k-sû lêng-le̍k</span>
-                        </a>
-                        
-                        <a href="/tags/ti-i-se-kai-liu-long-chia%CC%8Dh-ho-liau/">
-                            <span class="chip bg-color">tī ī-sè-kài liû-lōng chia̍h hó-liāu</span>
-                        </a>
-                        
-                        <a href="/tags/%E9%9D%A0%E8%AD%80%E5%8F%A4e%E7%89%B9%E6%AE%8A%E8%83%BD%E5%8A%9B%EF%BC%8Cti%E7%95%B0%E4%B8%96%E7%95%8C%E6%B5%81%E6%B5%AA%E9%A3%9F%E5%A5%BD%E6%96%99/">
-                            <span class="chip bg-color">靠譀古ê特殊能力，tī異世界流浪食好料</span>
-                        </a>
-                        
-                    </div> 
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/%E7%84%A1%E7%B3%BB%E5%88%97/other01/">
-                        <div class="card-image">
-                            
-                            <img src="/medias/featureimages/other01.jpg" class="responsive-img" alt="華語ê『嗆』，台語是beh按怎講？">
-                            
-                            <span class="card-title">華語ê『嗆』，台語是beh按怎講？</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                　　　　　
-
-華語ê『嗆』，台語是beh按怎講？
-Ta̍k-ke平安，ta̍k-ke好，歡迎收聽做工á人phá-khé-su̍h-to͘h！我是主持人Bí-leng，今á日beh hâm ta̍k-ke輕鬆來開講！
-前1-chām-á，tī
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-10-16
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E7%84%A1%E7%B3%BB%E5%88%97/" class="post-category">
-                                    無系列
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Tai-gi/">
-                            <span class="chip bg-color">Tâi-gí</span>
-                        </a>
-                        
-                        <a href="/tags/%E5%8F%B0%E8%AA%9E/">
-                            <span class="chip bg-color">台語</span>
-                        </a>
-                        
-                        <a href="/tags/Tai-bun/">
-                            <span class="chip bg-color">Tâi-bûn</span>
-                        </a>
-                        
-                        <a href="/tags/%E5%8F%B0%E6%96%87/">
-                            <span class="chip bg-color">台文</span>
-                        </a>
-                        
-                        <a href="/tags/Chhiang/">
-                            <span class="chip bg-color">Chhiàng</span>
-                        </a>
-                        
-                        <a href="/tags/%E5%97%86/">
-                            <span class="chip bg-color">嗆</span>
-                        </a>
-                        
-                    </div> 
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/A%E9%83%8E%E5%8F%B0%E8%AA%9E%E5%B0%8F%E8%A9%9E%E5%85%B8/alongsiosutian44/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="【A郎台語小詞典】Ep.044 坦笑︱Thán-chhiò">
-                            
-                            <span class="card-title">【A郎台語小詞典】Ep.044 坦笑︱Thán-chhiò</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                　　　　　
-
-Ē記得我少年時á，bat有1遍去漢醫診所，hiàng時，是beh看tó位leh疼早mā bē記--得，總--是先生kă看了，講ài去hō͘師傅掠掠--leh，去到師傅hia，伊to̍h叫我倒tī眠床頂，ài倒笑笑。Hit時我k
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-10-02
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/A%E9%83%8E%E5%8F%B0%E8%AA%9E%E5%B0%8F%E8%A9%9E%E5%85%B8/" class="post-category">
-                                    A郎台語小詞典
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Tai-gi/">
-                            <span class="chip bg-color">Tâi-gí</span>
-                        </a>
-                        
-                        <a href="/tags/%E5%8F%B0%E8%AA%9E/">
-                            <span class="chip bg-color">台語</span>
-                        </a>
-                        
-                        <a href="/tags/Tai-bun/">
-                            <span class="chip bg-color">Tâi-bûn</span>
-                        </a>
-                        
-                        <a href="/tags/%E5%8F%B0%E6%96%87/">
-                            <span class="chip bg-color">台文</span>
-                        </a>
-                        
-                        <a href="/tags/A-long/">
-                            <span class="chip bg-color">A-lông</span>
-                        </a>
-                        
-                        <a href="/tags/A%E9%83%8E/">
-                            <span class="chip bg-color">A郎</span>
-                        </a>
-                        
-                        <a href="/tags/A-long-sio-su-tian/">
-                            <span class="chip bg-color">A-lông sió-sû-tián</span>
-                        </a>
-                        
-                        <a href="/tags/A%E9%83%8E%E5%8F%B0%E8%AA%9E%E5%B0%8F%E8%A9%9E%E5%85%B8/">
-                            <span class="chip bg-color">A郎台語小詞典</span>
-                        </a>
-                        
-                        <a href="/tags/Than-chhio/">
-                            <span class="chip bg-color">Thán-chhiò</span>
-                        </a>
-                        
-                        <a href="/tags/%E5%9D%A6%E7%AC%91/">
-                            <span class="chip bg-color">坦笑</span>
-                        </a>
-                        
-                    </div> 
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/A%E9%83%8E%E5%8F%B0%E8%AA%9E%E5%B0%8F%E8%A9%9E%E5%85%B8/alongsiosutian43/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="【A郎台語小詞典】Ep.043 Hân--leh">
-                            
-                            <span class="card-title">【A郎台語小詞典】Ep.043 Hân--leh</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                　　　　　
-
-今á日出門，騎o͘-tó͘-bái beh去郵局寄物件ê路--ni̍h，遠遠to̍h看tio̍h青燈變紅燈，我nā無leh趕時間，騎車是lóng慢慢á leh sô，hit時，我to̍h kā擋á輕輕á hân--leh，hō
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-09-25
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/A%E9%83%8E%E5%8F%B0%E8%AA%9E%E5%B0%8F%E8%A9%9E%E5%85%B8/" class="post-category">
-                                    A郎台語小詞典
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Tai-gi/">
-                            <span class="chip bg-color">Tâi-gí</span>
-                        </a>
-                        
-                        <a href="/tags/%E5%8F%B0%E8%AA%9E/">
-                            <span class="chip bg-color">台語</span>
-                        </a>
-                        
-                        <a href="/tags/Tai-bun/">
-                            <span class="chip bg-color">Tâi-bûn</span>
-                        </a>
-                        
-                        <a href="/tags/%E5%8F%B0%E6%96%87/">
-                            <span class="chip bg-color">台文</span>
-                        </a>
-                        
-                        <a href="/tags/A-long/">
-                            <span class="chip bg-color">A-lông</span>
-                        </a>
-                        
-                        <a href="/tags/A%E9%83%8E/">
-                            <span class="chip bg-color">A郎</span>
-                        </a>
-                        
-                        <a href="/tags/A-long-sio-su-tian/">
-                            <span class="chip bg-color">A-lông sió-sû-tián</span>
-                        </a>
-                        
-                        <a href="/tags/A%E9%83%8E%E5%8F%B0%E8%AA%9E%E5%B0%8F%E8%A9%9E%E5%85%B8/">
-                            <span class="chip bg-color">A郎台語小詞典</span>
-                        </a>
-                        
-                        <a href="/tags/Han-leh/">
-                            <span class="chip bg-color">Hân--leh</span>
-                        </a>
-                        
-                    </div> 
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/A%E9%83%8E%E5%8F%B0%E8%AA%9E%E5%B0%8F%E8%A9%9E%E5%85%B8/alongsiosutian42/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="【A郎台語小詞典】Ep.042 拘執︱Khu-chip">
-                            
-                            <span class="card-title">【A郎台語小詞典】Ep.042 拘執︱Khu-chip</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                　　　　　
-
-阮tau ê生理kah人teh上班--ê kāng款，一般to̍h是拜一siāng無閒，有1日，tú好是1 ê無閒kah連niau-á ê手mā想beh ka借來用ê拜一，阮某kā我講，eng暗beh煮飯，貨koh趕bē了，人
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-09-18
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/A%E9%83%8E%E5%8F%B0%E8%AA%9E%E5%B0%8F%E8%A9%9E%E5%85%B8/" class="post-category">
-                                    A郎台語小詞典
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Tai-gi/">
-                            <span class="chip bg-color">Tâi-gí</span>
-                        </a>
-                        
-                        <a href="/tags/%E5%8F%B0%E8%AA%9E/">
-                            <span class="chip bg-color">台語</span>
-                        </a>
-                        
-                        <a href="/tags/Tai-bun/">
-                            <span class="chip bg-color">Tâi-bûn</span>
-                        </a>
-                        
-                        <a href="/tags/%E5%8F%B0%E6%96%87/">
-                            <span class="chip bg-color">台文</span>
-                        </a>
-                        
-                        <a href="/tags/A-long/">
-                            <span class="chip bg-color">A-lông</span>
-                        </a>
-                        
-                        <a href="/tags/A%E9%83%8E/">
-                            <span class="chip bg-color">A郎</span>
-                        </a>
-                        
-                        <a href="/tags/A-long-sio-su-tian/">
-                            <span class="chip bg-color">A-lông sió-sû-tián</span>
-                        </a>
-                        
-                        <a href="/tags/A%E9%83%8E%E5%8F%B0%E8%AA%9E%E5%B0%8F%E8%A9%9E%E5%85%B8/">
-                            <span class="chip bg-color">A郎台語小詞典</span>
-                        </a>
-                        
-                        <a href="/tags/%E6%8B%98%E5%9F%B7/">
-                            <span class="chip bg-color">拘執</span>
-                        </a>
-                        
-                        <a href="/tags/Khu-chip/">
-                            <span class="chip bg-color">Khu-chip</span>
-                        </a>
-                        
-                    </div> 
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/A%E9%83%8E%E5%8F%B0%E8%AA%9E%E5%B0%8F%E8%A9%9E%E5%85%B8/alongsiosutian41/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="【A郎台語小詞典】Ep.041 燒冷寒熱︱Sio Léng Kôaⁿ Joa̍h">
-                            
-                            <span class="card-title">【A郎台語小詞典】Ep.041 燒冷寒熱︱Sio Léng Kôaⁿ Joa̍h</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                　　　　　
-
-台語teh形容溫度ê用詞確實是bē少，咱今á日khioh siāng基本--ê，來hâm ta̍k-ê稽考--1-ē。
-我ē記chit囡á時，有時á是tī寒天出門穿真少，ah有時á是熱天穿kah kui堆--ê，hit-tan
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-09-11
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/A%E9%83%8E%E5%8F%B0%E8%AA%9E%E5%B0%8F%E8%A9%9E%E5%85%B8/" class="post-category">
-                                    A郎台語小詞典
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Tai-gi/">
-                            <span class="chip bg-color">Tâi-gí</span>
-                        </a>
-                        
-                        <a href="/tags/%E5%8F%B0%E8%AA%9E/">
-                            <span class="chip bg-color">台語</span>
-                        </a>
-                        
-                        <a href="/tags/Tai-bun/">
-                            <span class="chip bg-color">Tâi-bûn</span>
-                        </a>
-                        
-                        <a href="/tags/%E5%8F%B0%E6%96%87/">
-                            <span class="chip bg-color">台文</span>
-                        </a>
-                        
-                        <a href="/tags/A-long/">
-                            <span class="chip bg-color">A-lông</span>
-                        </a>
-                        
-                        <a href="/tags/A%E9%83%8E/">
-                            <span class="chip bg-color">A郎</span>
-                        </a>
-                        
-                        <a href="/tags/A-long-sio-su-tian/">
-                            <span class="chip bg-color">A-lông sió-sû-tián</span>
-                        </a>
-                        
-                        <a href="/tags/A%E9%83%8E%E5%8F%B0%E8%AA%9E%E5%B0%8F%E8%A9%9E%E5%85%B8/">
-                            <span class="chip bg-color">A郎台語小詞典</span>
-                        </a>
-                        
-                        <a href="/tags/%E7%87%92%E5%86%B7/">
-                            <span class="chip bg-color">燒冷</span>
-                        </a>
-                        
-                        <a href="/tags/%E5%AF%92%E7%86%B1/">
-                            <span class="chip bg-color">寒熱</span>
-                        </a>
-                        
-                        <a href="/tags/Sio-Leng/">
-                            <span class="chip bg-color">Sio Léng</span>
-                        </a>
-                        
-                        <a href="/tags/Koa%E2%81%BF-Joa%CC%8Dh/">
-                            <span class="chip bg-color">Kôaⁿ Joa̍h</span>
-                        </a>
-                        
-                    </div> 
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/A%E9%83%8E%E5%8F%B0%E8%AA%9E%E5%B0%8F%E8%A9%9E%E5%85%B8/alongsiosutian40/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="【A郎台語小詞典】Ep.040 燒kah燙︱Sio kah Thǹg">
-                            
-                            <span class="card-title">【A郎台語小詞典】Ep.040 燒kah燙︱Sio kah Thǹg</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                　　　　　
-
-各位線頂ê聽眾朋友，ta̍k-ê平安，ta̍k-ê好！歡迎收聽做工á人phá-kheh-su̍h-to͘h。Iû-koh到咱紹介語詞ê時間--a，請ta̍k-ê做夥來聽看māi。
-便nā阮細漢--ê有去上課，hit日ê e晡時
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-09-04
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/A%E9%83%8E%E5%8F%B0%E8%AA%9E%E5%B0%8F%E8%A9%9E%E5%85%B8/" class="post-category">
-                                    A郎台語小詞典
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Tai-gi/">
-                            <span class="chip bg-color">Tâi-gí</span>
-                        </a>
-                        
-                        <a href="/tags/%E5%8F%B0%E8%AA%9E/">
-                            <span class="chip bg-color">台語</span>
-                        </a>
-                        
-                        <a href="/tags/Tai-bun/">
-                            <span class="chip bg-color">Tâi-bûn</span>
-                        </a>
-                        
-                        <a href="/tags/%E5%8F%B0%E6%96%87/">
-                            <span class="chip bg-color">台文</span>
-                        </a>
-                        
-                        <a href="/tags/A-long/">
-                            <span class="chip bg-color">A-lông</span>
-                        </a>
-                        
-                        <a href="/tags/A%E9%83%8E/">
-                            <span class="chip bg-color">A郎</span>
-                        </a>
-                        
-                        <a href="/tags/A-long-sio-su-tian/">
-                            <span class="chip bg-color">A-lông sió-sû-tián</span>
-                        </a>
-                        
-                        <a href="/tags/A%E9%83%8E%E5%8F%B0%E8%AA%9E%E5%B0%8F%E8%A9%9E%E5%85%B8/">
-                            <span class="chip bg-color">A郎台語小詞典</span>
-                        </a>
-                        
-                        <a href="/tags/Sio/">
-                            <span class="chip bg-color">Sio</span>
-                        </a>
-                        
-                        <a href="/tags/Thng/">
-                            <span class="chip bg-color">Thǹg</span>
-                        </a>
-                        
-                        <a href="/tags/%E7%87%92/">
-                            <span class="chip bg-color">燒</span>
-                        </a>
-                        
-                        <a href="/tags/%E7%87%99/">
-                            <span class="chip bg-color">燙</span>
-                        </a>
-                        
-                    </div> 
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/%E6%B0%91%E9%96%93%E6%95%85%E4%BA%8B/folkstory05/">
-                        <div class="card-image">
-                            
-                            <img src="/medias/featureimages/folkstory05.jpg" class="responsive-img" alt="【民間故事】妙善公主︱Miāu-siān Kong-chú">
-                            
-                            <span class="card-title">【民間故事】妙善公主︱Miāu-siān Kong-chú</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                　　　　
-
-有1 ê chiok粗殘ê國王，伊有3 ê chău-kiáⁿ，大漢--ê叫做妙顏，第2--ê叫做妙音，上細漢--ê叫做妙善。
-妙善公主出世ê時陣，tī產房內底ê宮女lóng有鼻tio̍h 1 ê芳味，he芳味hō͘人感覺ch
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-08-28
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%B0%91%E9%96%93%E6%95%85%E4%BA%8B/" class="post-category">
-                                    民間故事
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Tai-gi/">
-                            <span class="chip bg-color">Tâi-gí</span>
-                        </a>
-                        
-                        <a href="/tags/%E5%8F%B0%E8%AA%9E/">
-                            <span class="chip bg-color">台語</span>
-                        </a>
-                        
-                        <a href="/tags/Tai-bun/">
-                            <span class="chip bg-color">Tâi-bûn</span>
-                        </a>
-                        
-                        <a href="/tags/%E5%8F%B0%E6%96%87/">
-                            <span class="chip bg-color">台文</span>
-                        </a>
-                        
-                        <a href="/tags/Bin-kan-ko%CD%98%CC%80-su/">
-                            <span class="chip bg-color">Bîn-kan kò͘-sū</span>
-                        </a>
-                        
-                        <a href="/tags/%E6%B0%91%E9%96%93%E6%95%85%E4%BA%8B/">
-                            <span class="chip bg-color">民間故事</span>
-                        </a>
-                        
-                        <a href="/tags/Miau-sian-Kong-chu/">
-                            <span class="chip bg-color">Miāu-siān Kong-chú</span>
-                        </a>
-                        
-                        <a href="/tags/%E5%A6%99%E5%96%84%E5%85%AC%E4%B8%BB/">
-                            <span class="chip bg-color">妙善公主</span>
-                        </a>
-                        
-                    </div> 
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/%E7%9B%B8%E6%8B%9B%E4%BE%86%E7%9C%8B%E6%88%B2/khoannhi02/">
-                        <div class="card-image">
-                            
-                            <img src="/medias/featureimages/khoannhi02.png" class="responsive-img" alt="【相招來看戲】3 ê人beh守祕密，其中2 ê to̍h ài死| Behind Her Eyes">
-                            
-                            <span class="card-title">【相招來看戲】3 ê人beh守祕密，其中2 ê to̍h ài死| Behind Her Eyes</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                　　　　
-
-各位聽眾朋友，ta̍k-ê好，我是主持人Niau-tāu，歡迎收聽做工á人phá-kheh-su̍h-to͘h。Piak劇情警告！Chit擺beh紹介--ê是推理類型ê戲齣，若是有按算beh看chit齣戲，m̄-koh無ài先知
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-07-03
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E7%9B%B8%E6%8B%9B%E4%BE%86%E7%9C%8B%E6%88%B2/" class="post-category">
-                                    相招來看戲
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Tai-gi/">
-                            <span class="chip bg-color">Tâi-gí</span>
-                        </a>
-                        
-                        <a href="/tags/%E5%8F%B0%E8%AA%9E/">
-                            <span class="chip bg-color">台語</span>
-                        </a>
-                        
-                        <a href="/tags/Tai-bun/">
-                            <span class="chip bg-color">Tâi-bûn</span>
-                        </a>
-                        
-                        <a href="/tags/%E5%8F%B0%E6%96%87/">
-                            <span class="chip bg-color">台文</span>
-                        </a>
-                        
-                        <a href="/tags/Sio-chio-lai-khoa%E2%81%BF-hi/">
-                            <span class="chip bg-color">Sio-chio lâi khòaⁿ-hì</span>
-                        </a>
-                        
-                        <a href="/tags/%E7%9B%B8%E6%8B%9B%E4%BE%86%E7%9C%8B%E6%88%B2/">
-                            <span class="chip bg-color">相招來看戲</span>
-                        </a>
-                        
-                        <a href="/tags/Behind-Her-Eyes/">
-                            <span class="chip bg-color">Behind Her Eyes</span>
-                        </a>
-                        
-                        <a href="/tags/3-e%E4%BA%BAbeh%E5%AE%88%E7%A5%95%E5%AF%86%EF%BC%8C%E5%85%B6%E4%B8%AD2-e-to%CC%8Dh-ai%E6%AD%BB/">
-                            <span class="chip bg-color">3 ê人beh守祕密，其中2 ê to̍h ài死</span>
-                        </a>
-                        
-                        <a href="/tags/3-e-lang-beh-siu-pi-bi%CC%8Dt-ki-tiong-2-e-to%CC%8Dh-ai-si/">
-                            <span class="chip bg-color">3 ê lâng beh siú pì-bi̍t, kî-tiong 2 ê to̍h ài sí</span>
-                        </a>
-                        
-                    </div> 
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/%E8%8B%B1%E5%9C%8B%E5%9B%A1%E4%BB%94%E5%8F%A4/ukkidstory17/">
-                        <div class="card-image">
-                            
-                            <img src="/medias/featureimages/ukkidstory17.png" class="responsive-img" alt="【英國Gín-á古】Niáu鼠á Thí-thih Kah Niáu鼠á Thá-thih︱Titty Mouse And Tatty Mouse">
-                            
-                            <span class="card-title">【英國Gín-á古】Niáu鼠á Thí-thih Kah Niáu鼠á Thá-thih︱Titty Mouse And Tatty Mouse</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                　　　　
-
-Titty Mouse And Tatty Mouse
-Titty Mouse and Tatty Mouse both lived in a house.
-Niáu鼠á Thí-thih Kah Niáu鼠á Thá-thih
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-06-26
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E8%8B%B1%E5%9C%8B%E5%9B%A1%E4%BB%94%E5%8F%A4/" class="post-category">
-                                    英國囡仔古
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Tai-gi/">
-                            <span class="chip bg-color">Tâi-gí</span>
-                        </a>
-                        
-                        <a href="/tags/%E5%8F%B0%E8%AA%9E/">
-                            <span class="chip bg-color">台語</span>
-                        </a>
-                        
-                        <a href="/tags/Tai-bun/">
-                            <span class="chip bg-color">Tâi-bûn</span>
-                        </a>
-                        
-                        <a href="/tags/%E5%8F%B0%E6%96%87/">
-                            <span class="chip bg-color">台文</span>
-                        </a>
-                        
-                        <a href="/tags/Eng-kok-gin-a-ko%CD%98%CC%81/">
-                            <span class="chip bg-color">Eng-kok gín-á-kó͘</span>
-                        </a>
-                        
-                        <a href="/tags/%E8%8B%B1%E5%9C%8B%E5%9B%A1%E4%BB%94%E5%8F%A4/">
-                            <span class="chip bg-color">英國囡仔古</span>
-                        </a>
-                        
-                        <a href="/tags/Niau-chhi-a-Thi-thih-Kah-Niau-chhi-a-Tha-thih/">
-                            <span class="chip bg-color">Niáu-chhí-á Thí-thih Kah Niáu-chhí-á Thá-thih</span>
-                        </a>
-                        
-                        <a href="/tags/Niau%E9%BC%A0a-Thi-thih-Kah-Niau%E9%BC%A0a-Tha-thih/">
-                            <span class="chip bg-color">Niáu鼠á Thí-thih Kah Niáu鼠á Thá-thih</span>
-                        </a>
-                        
-                        <a href="/tags/Titty-Mouse-And-Tatty-Mouse/">
-                            <span class="chip bg-color">Titty Mouse And Tatty Mouse</span>
-                        </a>
-                        
-                    </div> 
-                    
-                </div>
-            </div>
-            
-        </div>
-    </article>
-
-</main>
-
-
-<div class="container paging">
-    <div class="row">
-        <div class="col s6 m4 l4">
-            
-            <a class="left btn-floating btn-large disabled">
-                <i class="fas fa-angle-left"></i>
-            </a>
-            
-        </div>
-        <div class="page-info col m4 l4 hide-on-small-only">
-            <div class="center-align b-text-gray">1 / 10</div>
-        </div>
-        <div class="col s6 m4 l4">
-            
-            <a href="/page/2/"
-               class="right btn-floating btn-large waves-effect waves-light bg-color">
-                <i class="fas fa-angle-right"></i>
-            </a>
-            
         </div>
     </div>
-</div>
 
+    <!-- 2. 設定模態框 -->
+    <div id="settings-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" id="close-settings-btn">&times;</button>
+            <h2 class="modal-title">網站外觀設定</h2>
+            
+            <div class="setting-group">
+                <label>色彩主題</label>
+                <div class="theme-switcher">
+                    <button class="theme-btn" data-theme="dark"><i class="fa fa-moon"></i> 深色模式</button>
+                    <button class="theme-btn" data-theme="light"><i class="fa fa-sun"></i> 淺色模式</button>
+                </div>
+            </div>
 
+            <div class="setting-group">
+                <label for="set-bg-color">背景顏色</label>
+                <input type="color" id="set-bg-color" value="#0f172a">
+            </div>
 
+            <div class="setting-group">
+                <label for="set-text-color">字體顏色</label>
+                <input type="color" id="set-text-color" value="#e2e8f0">
+            </div>
 
-    <footer class="page-footer bg-color">
-    
-    <div class="container row center-align" style="margin-bottom: 0px !important;">
-        <div class="col s12 m8 l8 copy-right">
-            Copyright&nbsp;&copy;
-            
-                <span id="year">2023-2026</span>
-            
-            <span id="year">2023</span>
-            <a href="/about" target="_blank">做工á人</a>
-            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
-            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
-            <br>
-            
-            
-            
-            
-            
-            
-            <span id="busuanzi_container_site_pv">
-                |&nbsp;<i class="far fa-eye"></i>&nbsp;總訪問量:&nbsp;<span id="busuanzi_value_site_pv"
-                    class="white-color"></span>&nbsp;次
-            </span>
-            
-            
-            <span id="busuanzi_container_site_uv">
-                |&nbsp;<i class="fas fa-users"></i>&nbsp;總訪問人數:&nbsp;<span id="busuanzi_value_site_uv"
-                    class="white-color"></span>&nbsp;人
-            </span>
-            
-            <br>
-            
-            <br>
-            
+            <div class="setting-group">
+                <label for="set-font-size">字體大小: <span id="font-size-val">16px</span></label>
+                <input type="range" id="set-font-size" min="14" max="24" value="16" step="1">
+            </div>
+
+            <div class="setting-group">
+                <label for="set-font-family">網站字型</label>
+                <select id="set-font-family">
+                    <option value="">預設 (系統字體)</option>
+                    <option value="'jf-openhuninn', sans-serif">粉圓體 (圓潤可愛)</option>
+                    <option value="'Iansui', serif">芫荽體 (硬筆手寫)</option>
+                </select>
+            </div>
+
+            <button class="reset-btn" id="reset-settings-btn">還原預設值</button>
         </div>
-        <div class="col s12 m4 l4 social-link social-statis">
-
-
-    <a href="mailto:chokangalang@gmail.com" class="tooltipped" target="_blank" data-tooltip="連絡阮" data-position="top" data-delay="50">
-        <i class="fas fa-envelope-open"></i>
-    </a>
-
-
-
-    <a href="https://www.facebook.com/chokangalang" class="tooltipped" target="_blank" data-tooltip="阮ê Facebook: https://www.facebook.com/chokangalang" data-position="top" data-delay="50">
-        <i class="fab fa-facebook-f"></i>
-    </a>
-
-
-
-    <a href="https://twitter.com/chokangalang" class="tooltipped" target="_blank" data-tooltip="阮ê Twitter: https://twitter.com/chokangalang" data-position="top" data-delay="50">
-        <i class="fab fa-twitter"></i>
-    </a>
-
-
-
-    <a href="https://www.instagram.com/chokangalang/" class="tooltipped" target="_blank" data-tooltip="阮ê Instagram: https://www.instagram.com/chokangalang/" data-position="top" data-delay="50">
-        <i class="fab fa-instagram"></i>
-    </a>
-
-
-
-    <a href="https://www.youtube.com/channel/UCIGElrjWA38xISA9X5kq3kw" class="tooltipped" target="_blank" data-tooltip="阮ê Youtube: https://www.youtube.com/channel/UCIGElrjWA38xISA9X5kq3kw" data-position="top" data-delay="50">
-        <i class="fab fa-youtube"></i>
-    </a>
-
-
-
-    <a href="https://player.soundon.fm/p/7c6f4223-1e6f-4cad-86ca-48884313b43a" class="tooltipped" target="_blank" data-tooltip="阮ê soundon: https://player.soundon.fm/p/7c6f4223-1e6f-4cad-86ca-48884313b43a" data-position="top" data-delay="50">
-        <i class="fa fa-podcast"></i>
-    </a>
-
-
-
-    <a href="https://open.spotify.com/show/09TjHRbP0iGM4w8lfLXWOJ" class="tooltipped" target="_blank" data-tooltip="阮ê spotify: https://open.spotify.com/show/09TjHRbP0iGM4w8lfLXWOJ" data-position="top" data-delay="50">
-        <i class="fab fa-spotify"></i>
-    </a>
-
-
-
-    <a href="https://podcast.kkbox.com/tw/channel/4sqZZDe809E_zWjIkh" class="tooltipped" target="_blank" data-tooltip="阮ê kkbox: https://podcast.kkbox.com/tw/channel/4sqZZDe809E_zWjIkh" data-position="top" data-delay="50">
-        <i class="fa fa-podcast"></i>
-    </a>
-
-
-
-    <a href="https://podcasts.apple.com/podcast/1730745763" class="tooltipped" target="_blank" data-tooltip="阮ê Apple Podcast: https://podcasts.apple.com/podcast/1730745763" data-position="top" data-delay="50">
-        <i class="fab fa-apple"></i>
-    </a>
-
-
-
-
-
-</div>
     </div>
-</footer>
 
-<div class="progress-bar"></div>
+    <!-- ================= JavaScript 邏輯區塊 ================= -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const menuContainer = document.getElementById('menu-container');
+            const mobileToggle = document.getElementById('mobile-toggle');
 
+            let allArticlesForSearch = []; // 用於儲存全站文章以供搜尋
 
-    <!-- 搜索遮罩框 -->
-<div id="searchModal" class="modal">
-    <div class="modal-content">
-        <div class="search-header">
-            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
-            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
-                   class="search-input">
-        </div>
-        <div id="searchResult"></div>
-    </div>
-</div>
+            // 載入 posts.json 並自動從 markdown frontmatter 注入文章
+            loadPostsData()
+                .then(data => {
+                    menuContainer.innerHTML = '';
 
-<script type="text/javascript">
-$(function () {
-    var searchFunc = function (path, search_id, content_id) {
-        'use strict';
-        $.ajax({
-            url: path,
-            dataType: "xml",
-            success: function (xmlResponse) {
-                // get the contents from search data
-                var datas = $("entry", xmlResponse).map(function () {
-                    return {
-                        title: $("title", this).text(),
-                        content: $("content", this).text(),
-                        url: $("url", this).text()
-                    };
-                }).get();
-                var $input = document.getElementById(search_id);
-                var $resultContent = document.getElementById(content_id);
-                $input.addEventListener('input', function () {
-                    var str = '<ul class=\"search-result-list\">';
-                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
-                    $resultContent.innerHTML = "";
-                    if (this.value.trim().length <= 0) {
+                    if (!data.menu || data.menu.length === 0) {
+                        menuContainer.innerHTML = '<span class="status-msg">目前沒有目錄</span>';
                         return;
                     }
-                    // perform local searching
-                    datas.forEach(function (data) {
-                        var isMatch = true;
-                        var data_title = data.title.trim().toLowerCase();
-                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
-                        var data_url = data.url;
-                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
-                        var index_title = -1;
-                        var index_content = -1;
-                        var first_occur = -1;
-                        // only match artiles with not empty titles and contents
-                        if (data_title !== '' && data_content !== '') {
-                            keywords.forEach(function (keyword, i) {
-                                index_title = data_title.indexOf(keyword);
-                                index_content = data_content.indexOf(keyword);
-                                if (index_title < 0 && index_content < 0) {
-                                    isMatch = false;
-                                } else {
-                                    if (index_content < 0) {
-                                        index_content = 0;
-                                    }
-                                    if (i === 0) {
-                                        first_occur = index_content;
-                                    }
-                                }
-                            });
-                        }
-                        // show search results
-                        if (isMatch) {
-                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
-                            var content = data.content.trim().replace(/<[^>]+>/g, "");
-                            if (first_occur >= 0) {
-                                // cut out 100 characters
-                                var start = first_occur - 20;
-                                var end = first_occur + 80;
-                                if (start < 0) {
-                                    start = 0;
-                                }
-                                if (start === 0) {
-                                    end = 100;
-                                }
-                                if (end > content.length) {
-                                    end = content.length;
-                                }
-                                var match_content = content.substr(start, end);
-                                // highlight all keywords
-                                keywords.forEach(function (keyword) {
-                                    var regS = new RegExp(keyword, "gi");
-                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
-                                });
 
-                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                    // --- 建立無限層級選單 ---
+                    function buildMenu(items, level) {
+                        const ul = document.createElement('ul');
+                        let hasAnySub = items.some(item => item.children && item.children.length > 0);
+                        
+                        if (level === 0) { 
+                            ul.className = 'nav-list'; 
+                            ul.id = 'nav-list'; 
+                        } else if (level === 1) { 
+                            ul.className = 'dropdown-menu'; 
+                        } else { 
+                            ul.className = 'sub-dropdown-menu'; 
+                        }
+
+                        if (level > 0 && !hasAnySub) ul.classList.add('scrollable-menu');
+
+                        items.forEach(item => {
+                            const li = document.createElement('li');
+                            li.className = level === 0 ? 'nav-item' : 'dropdown-item';
+                            
+                            const hasChildren = item.children && item.children.length > 0;
+                            if (hasChildren && level > 0) li.classList.add('has-sub');
+
+                            const linkClass = level === 0 ? 'nav-link' : 'dropdown-link';
+                            let targetUrl = '#';
+                            if (item.file === 'home') targetUrl = 'index.html';
+                            else if (hasChildren) targetUrl = `category.html?cat=${encodeURIComponent(item.title)}`;
+                            else if (item.file) targetUrl = `article.html?file=${item.file}`;
+
+                            let arrow = '';
+                            if (hasChildren) {
+                                arrow = level === 0 
+                                    ? '<span class="arrow" style="font-size:0.8em; margin-left:5px; transition:transform 0.3s; display:inline-block;">▼</span>' 
+                                    : '<span class="arrow" style="margin-left:10px; transition:transform 0.3s; display:inline-block;">▶</span>';
                             }
-                            str += "</li>";
+                            
+                            li.innerHTML = `<a href="${targetUrl}" class="${linkClass}">${item.title}${arrow}</a>`;
+
+                            if (hasChildren) {
+                                const childUl = buildMenu(item.children, level + 1);
+                                li.appendChild(childUl);
+
+                                const linkElement = li.querySelector('a');
+                                linkElement.addEventListener('click', function(e) {
+                                    if (window.innerWidth <= 768) {
+                                        e.preventDefault(); 
+                                        const siblings = li.parentElement.children;
+                                        for (let sibling of siblings) {
+                                            if (sibling !== li && sibling.querySelector('ul')) {
+                                                sibling.querySelector('ul').classList.remove('mobile-open');
+                                                const siblingArrow = sibling.querySelector('.arrow');
+                                                if (siblingArrow) siblingArrow.style.transform = 'rotate(0deg)';
+                                            }
+                                        }
+                                        childUl.classList.toggle('mobile-open');
+                                        const arrowSpan = this.querySelector('.arrow');
+                                        if (arrowSpan) {
+                                            if (level === 0) arrowSpan.style.transform = childUl.classList.contains('mobile-open') ? 'rotate(180deg)' : 'rotate(0deg)';
+                                            else arrowSpan.style.transform = childUl.classList.contains('mobile-open') ? 'rotate(90deg)' : 'rotate(0deg)';
+                                        }
+                                    }
+                                });
+                            }
+                            ul.appendChild(li);
+                        });
+                        return ul;
+                    }
+
+                    menuContainer.appendChild(buildMenu(data.menu, 0));
+
+                    mobileToggle.addEventListener('click', function() {
+                        const nav = document.getElementById('nav-list');
+                        if (nav) {
+                            nav.classList.toggle('active');
+                            this.textContent = nav.classList.contains('active') ? '✖' : '☰';
                         }
                     });
-                    str += "</ul>";
-                    $resultContent.innerHTML = str;
+
+                    // --- 搜尋用文章清單 ---
+                    allArticlesForSearch = (data._posts || []).filter(
+                        p => p.title && p.file !== 'home' && p.file !== 'archives'
+                    );
+
+                    // --- 統計數字：文章總數 ---
+                    const articleCount = allArticlesForSearch.filter(p => p.categories && p.categories.length > 0).length;
+                    const statEl = document.getElementById('stat-articles');
+                    if (statEl) statEl.textContent = articleCount || '—';
+
+                    // --- 最新文章（取6篇，依日期排序）---
+                    const latestGrid = document.getElementById('latest-posts-grid');
+                    if (latestGrid) {
+                        const latest = allArticlesForSearch
+                            .filter(p => p.categories && p.categories.length > 0 && p.date)
+                            .sort((a, b) => {
+                                const dA = new Date(a.date.replace(/-/g, '/')).getTime();
+                                const dB = new Date(b.date.replace(/-/g, '/')).getTime();
+                                return (isNaN(dB) ? 0 : dB) - (isNaN(dA) ? 0 : dA);
+                            })
+                            .slice(0, 6);
+
+                        if (latest.length === 0) {
+                            latestGrid.innerHTML = '<div class="status-msg">目前沒有文章</div>';
+                        } else {
+                            latestGrid.innerHTML = latest.map(post => {
+                                const cat = post.categories ? post.categories[0] : '';
+                                const dateStr = post.date || '';
+                                const imgHtml = post.image
+                                    ? `<img class="latest-card-img" src="${post.image}" alt="${post.title || ''}" loading="lazy" onerror="this.outerHTML='<div class=\\'latest-card-img-placeholder\\'>🎙</div>'">`
+                                    : `<div class="latest-card-img-placeholder">🎙</div>`;
+                                return `
+                                    <article class="latest-card">
+                                        <a href="article.html?file=${post.file}">${imgHtml}</a>
+                                        <div class="latest-card-body">
+                                            ${cat ? `<div class="latest-card-cat">${cat}</div>` : ''}
+                                            <div class="latest-card-title">
+                                                <a href="article.html?file=${post.file}">${post.title || post.file}</a>
+                                            </div>
+                                            ${dateStr ? `<div class="latest-card-date">📅 ${dateStr}</div>` : ''}
+                                        </div>
+                                    </article>
+                                `;
+                            }).join('');
+                        }
+                    }
+                })
+                .catch(error => {
+                    menuContainer.innerHTML = `<span class="status-msg error">目錄載入失敗，請確認 posts.json 格式正確</span>`;
+                    console.error('loadPostsData error:', error);
                 });
-            }
+
+
+            // ================= 搜尋功能與模態框邏輯 =================
+            const searchModal = document.getElementById('search-modal');
+            const searchInput = document.getElementById('search-input');
+            const searchResults = document.getElementById('search-results');
+
+            document.getElementById('open-search-btn').addEventListener('click', () => {
+                searchModal.style.display = 'flex';
+                searchInput.focus();
+            });
+
+            document.getElementById('close-search-btn').addEventListener('click', () => {
+                searchModal.style.display = 'none';
+            });
+
+            // 關鍵字搜尋邏輯
+            searchInput.addEventListener('input', function() {
+                const keyword = this.value.trim().toLowerCase();
+                searchResults.innerHTML = '';
+                
+                if (keyword === '') {
+                    searchResults.innerHTML = '<div style="color: var(--text-muted); font-size: 0.95rem; text-align: center;">請在上方輸入關鍵字開始搜尋</div>';
+                    return;
+                }
+
+                const filtered = allArticlesForSearch.filter(post => {
+                    const titleMatch = post.title && post.title.toLowerCase().includes(keyword);
+                    const descMatch = post.description && post.description.toLowerCase().includes(keyword);
+                    return titleMatch || descMatch;
+                });
+
+                if (filtered.length === 0) {
+                    searchResults.innerHTML = '<div style="color: #ef4444; font-size: 0.95rem; text-align: center;">找不到符合的文章，請換個關鍵字試試。</div>';
+                    return;
+                }
+
+                filtered.forEach(post => {
+                    let dateStr = '';
+                    if (post.date) {
+                        let dObj = new Date(String(post.date).replace(/-/g, '/'));
+                        if (!isNaN(dObj.getTime())) dateStr = `${dObj.getFullYear()}-${String(dObj.getMonth()+1).padStart(2,'0')}-${String(dObj.getDate()).padStart(2,'0')} • `;
+                    }
+
+                    const div = document.createElement('div');
+                    div.className = 'search-result-item';
+                    div.innerHTML = `
+                        <a href="article.html?file=${post.file}" class="search-result-title">${post.title}</a>
+                        <div class="search-result-meta">${dateStr}${post.description ? post.description.substring(0, 40) + '...' : '點擊閱讀完整文章'}</div>
+                    `;
+                    searchResults.appendChild(div);
+                });
+            });
+
+
+            // ================= 個人化外觀設定邏輯 =================
+            const settingsModal = document.getElementById('settings-modal');
+            const bgColorInput = document.getElementById('set-bg-color');
+            const textColorInput = document.getElementById('set-text-color');
+            const fontSizeInput = document.getElementById('set-font-size');
+            const fontSizeVal = document.getElementById('font-size-val');
+            const fontFamilyInput = document.getElementById('set-font-family');
+
+            // 開啟與關閉設定框
+            document.getElementById('open-settings-btn').addEventListener('click', () => {
+                // 載入目前設定值顯示在 UI 上
+                const curTheme = localStorage.getItem('site_theme') || 'dark';
+                const curDefaults = curTheme === 'light' ? LIGHT_DEFAULTS : DARK_DEFAULTS;
+                bgColorInput.value = localStorage.getItem('site_bg') || curDefaults.bg;
+                textColorInput.value = localStorage.getItem('site_color') || curDefaults.text;
+                // 更新主題按鈕的 active 狀態
+                document.querySelectorAll('.theme-btn').forEach(b => b.classList.toggle('active', b.dataset.theme === curTheme));
+
+                fontSizeInput.value = localStorage.getItem('site_fsize') || '16';
+                fontSizeVal.textContent = fontSizeInput.value + 'px';
+
+                fontFamilyInput.value = localStorage.getItem('site_ffamily') || '';
+
+                settingsModal.style.display = 'flex';
+            });
+
+            document.getElementById('close-settings-btn').addEventListener('click', () => {
+                settingsModal.style.display = 'none';
+            });
+
+            // 監聽設定變更並即時套用與儲存
+            bgColorInput.addEventListener('input', (e) => {
+                [document.documentElement, document.body].forEach(el => el.style.setProperty('--bg-color', e.target.value));
+                localStorage.setItem('site_bg', e.target.value);
+            });
+
+            textColorInput.addEventListener('input', (e) => {
+                [document.documentElement, document.body].forEach(el => el.style.setProperty('--text-main', e.target.value));
+                localStorage.setItem('site_color', e.target.value);
+            });
+
+            fontSizeInput.addEventListener('input', (e) => {
+                const size = e.target.value;
+                fontSizeVal.textContent = size + 'px';
+                document.documentElement.style.fontSize = size + 'px';
+                localStorage.setItem('site_fsize', size);
+            });
+
+            fontFamilyInput.addEventListener('change', (e) => {
+                const font = e.target.value;
+                document.body.style.fontFamily = font;
+                localStorage.setItem('site_ffamily', font);
+            });
+
+            // 深色/淺色主題切換
+            document.querySelectorAll('.theme-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const theme = btn.dataset.theme;
+                    localStorage.setItem('site_theme', theme);
+                    localStorage.removeItem('site_bg');
+                    localStorage.removeItem('site_color');
+                    applyUserSettings();
+                    const defs = theme === 'light' ? LIGHT_DEFAULTS : DARK_DEFAULTS;
+                    bgColorInput.value = defs.bg;
+                    textColorInput.value = defs.text;
+                    document.querySelectorAll('.theme-btn').forEach(b => b.classList.toggle('active', b.dataset.theme === theme));
+                });
+            });
+
+            // 點擊背景可關閉模態框
+            window.addEventListener('click', (e) => {
+                if (e.target === searchModal) searchModal.style.display = 'none';
+                if (e.target === settingsModal) settingsModal.style.display = 'none';
+            });
+
+            // 還原預設值 (回到深色模式)
+            document.getElementById('reset-settings-btn').addEventListener('click', () => {
+                localStorage.removeItem('site_bg');
+                localStorage.removeItem('site_color');
+                localStorage.removeItem('site_fsize');
+                localStorage.removeItem('site_ffamily');
+                localStorage.removeItem('site_theme');
+                applyUserSettings();
+                bgColorInput.value = DARK_DEFAULTS.bg;
+                textColorInput.value = DARK_DEFAULTS.text;
+                fontSizeInput.value = '16';
+                fontSizeVal.textContent = '16px';
+                fontFamilyInput.value = '';
+                document.querySelectorAll('.theme-btn').forEach(b => b.classList.toggle('active', b.dataset.theme === 'dark'));
+                settingsModal.style.display = 'none';
+            });
         });
-    };
-
-    searchFunc('/search.xml', 'searchInput', 'searchResult');
-});
-</script>
-
-    <!-- 回到顶部按钮 -->
-<div id="backTop" class="top-scroll">
-    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
-        <i class="fas fa-arrow-up"></i>
-    </a>
-</div>
-
-
-    <script src="/libs/materialize/materialize.min.js"></script>
-    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
-    <script src="/libs/aos/aos.js"></script>
-    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
-    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
-    <script src="/js/matery.js"></script>
-
-    <!-- Baidu Analytics -->
-
-    <!-- Baidu Push -->
-
-    
-    <script src="/libs/others/clicklove.js" async="async"></script>
-    
-    
-    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
-    
-
-    
-
-    
-
-	
-    
-
-    
-
-    
-
-    
-    <script src="/libs/instantpage/instantpage.js" type="module"></script>
-    
-
-<script>"use strict";if("serviceWorker"in navigator){navigator.serviceWorker.register("service-worker.js").then((function(reg){reg.onupdatefound=function(){var installingWorker=reg.installing;installingWorker.onstatechange=function(){switch(installingWorker.state){case"installed":if(navigator.serviceWorker.controller){console.log("New or updated content is available.")}else{console.log("Content is now available offline!")}break;case"redundant":console.error("The installing service worker became redundant.");break}}}}))["catch"]((function(e){console.error("Error during service worker registration:",e)}))}</script></body></html>
+    </script>
+</body>
+</html>

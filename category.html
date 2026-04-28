@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>做工á人台語工作室 - 分類文章列表</title>
+    
+    <!-- 設定網站 Favicon -->
+    <link rel="icon" href="./images/logo.png" type="image/png">
+    
+    <!-- 引入外部共用 CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- 載入 Font Awesome 圖示庫 (搜尋與設定按鈕使用) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    
+    <!-- 載入特殊字體: 粉圓體 (jf-openhuninn) 與 芫荽體 (Iansui) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jf-openhuninn@1.1/jf-openhuninn.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/iansui@0.9.1/dist/Iansui-Regular.min.css">
+
+    <!-- 從 markdown frontmatter 自動載入文章的共用工具 -->
+    <script src="posts-loader.js"></script>
+
+    <!-- 搜尋模態框與設定模態框的專屬樣式 -->
+    <style>
+        /* 導覽列右側功能按鈕 */
+        .nav-actions { display: flex; align-items: center; gap: 15px; margin-left: 15px; }
+        .nav-btn { background: none; border: none; font-size: 1.2rem; color: var(--text-main); cursor: pointer; transition: color 0.2s; display: flex; align-items: center; justify-content: center; }
+        .nav-btn:hover { color: var(--primary-color); }
+
+        /* 模態框 (Modal) 樣式 */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(2px); }
+        .modal-content { background: var(--white); padding: 30px; border-radius: 12px; width: 90%; max-width: 500px; max-height: 85vh; overflow-y: auto; position: relative; box-shadow: var(--shadow-lg); }
+        .modal-close { position: absolute; top: 15px; right: 15px; font-size: 1.5rem; cursor: pointer; border: none; background: none; color: var(--text-muted); transition: color 0.2s; }
+        .modal-close:hover { color: #ef4444; }
+        
+        .modal-title { font-size: 1.5rem; margin-bottom: 20px; color: var(--text-main); border-bottom: 2px solid var(--border-color); padding-bottom: 10px; }
+
+        /* 設定選單樣式 */
+        .setting-group { margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px; }
+        .setting-group label { font-weight: 500; font-size: 1rem; color: var(--text-main); }
+        .setting-group input[type="color"] { width: 100%; height: 40px; border: none; border-radius: 6px; cursor: pointer; padding: 0; }
+        .setting-group input[type="range"] { width: 100%; cursor: pointer; }
+        .setting-group select { padding: 10px; border-radius: 6px; border: 1px solid var(--border-color); font-size: 1rem; background: var(--bg-color); color: var(--text-main); cursor: pointer; }
+        .reset-btn { width: 100%; padding: 12px; background: var(--border-color); color: var(--text-muted); border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: background 0.2s; margin-top: 10px; }
+        .reset-btn:hover { background: #475569; color: var(--text-main); }
+
+        /* 搜尋樣式 */
+        .search-input-wrapper { display: flex; position: relative; margin-bottom: 20px; }
+        .search-input-wrapper i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+        #search-input { width: 100%; padding: 12px 15px 12px 40px; border: 2px solid var(--border-color); border-radius: 8px; font-size: 1rem; outline: none; transition: border-color 0.2s; background: var(--bg-color); color: var(--text-main); }
+        #search-input:focus { border-color: var(--primary-color); }
+
+        .search-result-item { padding: 12px 0; border-bottom: 1px solid var(--border-color); }
+        .search-result-item:last-child { border-bottom: none; }
+        .search-result-title { color: var(--primary-color); font-weight: 600; font-size: 1.1rem; display: block; margin-bottom: 5px; }
+        .search-result-title:hover { color: var(--primary-hover); text-decoration: underline; }
+        .search-result-meta { font-size: 0.85rem; color: var(--text-muted); }
+
+        /* 深色/淺色主題切換按鈕 */
+        .theme-switcher { display: flex; gap: 8px; margin-top: 4px; }
+        .theme-btn { flex: 1; padding: 10px 8px; border: 1px solid var(--border-color); border-radius: 6px; background: transparent; color: var(--text-muted); cursor: pointer; font-size: 0.9rem; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .theme-btn.active { background: var(--primary-color); color: #fff; border-color: var(--primary-color); font-weight: 600; }
+        .theme-btn:hover:not(.active) { border-color: var(--primary-color); color: var(--text-main); }
+    </style>
+</head>
+<body>
+
+    <!-- 套用使用者自訂設定的初始化腳本 (必須放在 body 最前面以避免畫面閃爍) -->
+    <script>
+        const DARK_DEFAULTS = { bg: '#0f172a', text: '#e2e8f0' };
+        const LIGHT_DEFAULTS = { bg: '#f8fafc', text: '#1e293b' };
+        function applyUserSettings() {
+            const theme = localStorage.getItem('site_theme') || 'dark';
+            const defaults = theme === 'light' ? LIGHT_DEFAULTS : DARK_DEFAULTS;
+            const bg = localStorage.getItem('site_bg') || defaults.bg;
+            const color = localStorage.getItem('site_color') || defaults.text;
+            const fsize = localStorage.getItem('site_fsize');
+            const ffamily = localStorage.getItem('site_ffamily');
+
+            // 設定 data-theme 屬性以觸發 CSS 淺/深色覆蓋 (white、border、muted、shadows)
+            document.documentElement.setAttribute('data-theme', theme);
+
+            // 套用背景色與字體色 (同時設定在 html 與 body，防止 article-page class 覆蓋)
+            [document.documentElement, document.body].forEach(el => {
+                el.style.setProperty('--bg-color', bg);
+                el.style.setProperty('--text-main', color);
+            });
+
+            if (fsize) document.documentElement.style.fontSize = fsize + 'px';
+            else document.documentElement.style.fontSize = '';
+            if (ffamily) document.body.style.fontFamily = ffamily;
+            else document.body.style.fontFamily = '';
+        }
+        applyUserSettings();
+    </script>
+
+    <!-- 頂部導覽列 -->
+    <header class="navbar">
+        <a href="index.html" class="nav-brand">
+            <img src="./images/logo.png" alt="做工á人 Logo">
+            做工á人台語工作室
+        </a>
+        
+        <!-- Navbar 右側：選單容器與新功能按鈕 -->
+        <div style="display: flex; align-items: center;">
+            <nav id="menu-container">
+                <span class="status-msg" style="padding:0;">載入中...</span>
+            </nav>
+            
+            <div class="nav-actions">
+                <button class="nav-btn" id="open-search-btn" title="搜尋文章"><i class="fa fa-search"></i></button>
+                <button class="nav-btn" id="open-settings-btn" title="網站外觀設定"><i class="fa fa-cog"></i></button>
+            </div>
+            
+            <button class="mobile-toggle" id="mobile-toggle" style="margin-left: 15px;">☰</button>
+        </div>
+    </header>
+
+    <!-- 主內容區 -->
+    <main class="category-container">
+        <div class="category-header">
+            <h1 id="page-title">載入中...</h1>
+        </div>
+
+        <div id="post-list" class="post-list">
+            <div class="status-msg">正在尋找文章...</div>
+        </div>
+    </main>
+
+    <!-- 頁尾 -->
+    <footer class="footer">
+        <p>© 2024 做工á人. All rights reserved. | 致力於台語文化推廣</p>
+    </footer>
+
+    <!-- ================= 模態框 (Modals) 區塊 ================= -->
+    
+    <!-- 1. 搜尋模態框 -->
+    <div id="search-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" id="close-search-btn">&times;</button>
+            <h2 class="modal-title">搜尋文章</h2>
+            <div class="search-input-wrapper">
+                <i class="fa fa-search"></i>
+                <input type="text" id="search-input" placeholder="請輸入關鍵字 (如：A郎, 故事)..." autocomplete="off">
+            </div>
+            <div id="search-results">
+                <div style="color: var(--text-muted); font-size: 0.95rem; text-align: center;">請在上方輸入關鍵字開始搜尋</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. 設定模態框 -->
+    <div id="settings-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" id="close-settings-btn">&times;</button>
+            <h2 class="modal-title">網站外觀設定</h2>
+
+            <div class="setting-group">
+                <label>色彩主題</label>
+                <div class="theme-switcher">
+                    <button class="theme-btn" data-theme="dark"><i class="fa fa-moon"></i> 深色模式</button>
+                    <button class="theme-btn" data-theme="light"><i class="fa fa-sun"></i> 淺色模式</button>
+                </div>
+            </div>
+
+            <div class="setting-group">
+                <label for="set-bg-color">背景顏色</label>
+                <input type="color" id="set-bg-color" value="#0f172a">
+            </div>
+
+            <div class="setting-group">
+                <label for="set-text-color">字體顏色</label>
+                <input type="color" id="set-text-color" value="#e2e8f0">
+            </div>
+
+            <div class="setting-group">
+                <label for="set-font-size">字體大小: <span id="font-size-val">16px</span></label>
+                <input type="range" id="set-font-size" min="14" max="24" value="16" step="1">
+            </div>
+
+            <div class="setting-group">
+                <label for="set-font-family">網站字型</label>
+                <select id="set-font-family">
+                    <option value="">預設 (系統字體)</option>
+                    <option value="'jf-openhuninn', sans-serif">粉圓體 (圓潤可愛)</option>
+                    <option value="'Iansui', serif">芫荽體 (硬筆手寫)</option>
+                </select>
+            </div>
+
+            <button class="reset-btn" id="reset-settings-btn">還原預設值</button>
+        </div>
+    </div>
+
+    <!-- ================= JavaScript 邏輯區塊 ================= -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // 取得網頁元素
+            const urlParams = new URLSearchParams(window.location.search);
+            const targetCat = urlParams.get('cat'); 
+            const pageTitle = document.getElementById('page-title');
+            const postListContainer = document.getElementById('post-list');
+            const menuContainer = document.getElementById('menu-container');
+            const mobileToggle = document.getElementById('mobile-toggle');
+
+            let allArticlesForSearch = []; // 用於儲存全站文章以供搜尋
+
+            // 載入 posts.json 並自動從 markdown frontmatter 注入文章
+            loadPostsData()
+                .then(data => {
+                    menuContainer.innerHTML = '';
+
+                    if (!data.menu || data.menu.length === 0) {
+                        menuContainer.innerHTML = '<span class="status-msg">目前沒有目錄</span>';
+                        return;
+                    }
+
+                    // --- 建立無限層級選單 ---
+                    function buildMenu(items, level) {
+                        const ul = document.createElement('ul');
+                        let hasAnySub = items.some(item => item.children && item.children.length > 0);
+                        
+                        if (level === 0) { 
+                            ul.className = 'nav-list'; 
+                            ul.id = 'nav-list'; 
+                        } else if (level === 1) { 
+                            ul.className = 'dropdown-menu'; 
+                        } else { 
+                            ul.className = 'sub-dropdown-menu'; 
+                        }
+
+                        if (level > 0 && !hasAnySub) ul.classList.add('scrollable-menu');
+
+                        items.forEach(item => {
+                            const li = document.createElement('li');
+                            li.className = level === 0 ? 'nav-item' : 'dropdown-item';
+                            
+                            const hasChildren = item.children && item.children.length > 0;
+                            if (hasChildren && level > 0) li.classList.add('has-sub');
+
+                            const linkClass = level === 0 ? 'nav-link' : 'dropdown-link';
+                            let targetUrl = '#';
+                            if (item.file === 'home') targetUrl = 'index.html';
+                            else if (hasChildren) targetUrl = `category.html?cat=${encodeURIComponent(item.title)}`;
+                            else if (item.file) targetUrl = `article.html?file=${item.file}`;
+
+                            let arrow = '';
+                            if (hasChildren) {
+                                arrow = level === 0 
+                                    ? '<span class="arrow" style="font-size:0.8em; margin-left:5px; transition:transform 0.3s; display:inline-block;">▼</span>' 
+                                    : '<span class="arrow" style="margin-left:10px; transition:transform 0.3s; display:inline-block;">▶</span>';
+                            }
+                            
+                            li.innerHTML = `<a href="${targetUrl}" class="${linkClass}">${item.title}${arrow}</a>`;
+
+                            if (hasChildren) {
+                                const childUl = buildMenu(item.children, level + 1);
+                                li.appendChild(childUl);
+
+                                const linkElement = li.querySelector('a');
+                                linkElement.addEventListener('click', function(e) {
+                                    if (window.innerWidth <= 768) {
+                                        e.preventDefault(); 
+                                        const siblings = li.parentElement.children;
+                                        for (let sibling of siblings) {
+                                            if (sibling !== li && sibling.querySelector('ul')) {
+                                                sibling.querySelector('ul').classList.remove('mobile-open');
+                                                const siblingArrow = sibling.querySelector('.arrow');
+                                                if (siblingArrow) siblingArrow.style.transform = 'rotate(0deg)';
+                                            }
+                                        }
+                                        childUl.classList.toggle('mobile-open');
+                                        const arrowSpan = this.querySelector('.arrow');
+                                        if (arrowSpan) {
+                                            if (level === 0) arrowSpan.style.transform = childUl.classList.contains('mobile-open') ? 'rotate(180deg)' : 'rotate(0deg)';
+                                            else arrowSpan.style.transform = childUl.classList.contains('mobile-open') ? 'rotate(90deg)' : 'rotate(0deg)';
+                                        }
+                                    }
+                                });
+                            }
+                            ul.appendChild(li);
+                        });
+                        return ul;
+                    }
+
+                    menuContainer.appendChild(buildMenu(data.menu, 0));
+
+                    mobileToggle.addEventListener('click', function() {
+                        const nav = document.getElementById('nav-list');
+                        if (nav) {
+                            nav.classList.toggle('active');
+                            this.textContent = nav.classList.contains('active') ? '✖' : '☰';
+                        }
+                    });
+
+                    // --- 分類抓取與文章清單收集 ---
+                    let matchedNode = null;
+                    function findCategory(items, title) {
+                        for (let item of items) {
+                            if (item.title === title) return item;
+                            if (item.children) {
+                                const found = findCategory(item.children, title);
+                                if (found) return found;
+                            }
+                        }
+                        return null;
+                    }
+
+                    if (targetCat) matchedNode = findCategory(data.menu, targetCat);
+
+                    let collectedArticles = [];
+                    function collectArticles(node) {
+                        if (!node) return;
+                        if (node.file && node.file !== 'home' && node.file !== 'archives') {
+                            collectedArticles.push(node);
+                        }
+                        if (node.children) node.children.forEach(collectArticles);
+                    }
+
+                    // 為了搜尋功能，直接使用從 frontmatter 讀取的文章清單
+                    allArticlesForSearch = (data._posts || []).filter(
+                        p => p.title && p.file !== 'home' && p.file !== 'archives'
+                    );
+
+                    // --- 渲染分類頁面內容 ---
+                    if (matchedNode) {
+                        if (matchedNode.file) collectedArticles.push(matchedNode);
+                        else if (matchedNode.children) matchedNode.children.forEach(collectArticles);
+                        pageTitle.textContent = `分類：${targetCat}`;
+                        document.title = `${targetCat} - 做工á人台語工作室`;
+                    } else {
+                        pageTitle.textContent = targetCat ? "找不到該分類" : "所有文章";
+                        if (!targetCat) data.menu.forEach(collectArticles);
+                    }
+
+                    postListContainer.innerHTML = '';
+                    
+                    if (collectedArticles.length === 0) {
+                        postListContainer.innerHTML = '<div class="status-msg">這個分類下目前沒有文章喔！</div>';
+                    } else {
+                        collectedArticles.forEach(item => {
+                            const card = document.createElement('article');
+                            card.className = 'post-card';
+                            const targetUrl = `article.html?file=${item.file}`;
+
+                            let imageHtml = '';
+                            if (item.image) {
+                                imageHtml = `
+                                    <div class="post-image">
+                                        <a href="${targetUrl}"><img src="${item.image}" alt="${item.title}" onerror="this.src='https://via.placeholder.com/300x200?text=圖片載入失敗'"></a>
+                                    </div>
+                                `;
+                            }
+
+                            let dateHtml = '';
+                            if (item.date) {
+                                let dObj = new Date(String(item.date).replace(/-/g, '/'));
+                                if (!isNaN(dObj.getTime())) {
+                                    dateHtml = `<span>📅 ${dObj.getFullYear()}-${String(dObj.getMonth() + 1).padStart(2, '0')}-${String(dObj.getDate()).padStart(2, '0')}</span>`;
+                                }
+                            }
+                            
+                            const descHtml = item.description ? `<p class="post-desc">${item.description}</p>` : '';
+
+                            card.innerHTML = `
+                                ${imageHtml}
+                                <div class="post-content">
+                                    <h2 class="post-title"><a href="${targetUrl}">${item.title}</a></h2>
+                                    <div class="post-meta">${dateHtml}</div>
+                                    ${descHtml}
+                                    <a href="${targetUrl}" class="read-more">繼續閱讀 »</a>
+                                </div>
+                            `;
+                            postListContainer.appendChild(card);
+                        });
+                    }
+                })
+                .catch(error => {
+                    pageTitle.textContent = "載入失敗";
+                    postListContainer.innerHTML = `<div class="status-msg error">無法讀取文章清單，請確認 posts.json 格式正確。</div>`;
+                    console.error('Error fetching posts:', error);
+                });
+
+
+            // ================= 搜尋功能與模態框邏輯 =================
+            const searchModal = document.getElementById('search-modal');
+            const searchInput = document.getElementById('search-input');
+            const searchResults = document.getElementById('search-results');
+
+            document.getElementById('open-search-btn').addEventListener('click', () => {
+                searchModal.style.display = 'flex';
+                searchInput.focus();
+            });
+
+            document.getElementById('close-search-btn').addEventListener('click', () => {
+                searchModal.style.display = 'none';
+            });
+
+            // 關鍵字搜尋邏輯
+            searchInput.addEventListener('input', function() {
+                const keyword = this.value.trim().toLowerCase();
+                searchResults.innerHTML = '';
+                
+                if (keyword === '') {
+                    searchResults.innerHTML = '<div style="color: var(--text-muted); font-size: 0.95rem; text-align: center;">請在上方輸入關鍵字開始搜尋</div>';
+                    return;
+                }
+
+                const filtered = allArticlesForSearch.filter(post => {
+                    const titleMatch = post.title && post.title.toLowerCase().includes(keyword);
+                    const descMatch = post.description && post.description.toLowerCase().includes(keyword);
+                    return titleMatch || descMatch;
+                });
+
+                if (filtered.length === 0) {
+                    searchResults.innerHTML = '<div style="color: #ef4444; font-size: 0.95rem; text-align: center;">找不到符合的文章，請換個關鍵字試試。</div>';
+                    return;
+                }
+
+                filtered.forEach(post => {
+                    let dateStr = '';
+                    if (post.date) {
+                        let dObj = new Date(String(post.date).replace(/-/g, '/'));
+                        if (!isNaN(dObj.getTime())) dateStr = `${dObj.getFullYear()}-${String(dObj.getMonth()+1).padStart(2,'0')}-${String(dObj.getDate()).padStart(2,'0')} • `;
+                    }
+
+                    const div = document.createElement('div');
+                    div.className = 'search-result-item';
+                    div.innerHTML = `
+                        <a href="article.html?file=${post.file}" class="search-result-title">${post.title}</a>
+                        <div class="search-result-meta">${dateStr}${post.description ? post.description.substring(0, 40) + '...' : '點擊閱讀完整文章'}</div>
+                    `;
+                    searchResults.appendChild(div);
+                });
+            });
+
+
+            // ================= 個人化外觀設定邏輯 =================
+            const settingsModal = document.getElementById('settings-modal');
+            const bgColorInput = document.getElementById('set-bg-color');
+            const textColorInput = document.getElementById('set-text-color');
+            const fontSizeInput = document.getElementById('set-font-size');
+            const fontSizeVal = document.getElementById('font-size-val');
+            const fontFamilyInput = document.getElementById('set-font-family');
+
+            // 開啟與關閉設定框
+            document.getElementById('open-settings-btn').addEventListener('click', () => {
+                // 載入目前設定值顯示在 UI 上
+                const curTheme = localStorage.getItem('site_theme') || 'dark';
+                const curDefaults = curTheme === 'light' ? LIGHT_DEFAULTS : DARK_DEFAULTS;
+                bgColorInput.value = localStorage.getItem('site_bg') || curDefaults.bg;
+                textColorInput.value = localStorage.getItem('site_color') || curDefaults.text;
+                // 更新主題按鈕的 active 狀態
+                document.querySelectorAll('.theme-btn').forEach(b => b.classList.toggle('active', b.dataset.theme === curTheme));
+
+                fontSizeInput.value = localStorage.getItem('site_fsize') || '16';
+                fontSizeVal.textContent = fontSizeInput.value + 'px';
+
+                fontFamilyInput.value = localStorage.getItem('site_ffamily') || '';
+
+                settingsModal.style.display = 'flex';
+            });
+
+            document.getElementById('close-settings-btn').addEventListener('click', () => {
+                settingsModal.style.display = 'none';
+            });
+
+            // 監聽設定變更並即時套用與儲存
+            bgColorInput.addEventListener('input', (e) => {
+                [document.documentElement, document.body].forEach(el => el.style.setProperty('--bg-color', e.target.value));
+                localStorage.setItem('site_bg', e.target.value);
+            });
+
+            textColorInput.addEventListener('input', (e) => {
+                [document.documentElement, document.body].forEach(el => el.style.setProperty('--text-main', e.target.value));
+                localStorage.setItem('site_color', e.target.value);
+            });
+
+            fontSizeInput.addEventListener('input', (e) => {
+                const size = e.target.value;
+                fontSizeVal.textContent = size + 'px';
+                document.documentElement.style.fontSize = size + 'px';
+                localStorage.setItem('site_fsize', size);
+            });
+
+            fontFamilyInput.addEventListener('change', (e) => {
+                const font = e.target.value;
+                document.body.style.fontFamily = font;
+                localStorage.setItem('site_ffamily', font);
+            });
+
+            // 深色/淺色主題切換
+            document.querySelectorAll('.theme-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const theme = btn.dataset.theme;
+                    localStorage.setItem('site_theme', theme);
+                    localStorage.removeItem('site_bg');
+                    localStorage.removeItem('site_color');
+                    applyUserSettings();
+                    const defs = theme === 'light' ? LIGHT_DEFAULTS : DARK_DEFAULTS;
+                    bgColorInput.value = defs.bg;
+                    textColorInput.value = defs.text;
+                    document.querySelectorAll('.theme-btn').forEach(b => b.classList.toggle('active', b.dataset.theme === theme));
+                });
+            });
+
+            // 點擊背景可關閉模態框
+            window.addEventListener('click', (e) => {
+                if (e.target === searchModal) searchModal.style.display = 'none';
+                if (e.target === settingsModal) settingsModal.style.display = 'none';
+            });
+
+            // 還原預設值 (回到深色模式)
+            document.getElementById('reset-settings-btn').addEventListener('click', () => {
+                localStorage.removeItem('site_bg');
+                localStorage.removeItem('site_color');
+                localStorage.removeItem('site_fsize');
+                localStorage.removeItem('site_ffamily');
+                localStorage.removeItem('site_theme');
+                applyUserSettings();
+                bgColorInput.value = DARK_DEFAULTS.bg;
+                textColorInput.value = DARK_DEFAULTS.text;
+                fontSizeInput.value = '16';
+                fontSizeVal.textContent = '16px';
+                fontFamilyInput.value = '';
+                document.querySelectorAll('.theme-btn').forEach(b => b.classList.toggle('active', b.dataset.theme === 'dark'));
+                settingsModal.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>

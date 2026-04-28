@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cho-kang-a-lang.github.io/sitemap.xml

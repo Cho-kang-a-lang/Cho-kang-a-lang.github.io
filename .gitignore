@@ -1,0 +1,20 @@
+# 虛擬主機版本（不需要上傳到 GitHub）
+markdowns-server.html
+api.php
+
+# 本地說明文件
+*.docx
+
+# 系統檔案
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 編輯器暫存
+*.swp
+*.swo
+*~
+
+# Node.js（如有本地開發）
+node_modules/
+npm-debug.log*
