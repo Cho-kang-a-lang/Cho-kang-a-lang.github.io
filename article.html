@@ -404,6 +404,37 @@
                         const canonical = document.querySelector('link[rel="canonical"]');
                         if (canonical) canonical.setAttribute('href', pageUrl);
 
+                        // 動態注入 JSON-LD 結構化資料（Article schema）
+                        const existingLd = document.getElementById('ld-article');
+                        if (existingLd) existingLd.remove();
+                        const ldScript = document.createElement('script');
+                        ldScript.id   = 'ld-article';
+                        ldScript.type = 'application/ld+json';
+                        const ldData  = {
+                            "@context":         "https://schema.org",
+                            "@type":            "Article",
+                            "headline":         currentPost.title,
+                            "description":      desc,
+                            "image":            imgUrl,
+                            "url":              pageUrl,
+                            "inLanguage":       "zh-Hant",
+                            "publisher": {
+                                "@type": "Organization",
+                                "name":  "做工仔人台語工作室",
+                                "logo": {
+                                    "@type": "ImageObject",
+                                    "url":   "https://cho-kang-a-lang.github.io/images/logo.png"
+                                }
+                            },
+                            "mainEntityOfPage": {
+                                "@type": "WebPage",
+                                "@id":   pageUrl
+                            }
+                        };
+                        if (currentPost.date) ldData.datePublished = currentPost.date;
+                        ldScript.textContent = JSON.stringify(ldData);
+                        document.head.appendChild(ldScript);
+
                         // 每篇文章個別瀏覽計數
                         if (fileName !== 'archives' && fileName !== 'donate') {
                             const badge = document.createElement('span');
