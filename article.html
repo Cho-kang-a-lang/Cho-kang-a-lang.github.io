@@ -4,7 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>做工á人台語工作室 - 文章閱讀</title>
-    
+
+    <!-- SEO: 描述（由 JS 依文章內容動態覆寫） -->
+    <meta name="description" content="做工á人台語工作室 — 台語廣播劇、有聲故事、台語詞典 Podcast 文字稿，免費線上閱讀。">
+    <meta name="author" content="做工á人台語工作室">
+
+    <!-- Open Graph（由 JS 依文章內容動態覆寫） -->
+    <meta property="og:type"        content="article">
+    <meta property="og:url"         content="https://cho-kang-a-lang.github.io/article.html">
+    <meta property="og:title"       content="做工á人台語工作室">
+    <meta property="og:description" content="台語廣播劇、有聲故事、台語詞典 Podcast 文字稿。">
+    <meta property="og:image"       content="https://cho-kang-a-lang.github.io/images/logo.png">
+    <meta property="og:image:alt"   content="做工á人台語工作室">
+    <meta property="og:locale"      content="zh_TW">
+    <meta property="og:site_name"   content="做工á人台語工作室">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card"        content="summary_large_image">
+    <meta name="twitter:title"       content="做工á人台語工作室">
+    <meta name="twitter:description" content="台語廣播劇、有聲故事、台語詞典 Podcast 文字稿。">
+    <meta name="twitter:image"       content="https://cho-kang-a-lang.github.io/images/logo.png">
+
     <!-- 設定網站 Favicon -->
     <link rel="icon" href="./images/logo.png" type="image/png">
 
@@ -143,7 +163,10 @@
     </main>
 
     <footer class="footer">
-        <p>© 2024 做工á人. All rights reserved. | 致力於台語文化推廣</p>
+        <p>© 2023 做工á人. All rights reserved. | 致力於台語文化推廣</p>
+        <p style="margin-top:12px;">
+            <img src="https://hits.sh/cho-kang-a-lang.github.io.svg?style=flat-square&label=%E7%B8%BD%E7%80%8F%E8%A6%BD%E6%AC%A1%E6%95%B8&color=24BF89&labelColor=334155" alt="總瀏覽次數" style="vertical-align:middle;">
+        </p>
     </footer>
 
     <!-- ================= 模態框 (Modals) 區塊 ================= -->
@@ -353,6 +376,31 @@
                         
                         document.getElementById('article-header').style.display = 'block';
                         document.title = `${currentPost.title} - 做工á人台語工作室`;
+
+                        // 動態更新 SEO meta & Open Graph
+                        const pageUrl  = `https://cho-kang-a-lang.github.io/article.html?file=${fileName}`;
+                        const imgUrl   = currentPost.img
+                            ? `https://cho-kang-a-lang.github.io${currentPost.img}`
+                            : 'https://cho-kang-a-lang.github.io/images/logo.png';
+                        const desc     = currentPost.description || '台語廣播劇、有聲故事、台語詞典 Podcast 文字稿。';
+                        const setMeta  = (sel, val) => { const el = document.querySelector(sel); if (el) el.setAttribute('content', val); };
+                        setMeta('meta[name="description"]',          `${currentPost.title} — ${desc}`);
+                        setMeta('meta[property="og:url"]',           pageUrl);
+                        setMeta('meta[property="og:title"]',         `${currentPost.title} - 做工á人台語工作室`);
+                        setMeta('meta[property="og:description"]',   desc);
+                        setMeta('meta[property="og:image"]',         imgUrl);
+                        setMeta('meta[property="og:image:alt"]',     currentPost.title);
+                        setMeta('meta[name="twitter:title"]',        `${currentPost.title} - 做工á人台語工作室`);
+                        setMeta('meta[name="twitter:description"]',  desc);
+                        setMeta('meta[name="twitter:image"]',        imgUrl);
+
+                        // 每篇文章個別瀏覽計數
+                        if (fileName !== 'archives' && fileName !== 'donate') {
+                            const badge = document.createElement('span');
+                            badge.style.cssText = 'display:inline-block; margin-top:8px;';
+                            badge.innerHTML = `<img src="https://hits.sh/cho-kang-a-lang.github.io/${fileName}.svg?style=flat-square&label=%E6%9C%AC%E7%AF%87%E7%80%8F%E8%A6%BD&color=24BF89&labelColor=334155" alt="本篇瀏覽次數" style="vertical-align:middle;">`;
+                            document.getElementById('article-meta').appendChild(badge);
+                        }
 
                         if (fileName !== 'archives') {
                             const prevPost = window.currentPostIndex > 0 ? flatPosts[window.currentPostIndex - 1] : null;

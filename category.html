@@ -4,7 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>做工á人台語工作室 - 分類文章列表</title>
-    
+
+    <!-- SEO: 描述（由 JS 依分類動態覆寫） -->
+    <meta name="description" content="做工á人台語工作室 — 瀏覽各系列台語廣播劇、有聲故事、台語詞典 Podcast 文字稿。">
+    <meta name="author" content="做工á人台語工作室">
+
+    <!-- Open Graph（由 JS 依分類動態覆寫） -->
+    <meta property="og:type"        content="website">
+    <meta property="og:url"         content="https://cho-kang-a-lang.github.io/category.html">
+    <meta property="og:title"       content="做工á人台語工作室 - 分類文章列表">
+    <meta property="og:description" content="瀏覽各系列台語廣播劇、有聲故事、台語詞典 Podcast 文字稿。">
+    <meta property="og:image"       content="https://cho-kang-a-lang.github.io/images/logo.png">
+    <meta property="og:locale"      content="zh_TW">
+    <meta property="og:site_name"   content="做工á人台語工作室">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card"        content="summary_large_image">
+    <meta name="twitter:title"       content="做工á人台語工作室 - 分類文章列表">
+    <meta name="twitter:description" content="瀏覽各系列台語廣播劇、有聲故事、台語詞典 Podcast 文字稿。">
+    <meta name="twitter:image"       content="https://cho-kang-a-lang.github.io/images/logo.png">
+
     <!-- 設定網站 Favicon -->
     <link rel="icon" href="./images/logo.png" type="image/png">
     
@@ -130,7 +149,10 @@
 
     <!-- 頁尾 -->
     <footer class="footer">
-        <p>© 2024 做工á人. All rights reserved. | 致力於台語文化推廣</p>
+        <p>© 2023 做工á人. All rights reserved. | 致力於台語文化推廣</p>
+        <p style="margin-top:12px;">
+            <img src="https://hits.sh/cho-kang-a-lang.github.io.svg?style=flat-square&label=%E7%B8%BD%E7%80%8F%E8%A6%BD%E6%AC%A1%E6%95%B8&color=24BF89&labelColor=334155" alt="總瀏覽次數" style="vertical-align:middle;">
+        </p>
     </footer>
 
     <!-- ================= 模態框 (Modals) 區塊 ================= -->
@@ -328,6 +350,14 @@
                         else if (matchedNode.children) matchedNode.children.forEach(collectArticles);
                         pageTitle.textContent = `分類：${targetCat}`;
                         document.title = `${targetCat} - 做工á人台語工作室`;
+                        const catDesc = `做工á人台語工作室「${targetCat}」系列 — 台語廣播劇、有聲故事、台語詞典 Podcast 文字稿。`;
+                        const setMeta = (sel, val) => { const el = document.querySelector(sel); if (el) el.setAttribute('content', val); };
+                        setMeta('meta[name="description"]',         catDesc);
+                        setMeta('meta[property="og:url"]',          `https://cho-kang-a-lang.github.io/category.html?cat=${encodeURIComponent(targetCat)}`);
+                        setMeta('meta[property="og:title"]',        `${targetCat} - 做工á人台語工作室`);
+                        setMeta('meta[property="og:description"]',  catDesc);
+                        setMeta('meta[name="twitter:title"]',       `${targetCat} - 做工á人台語工作室`);
+                        setMeta('meta[name="twitter:description"]', catDesc);
                     } else {
                         pageTitle.textContent = targetCat ? "找不到該分類" : "所有文章";
                         if (!targetCat) data.menu.forEach(collectArticles);
