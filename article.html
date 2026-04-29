@@ -25,6 +25,9 @@
     <meta name="twitter:description" content="台語廣播劇、有聲故事、台語詞典 Podcast 文字稿。">
     <meta name="twitter:image"       content="https://cho-kang-a-lang.github.io/images/logo.png">
 
+    <!-- Canonical（由 JS 依文章動態覆寫） -->
+    <link rel="canonical" href="https://cho-kang-a-lang.github.io/article.html">
+
     <!-- 設定網站 Favicon -->
     <link rel="icon" href="./images/logo.png" type="image/png">
 
@@ -379,10 +382,14 @@
 
                         // 動態更新 SEO meta & Open Graph
                         const pageUrl  = `https://cho-kang-a-lang.github.io/article.html?file=${fileName}`;
-                        const imgUrl   = currentPost.img
-                            ? `https://cho-kang-a-lang.github.io${currentPost.img}`
+                        // 修正：posts-loader 存的欄位是 image，不是 img
+                        const imgUrl   = currentPost.image
+                            ? `https://cho-kang-a-lang.github.io/${currentPost.image.replace(/^\.\//, '')}`
                             : 'https://cho-kang-a-lang.github.io/images/logo.png';
-                        const desc     = currentPost.description || '台語廣播劇、有聲故事、台語詞典 Podcast 文字稿。';
+                        // 優先使用文章摘要 excerpt，比 description 欄位更完整
+                        const fullMeta = (data._posts || []).find(p => p.file === fileName);
+                        const excerpt  = fullMeta?.excerpt || '';
+                        const desc     = excerpt || currentPost.description || '台語廣播劇、有聲故事、台語詞典 Podcast 文字稿。';
                         const setMeta  = (sel, val) => { const el = document.querySelector(sel); if (el) el.setAttribute('content', val); };
                         setMeta('meta[name="description"]',          `${currentPost.title} — ${desc}`);
                         setMeta('meta[property="og:url"]',           pageUrl);
@@ -393,6 +400,9 @@
                         setMeta('meta[name="twitter:title"]',        `${currentPost.title} - 做工á人台語工作室`);
                         setMeta('meta[name="twitter:description"]',  desc);
                         setMeta('meta[name="twitter:image"]',        imgUrl);
+                        // 更新 canonical
+                        const canonical = document.querySelector('link[rel="canonical"]');
+                        if (canonical) canonical.setAttribute('href', pageUrl);
 
                         // 每篇文章個別瀏覽計數
                         if (fileName !== 'archives' && fileName !== 'donate') {

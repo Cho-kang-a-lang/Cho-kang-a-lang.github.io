@@ -24,6 +24,9 @@
     <meta name="twitter:description" content="瀏覽各系列台語廣播劇、有聲故事、台語詞典 Podcast 文字稿。">
     <meta name="twitter:image"       content="https://cho-kang-a-lang.github.io/images/logo.png">
 
+    <!-- Canonical（由 JS 依分類動態覆寫） -->
+    <link rel="canonical" href="https://cho-kang-a-lang.github.io/category.html">
+
     <!-- 設定網站 Favicon -->
     <link rel="icon" href="./images/logo.png" type="image/png">
     
@@ -358,6 +361,9 @@
                         setMeta('meta[property="og:description"]',  catDesc);
                         setMeta('meta[name="twitter:title"]',       `${targetCat} - 做工á人台語工作室`);
                         setMeta('meta[name="twitter:description"]', catDesc);
+                        // 更新 canonical
+                        const canonical = document.querySelector('link[rel="canonical"]');
+                        if (canonical) canonical.setAttribute('href', `https://cho-kang-a-lang.github.io/category.html?cat=${encodeURIComponent(targetCat)}`);
                     } else {
                         pageTitle.textContent = targetCat ? "找不到該分類" : "所有文章";
                         if (!targetCat) data.menu.forEach(collectArticles);
