@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <!-- ===== 主要頁面 ===== -->
   <url>
     <loc>https://cho-kang-a-lang.github.io/</loc>
     <changefreq>weekly</changefreq>
@@ -27,8 +25,6 @@
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
-
-  <!-- ===== 分類頁面 ===== -->
   <url>
     <loc>https://cho-kang-a-lang.github.io/category.html?cat=A%E9%83%8E</loc>
     <changefreq>weekly</changefreq>
@@ -65,11 +61,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://cho-kang-a-lang.github.io/category.html?cat=%E5%85%B6%E4%BB%96</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://cho-kang-a-lang.github.io/category.html?cat=%E7%9B%B8%E6%8B%9B%E4%BE%86%E7%9C%8B%E6%88%B2</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -79,9 +70,11 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-
-
-  <!-- ===== A郎 Podcast (alongep01–26) ===== -->
+  <url>
+    <loc>https://cho-kang-a-lang.github.io/category.html?cat=%E5%85%B6%E4%BB%96</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=alongep01</loc><priority>0.7</priority></url>
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=alongep02</loc><priority>0.7</priority></url>
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=alongep03</loc><priority>0.7</priority></url>
@@ -108,8 +101,6 @@
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=alongep24</loc><priority>0.7</priority></url>
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=alongep25</loc><priority>0.7</priority></url>
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=alongep26</loc><priority>0.7</priority></url>
-
-  <!-- ===== A郎台語小詞典 (alongsiosutian01–44) ===== -->
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=alongsiosutian01</loc><priority>0.7</priority></url>
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=alongsiosutian02</loc><priority>0.7</priority></url>
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=alongsiosutian03</loc><priority>0.7</priority></url>
@@ -154,44 +145,27 @@
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=alongsiosutian42</loc><priority>0.7</priority></url>
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=alongsiosutian43</loc><priority>0.7</priority></url>
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=alongsiosutian44</loc><priority>0.7</priority></url>
-
-  <!-- ===== 其他 ===== -->
-  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=other01</loc><priority>0.7</priority></url>
-  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=other02</loc><priority>0.7</priority></url>
-
-  <!-- ===== 民間故事 (folkstory01–05) ===== -->
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=folkstory01</loc><priority>0.7</priority></url>
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=folkstory02</loc><priority>0.7</priority></url>
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=folkstory03</loc><priority>0.7</priority></url>
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=folkstory04</loc><priority>0.7</priority></url>
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=folkstory05</loc><priority>0.7</priority></url>
-
-  <!-- ===== 台灣舊地號名 ===== -->
-
-  <!-- ===== 相招來看戲 (khoannhi01–03) ===== -->
+  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=folkstory06</loc><priority>0.7</priority></url>
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=khoannhi01</loc><priority>0.7</priority></url>
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=khoannhi02</loc><priority>0.7</priority></url>
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=khoannhi03</loc><priority>0.7</priority></url>
-
-  <!-- ===== 台語講怪奇 (kongkoaiki01–06) ===== -->
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kongkoaiki01</loc><priority>0.7</priority></url>
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kongkoaiki02</loc><priority>0.7</priority></url>
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kongkoaiki03</loc><priority>0.7</priority></url>
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kongkoaiki04</loc><priority>0.7</priority></url>
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kongkoaiki05</loc><priority>0.7</priority></url>
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kongkoaiki06</loc><priority>0.7</priority></url>
-
-  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=other03</loc><priority>0.7</priority></url>
-
-  <!-- ===== 白蔥仔公主 (pehchhanga01–06) ===== -->
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=pehchhanga01</loc><priority>0.7</priority></url>
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=pehchhanga02</loc><priority>0.7</priority></url>
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=pehchhanga03</loc><priority>0.7</priority></url>
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=pehchhanga04</loc><priority>0.7</priority></url>
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=pehchhanga05</loc><priority>0.7</priority></url>
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=pehchhanga06</loc><priority>0.7</priority></url>
-
-  <!-- ===== 英國囡仔古 (ukkidstory01–19) ===== -->
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=ukkidstory01</loc><priority>0.7</priority></url>
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=ukkidstory02</loc><priority>0.7</priority></url>
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=ukkidstory03</loc><priority>0.7</priority></url>
@@ -211,5 +185,38 @@
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=ukkidstory17</loc><priority>0.7</priority></url>
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=ukkidstory18</loc><priority>0.7</priority></url>
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=ukkidstory19</loc><priority>0.7</priority></url>
-
+  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=other01</loc><priority>0.7</priority></url>
+  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=other02</loc><priority>0.7</priority></url>
+  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=other03</loc><priority>0.7</priority></url>
+  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kutemia80</loc><priority>0.7</priority></url>
+  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kutemia81</loc><priority>0.7</priority></url>
+  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kutemia83</loc><priority>0.7</priority></url>
+  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kutemia84</loc><priority>0.7</priority></url>
+  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kutemia85</loc><priority>0.7</priority></url>
+  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kutemia86</loc><priority>0.7</priority></url>
+  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kutemia87</loc><priority>0.7</priority></url>
+  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kutemia88</loc><priority>0.7</priority></url>
+  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kutemia89</loc><priority>0.7</priority></url>
+  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kutemia90</loc><priority>0.7</priority></url>
+  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kutemia91</loc><priority>0.7</priority></url>
+  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kutemia92</loc><priority>0.7</priority></url>
+  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kutemia93</loc><priority>0.7</priority></url>
+  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kutemia94</loc><priority>0.7</priority></url>
+  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kutemia95</loc><priority>0.7</priority></url>
+  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kutemia96</loc><priority>0.7</priority></url>
+  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kutemia97</loc><priority>0.7</priority></url>
+  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kutemia98</loc><priority>0.7</priority></url>
+  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kutemia99</loc><priority>0.7</priority></url>
+  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kutemia100</loc><priority>0.7</priority></url>
+  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kutemia101</loc><priority>0.7</priority></url>
+  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kutemia102</loc><priority>0.7</priority></url>
+  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kutemia104</loc><priority>0.7</priority></url>
+  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kutemia106</loc><priority>0.7</priority></url>
+  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kutemia107</loc><priority>0.7</priority></url>
+  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kutemia108</loc><priority>0.7</priority></url>
+  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kutemia109</loc><priority>0.7</priority></url>
+  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kutemia110</loc><priority>0.7</priority></url>
+  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kutemia111</loc><priority>0.7</priority></url>
+  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kutemia112</loc><priority>0.7</priority></url>
+  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kutemia113</loc><priority>0.7</priority></url>
 </urlset>
