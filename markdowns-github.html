@@ -163,8 +163,9 @@
             setMeta(prev => ({ ...prev, img: `/medias/featureimages/${file.name}` }));
           };
 
-          const saveImage = async () => {
-            if (!imageFile || !apiConnected) return;
+          const saveImage = () => new Promise((resolve) => {
+            if (!imageFile || !apiConnected) { resolve(true); return; }
+            if (imageSaved) { resolve(true); return; }
             const reader = new FileReader();
             reader.onload = async (ev) => {
               const base64 = ev.target.result.split(',')[1];
@@ -182,12 +183,14 @@
                     ...(existingSha ? { sha: existingSha } : {})
                   })
                 });
-                if (!res.ok) { alert('圖片儲存失敗：' + ((await res.json()).message || res.status)); return; }
+                if (!res.ok) { alert('圖片儲存失敗：' + ((await res.json()).message || res.status)); resolve(false); return; }
                 setImageSaved(true);
-              } catch(e) { alert('連線錯誤：' + e.message); }
+                resolve(true);
+              } catch(e) { alert('連線錯誤：' + e.message); resolve(false); }
             };
+            reader.onerror = () => { alert('讀取圖片失敗'); resolve(false); };
             reader.readAsDataURL(imageFile);
-          };
+          });
 
           // ===================== GitHub API =====================
           const ghHeaders = () => ({
@@ -221,6 +224,11 @@
           const saveFile = async () => {
             if (!output) return;
             if (!apiConnected) { alert('請先完成步驟一（連線）再儲存'); return; }
+            // 如果有選取圖片但尚未上傳，自動先上傳圖片
+            if (imageFile && !imageSaved) {
+              const imgOk = await saveImage();
+              if (!imgOk) return;
+            }
             const fname    = (filename.trim() || 'new-article').replace(/\.md$/i, '') + '.md';
             const fileKey  = fname.replace(/\.md$/i, '');
             const filePath = `markdowns/${fname}`;
