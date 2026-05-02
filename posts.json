@@ -1,42 +1,153 @@
 {
   "files": [
-    "alongep01", "alongep02", "alongep03", "alongep04", "alongep05",
-    "alongep06", "alongep07", "alongep08", "alongep09", "alongep10",
-    "alongep11", "alongep12", "alongep13", "alongep14", "alongep15",
-    "alongep16", "alongep17", "alongep18", "alongep19", "alongep20",
-    "alongep21", "alongep22", "alongep23", "alongep24", "alongep25",
+    "alongep01",
+    "alongep02",
+    "alongep03",
+    "alongep04",
+    "alongep05",
+    "alongep06",
+    "alongep07",
+    "alongep08",
+    "alongep09",
+    "alongep10",
+    "alongep11",
+    "alongep12",
+    "alongep13",
+    "alongep14",
+    "alongep15",
+    "alongep16",
+    "alongep17",
+    "alongep18",
+    "alongep19",
+    "alongep20",
+    "alongep21",
+    "alongep22",
+    "alongep23",
+    "alongep24",
+    "alongep25",
     "alongep26",
-    "alongsiosutian01", "alongsiosutian02", "alongsiosutian03", "alongsiosutian04",
-    "alongsiosutian05", "alongsiosutian06", "alongsiosutian07", "alongsiosutian08",
-    "alongsiosutian09", "alongsiosutian10", "alongsiosutian11", "alongsiosutian12",
-    "alongsiosutian13", "alongsiosutian14", "alongsiosutian15", "alongsiosutian16",
-    "alongsiosutian17", "alongsiosutian18", "alongsiosutian19", "alongsiosutian20",
-    "alongsiosutian21", "alongsiosutian22", "alongsiosutian23", "alongsiosutian24",
-    "alongsiosutian25", "alongsiosutian26", "alongsiosutian27", "alongsiosutian28",
-    "alongsiosutian29", "alongsiosutian30", "alongsiosutian31", "alongsiosutian32",
-    "alongsiosutian33", "alongsiosutian34", "alongsiosutian35", "alongsiosutian36",
-    "alongsiosutian37", "alongsiosutian38", "alongsiosutian39", "alongsiosutian40",
-    "alongsiosutian41", "alongsiosutian42", "alongsiosutian43", "alongsiosutian44",
-    "other01", "other02", "other03",
-    "folkstory01", "folkstory02", "folkstory03", "folkstory04", "folkstory05",
+    "alongsiosutian01",
+    "alongsiosutian02",
+    "alongsiosutian03",
+    "alongsiosutian04",
+    "alongsiosutian05",
+    "alongsiosutian06",
+    "alongsiosutian07",
+    "alongsiosutian08",
+    "alongsiosutian09",
+    "alongsiosutian10",
+    "alongsiosutian11",
+    "alongsiosutian12",
+    "alongsiosutian13",
+    "alongsiosutian14",
+    "alongsiosutian15",
+    "alongsiosutian16",
+    "alongsiosutian17",
+    "alongsiosutian18",
+    "alongsiosutian19",
+    "alongsiosutian20",
+    "alongsiosutian21",
+    "alongsiosutian22",
+    "alongsiosutian23",
+    "alongsiosutian24",
+    "alongsiosutian25",
+    "alongsiosutian26",
+    "alongsiosutian27",
+    "alongsiosutian28",
+    "alongsiosutian29",
+    "alongsiosutian30",
+    "alongsiosutian31",
+    "alongsiosutian32",
+    "alongsiosutian33",
+    "alongsiosutian34",
+    "alongsiosutian35",
+    "alongsiosutian36",
+    "alongsiosutian37",
+    "alongsiosutian38",
+    "alongsiosutian39",
+    "alongsiosutian40",
+    "alongsiosutian41",
+    "alongsiosutian42",
+    "alongsiosutian43",
+    "alongsiosutian44",
+    "other01",
+    "other02",
+    "other03",
+    "folkstory01",
+    "folkstory02",
+    "folkstory03",
+    "folkstory04",
+    "folkstory05",
     "folkstory06",
-    "khoannhi01", "khoannhi02", "khoannhi03",
-    "kongkoaiki01", "kongkoaiki02", "kongkoaiki03", "kongkoaiki04", "kongkoaiki05", "kongkoaiki06",
-    "pehchhanga01", "pehchhanga02", "pehchhanga03", "pehchhanga04", "pehchhanga05", "pehchhanga06",
-    "ukkidstory01", "ukkidstory02", "ukkidstory03", "ukkidstory04", "ukkidstory05",
-    "ukkidstory06", "ukkidstory07", "ukkidstory08", "ukkidstory09", "ukkidstory10",
-    "ukkidstory11", "ukkidstory12", "ukkidstory13", "ukkidstory14", "ukkidstory15",
-    "ukkidstory16", "ukkidstory17", "ukkidstory18", "ukkidstory19",
+    "khoannhi01",
+    "khoannhi02",
+    "khoannhi03",
+    "kongkoaiki01",
+    "kongkoaiki02",
+    "kongkoaiki03",
+    "kongkoaiki04",
+    "kongkoaiki05",
+    "kongkoaiki06",
+    "pehchhanga01",
+    "pehchhanga02",
+    "pehchhanga03",
+    "pehchhanga04",
+    "pehchhanga05",
+    "pehchhanga06",
+    "ukkidstory01",
+    "ukkidstory02",
+    "ukkidstory03",
+    "ukkidstory04",
+    "ukkidstory05",
+    "ukkidstory06",
+    "ukkidstory07",
+    "ukkidstory08",
+    "ukkidstory09",
+    "ukkidstory10",
+    "ukkidstory11",
+    "ukkidstory12",
+    "ukkidstory13",
+    "ukkidstory14",
+    "ukkidstory15",
+    "ukkidstory16",
+    "ukkidstory17",
+    "ukkidstory18",
+    "ukkidstory19",
     "about",
     "copyright",
     "donate",
-    "kutemia80", "kutemia81", "kutemia83", "kutemia84", "kutemia85", 
-    "kutemia86", "kutemia87", "kutemia88", "kutemia89", "kutemia90",
-    "kutemia91", "kutemia92", "kutemia93", "kutemia94", "kutemia95",
-    "kutemia96", "kutemia97", "kutemia98", "kutemia99",
-    "kutemia100", "kutemia101", "kutemia102", "kutemia104", "kutemia106",
-    "kutemia107", "kutemia108", "kutemia109", "kutemia110", "kutemia111",
-    "kutemia112", "kutemia113"
+    "kutemia80",
+    "kutemia81",
+    "kutemia83",
+    "kutemia84",
+    "kutemia85",
+    "kutemia86",
+    "kutemia87",
+    "kutemia88",
+    "kutemia89",
+    "kutemia90",
+    "kutemia91",
+    "kutemia92",
+    "kutemia93",
+    "kutemia94",
+    "kutemia95",
+    "kutemia96",
+    "kutemia97",
+    "kutemia98",
+    "kutemia99",
+    "kutemia100",
+    "kutemia101",
+    "kutemia102",
+    "kutemia104",
+    "kutemia106",
+    "kutemia107",
+    "kutemia108",
+    "kutemia109",
+    "kutemia110",
+    "kutemia111",
+    "kutemia112",
+    "kutemia113",
+    "kutemia114"
   ],
   "menu": [
     {
@@ -49,18 +160,48 @@
         {
           "title": "A郎",
           "children": [
-            { "title": "A郎 Podcast",    "auto_category": "A郎" },
-            { "title": "A郎片頭尾",      "auto_category": "A郎片頭尾" },
-            { "title": "A郎台語小詞典",  "auto_category": "A郎台語小詞典" }
+            {
+              "title": "A郎 Podcast",
+              "auto_category": "A郎"
+            },
+            {
+              "title": "A郎片頭尾",
+              "auto_category": "A郎片頭尾"
+            },
+            {
+              "title": "A郎台語小詞典",
+              "auto_category": "A郎台語小詞典"
+            }
           ]
         },
-        { "title": "台語講怪奇", "auto_category": "台語講怪奇" },
-        { "title": "白蔥仔公主", "auto_category": "白蔥仔公主" },
-        { "title": "英國囡仔古", "auto_category": "英國囡仔古" },
-        { "title": "民間故事",   "auto_category": "民間故事" },
-        { "title": "相招來看戲", "auto_category": "相招來看戲" },
-        { "title": "台灣舊地號名", "auto_category": "台灣舊地號名" },
-        { "title": "其他",       "auto_category": "其他" }
+        {
+          "title": "台語講怪奇",
+          "auto_category": "台語講怪奇"
+        },
+        {
+          "title": "白蔥仔公主",
+          "auto_category": "白蔥仔公主"
+        },
+        {
+          "title": "英國囡仔古",
+          "auto_category": "英國囡仔古"
+        },
+        {
+          "title": "民間故事",
+          "auto_category": "民間故事"
+        },
+        {
+          "title": "相招來看戲",
+          "auto_category": "相招來看戲"
+        },
+        {
+          "title": "台灣舊地號名",
+          "auto_category": "台灣舊地號名"
+        },
+        {
+          "title": "其他",
+          "auto_category": "其他"
+        }
       ]
     },
     {
@@ -70,21 +211,51 @@
     {
       "title": "遊戲 Games",
       "children": [
-        { "title": "12生相",       "file": "game_12zodiac" },
-        { "title": "聲調",         "file": "game_tones" },
-        { "title": "聲調2",        "file": "game_tones2" },
-        { "title": "台語ê母音",    "file": "game_vowels" },
-        { "title": "台灣縣市地圖", "file": "game_map" },
-        { "title": "打狗舊地號名", "file": "game_takao1" },
-        { "title": "打狗舊地號名2","file": "game_takao2" },
-        { "title": "A郎",          "file": "game_alang" }
+        {
+          "title": "12生相",
+          "file": "game_12zodiac"
+        },
+        {
+          "title": "聲調",
+          "file": "game_tones"
+        },
+        {
+          "title": "聲調2",
+          "file": "game_tones2"
+        },
+        {
+          "title": "台語ê母音",
+          "file": "game_vowels"
+        },
+        {
+          "title": "台灣縣市地圖",
+          "file": "game_map"
+        },
+        {
+          "title": "打狗舊地號名",
+          "file": "game_takao1"
+        },
+        {
+          "title": "打狗舊地號名2",
+          "file": "game_takao2"
+        },
+        {
+          "title": "A郎",
+          "file": "game_alang"
+        }
       ]
     },
     {
       "title": "關於 About",
       "children": [
-        { "title": "Koan-î關於",   "file": "about" },
-        { "title": "Pán-koân版權", "file": "copyright" }
+        {
+          "title": "Koan-î關於",
+          "file": "about"
+        },
+        {
+          "title": "Pán-koân版權",
+          "file": "copyright"
+        }
       ]
     },
     {
