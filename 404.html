@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>找無此頁 - 做工á人台語工作室</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="canonical" href="https://cho-kang-a-lang.github.io/">
+    <link rel="icon" href="./images/logo.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: var(--bg-main, #f8fafc); margin: 0; font-family: 'jf-openhuninn', sans-serif; }
+        .container { text-align: center; padding: 2rem; max-width: 480px; }
+        .logo { width: 80px; height: 80px; border-radius: 50%; margin-bottom: 1.5rem; }
+        h1 { font-size: 1.8rem; color: #334155; margin-bottom: 0.5rem; }
+        p  { color: #64748b; margin-bottom: 0.3rem; font-size: 1rem; }
+        .countdown { font-size: 0.9rem; color: #94a3b8; margin: 1.2rem 0; }
+        .btn { display: inline-block; background: #24BF89; color: #fff; font-weight: 700; padding: 0.75rem 2rem; border-radius: 8px; text-decoration: none; font-size: 1rem; transition: background 0.2s; }
+        .btn:hover { background: #1da874; }
+    </style>
+    <script>
+        // 3 秒後自動跳轉首頁
+        let sec = 3;
+        function tick() {
+            const el = document.getElementById('sec');
+            if (el) el.textContent = sec;
+            if (sec <= 0) { window.location.replace('./'); return; }
+            sec--;
+            setTimeout(tick, 1000);
+        }
+        window.addEventListener('DOMContentLoaded', tick);
+    </script>
+</head>
+<body>
+    <div class="container">
+        <img src="./images/logo.png" alt="做工á人台語工作室" class="logo">
+        <h1>找無此頁 404</h1>
+        <p>這個網址已經無法使用了。</p>
+        <p>網站已經全面更新，請到新的首頁繼續瀏覽。</p>
+        <p class="countdown"><span id="sec">3</span> 秒後自動跳轉首頁…</p>
+        <a href="./" class="btn">🏠 即刻回首頁</a>
+    </div>
+</body>
+</html>

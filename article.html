@@ -237,6 +237,9 @@
             const urlParams = new URLSearchParams(window.location.search);
             const fileName = urlParams.get('file');
 
+            // 沒有帶 ?file= 參數時，跳轉到文章列表（避免 Google 把空白頁當標準頁）
+            if (!fileName) { window.location.replace('article.html?file=archives'); return; }
+
             const menuContainer = document.getElementById('menu-container');
             const mobileToggle = document.getElementById('mobile-toggle');
             

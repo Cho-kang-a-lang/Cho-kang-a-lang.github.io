@@ -222,7 +222,11 @@
         document.addEventListener("DOMContentLoaded", function() {
             // 取得網頁元素
             const urlParams = new URLSearchParams(window.location.search);
-            const targetCat = urlParams.get('cat'); 
+            const targetCat = urlParams.get('cat');
+
+            // 沒有帶 ?cat= 參數時，跳轉回首頁（避免 Google 把空白頁當標準頁）
+            if (!targetCat) { window.location.replace('index.html'); return; }
+
             const pageTitle = document.getElementById('page-title');
             const postListContainer = document.getElementById('post-list');
             const menuContainer = document.getElementById('menu-container');
