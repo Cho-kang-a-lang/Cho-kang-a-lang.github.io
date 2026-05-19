@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>遊戲文章產生器（GitHub 版）</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body class="bg-gray-50">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        function App() {
+          // --- State: 基本資料 ---
+          const [title,     setTitle]     = useState('台語分類卡牌');
+          const [menuTitle, setMenuTitle] = useState('台語分類卡牌');
+          const [date,      setDate]      = useState(() => {
+            const now = new Date();
+            return new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+          });
+
+          // --- State: 描述段落 ---
+          const [paragraphs, setParagraphs] = useState(['']);
+
+          // --- State: iframe ---
+          const [iframeType,   setIframeType]   = useState('external'); // 'external' | 'selfhosted'
+          const [iframeUrl,    setIframeUrl]     = useState('');
+          const [iframeWidth,  setIframeWidth]   = useState('800');
+          const [iframeHeight, setIframeHeight]  = useState('600');
+
+          // --- State: 自製遊戲 HTML ---
+          const [gameFile,      setGameFile]      = useState(null);
+          const [gameSaved,     setGameSaved]      = useState(false);
+          const [gameFileDrag,  setGameFileDrag]  = useState(false);
+
+          // --- State: 輸出 ---
+          const [output,    setOutput]    = useState('');
+          const [filename,  setFilename]  = useState('game_new');
+          const [savedName, setSavedName] = useState('');
+
+          // --- State: GitHub 連線 ---
+          const [githubToken,    setGithubToken]    = useState('');
+          const [repoOwner,      setRepoOwner]      = useState('cho-kang-a-lang');
+          const [repoName,       setRepoName]       = useState('cho-kang-a-lang.github.io');
+          const [apiConnected,   setApiConnected]   = useState(false);
+          const [apiStatus,      setApiStatus]      = useState('');
+          const [postsJsonText,  setPostsJsonText]  = useState('');
+          const [postsJsonSha,   setPostsJsonSha]   = useState('');
+          const [showPostsEditor,setShowPostsEditor]= useState(false);
+          const [postsJsonSaved, setPostsJsonSaved] = useState(false);
+          const [sitemapStatus,  setSitemapStatus]  = useState('');
+
+          // ===================== GitHub API 工具 =====================
+          const ghHeaders = () => ({
+            'Authorization': `Bearer ${githubToken}`,
+            'Accept': 'application/vnd.github+json',
+            'X-GitHub-Api-Version': '2022-11-28'
+          });
+          const ghUrl     = (path) => `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${path}`;
+          const toBase64  = (str)  => btoa(unescape(encodeURIComponent(str)));
+          const fromBase64= (b64)  => decodeURIComponent(escape(atob(b64.replace(/\n/g, ''))));
+
+          // ===================== GitHub 連線 =====================
+          const connectApi = async () => {
+            if (!githubToken.trim()) { setApiStatus('❌ 請先輸入 GitHub Token'); return; }
+            setApiStatus('連線中...');
+            try {
+              const res = await fetch(ghUrl('posts.json'), { headers: ghHeaders() });
+              if (res.status === 401) { setApiStatus('❌ Token 無效或已過期'); return; }
+              if (res.status === 404) { setApiStatus('❌ 找不到 posts.json，請確認 repo 名稱'); return; }
+              if (!res.ok)  { setApiStatus(`❌ GitHub API 錯誤 ${res.status}`); return; }
+              const data = await res.json();
+              setPostsJsonText(fromBase64(data.content));
+              setPostsJsonSha(data.sha);
+              setApiConnected(true);
+              setApiStatus('✅ 已連線，posts.json 載入成功');
+              setShowPostsEditor(false); setSavedName('');
+            } catch(e) { setApiStatus('❌ 連線失敗：' + e.message); }
+          };
+
+          // ===================== 自製遊戲 HTML 上傳 =====================
+          const handleGameFileSelect = (file) => {
+            if (!file) return;
+            if (!file.name.endsWith('.html') && !file.name.endsWith('.htm')) {
+              alert('請選擇 .html 檔案'); return;
+            }
+            setGameFile(file);
+            setGameSaved(false);
+            // 自動填入 markdown 檔名（去掉副檔名）
+            const base = file.name.replace(/\.(html|htm)$/i, '');
+            setFilename(base);
+          };
+
+          const saveGameHtml = () => new Promise((resolve) => {
+            if (!gameFile || !apiConnected) { resolve(true); return; }
+            if (gameSaved) { resolve(true); return; }
+            const reader = new FileReader();
+            reader.onload = async (ev) => {
+              const content = toBase64(ev.target.result);
+              const filePath = `htmls/${gameFile.name}`;
+              try {
+                let existingSha;
+                const checkRes = await fetch(ghUrl(filePath), { headers: ghHeaders() });
+                if (checkRes.ok) existingSha = (await checkRes.json()).sha;
+                const res = await fetch(ghUrl(filePath), {
+                  method: 'PUT',
+                  headers: { ...ghHeaders(), 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    message: existingSha ? `Update game: ${gameFile.name}` : `Add game: ${gameFile.name}`,
+                    content,
+                    ...(existingSha ? { sha: existingSha } : {})
+                  })
+                });
+                if (!res.ok) { alert('遊戲 HTML 儲存失敗：' + ((await res.json()).message || res.status)); resolve(false); return; }
+                setGameSaved(true);
+                resolve(true);
+              } catch(e) { alert('連線錯誤：' + e.message); resolve(false); }
+            };
+            reader.onerror = () => { alert('讀取檔案失敗'); resolve(false); };
+            reader.readAsText(file);
+          });
+
+          // ===================== 段落操作 =====================
+          const addParagraph    = ()      => setParagraphs(prev => [...prev, '']);
+          const removeParagraph = (i)     => setParagraphs(prev => prev.filter((_, idx) => idx !== i));
+          const updateParagraph = (i, v)  => setParagraphs(prev => prev.map((p, idx) => idx === i ? v : p));
+
+          // ===================== 產生 Markdown =====================
+          const generateMarkdown = () => {
+            const formattedDate = date.replace('T', ' ') + ':00';
+            let md = `---\ntitle: ${title}\ndate: ${formattedDate}\n---\n\n`;
+
+            paragraphs.filter(p => p.trim()).forEach(p => {
+              md += `<font size=5>${p}</font>\n<br>\n\n`;
+            });
+
+            // iframe
+            let iframeSrc = '';
+            if (iframeType === 'external') {
+              iframeSrc = iframeUrl.trim();
+            } else {
+              const htmlName = gameFile ? gameFile.name : filename + '.html';
+              iframeSrc = `../htmls/${htmlName}`;
+            }
+            if (iframeSrc) {
+              md += `<iframe style="max-width:100%" src="${iframeSrc}" width="${iframeWidth}" height="${iframeHeight}" frameborder="0" allowfullscreen></iframe>\n`;
+            }
+
+            setOutput(md);
+            setSavedName('');
+          };
+
+          // ===================== 儲存 Markdown =====================
+          const saveFile = async () => {
+            if (!output) return;
+            if (!apiConnected) { alert('請先完成步驟一（連線）再儲存'); return; }
+            // 自製遊戲：先上傳 HTML
+            if (iframeType === 'selfhosted' && gameFile && !gameSaved) {
+              const ok = await saveGameHtml();
+              if (!ok) return;
+            }
+            const fname    = filename.trim().replace(/\.md$/i, '') + '.md';
+            const fileKey  = fname.replace(/\.md$/i, '');
+            const filePath = `markdowns/${fname}`;
+            try {
+              let existingSha;
+              const checkRes = await fetch(ghUrl(filePath), { headers: ghHeaders() });
+              if (checkRes.ok) existingSha = (await checkRes.json()).sha;
+              const res = await fetch(ghUrl(filePath), {
+                method: 'PUT',
+                headers: { ...ghHeaders(), 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  message: existingSha ? `Update: ${fname}` : `Add: ${fname}`,
+                  content: toBase64(output),
+                  ...(existingSha ? { sha: existingSha } : {})
+                })
+              });
+              if (!res.ok) { alert('儲存失敗：' + ((await res.json()).message || res.status)); return; }
+              setSavedName(fname); setPostsJsonSaved(false); setSitemapStatus('');
+              updateSitemap(fileKey);
+              try {
+                const parsed = JSON.parse(postsJsonText);
+                const gamesMenu = parsed.menu && parsed.menu.find(m => m.title === '遊戲 Games');
+                if (gamesMenu && Array.isArray(gamesMenu.children)) {
+                  const alreadyExists = gamesMenu.children.some(c => c.file === fileKey);
+                  if (!alreadyExists) {
+                    gamesMenu.children.push({ title: menuTitle.trim() || title.trim(), file: fileKey });
+                    setPostsJsonText(JSON.stringify(parsed, null, 2));
+                  }
+                }
+              } catch(e) {}
+              setShowPostsEditor(true);
+            } catch(e) { alert('連線錯誤：' + e.message); }
+          };
+
+          // ===================== 儲存 posts.json =====================
+          const savePostsJson = async () => {
+            if (!postsJsonText || !apiConnected) return;
+            try {
+              const res = await fetch(ghUrl('posts.json'), {
+                method: 'PUT',
+                headers: { ...ghHeaders(), 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: 'Update posts.json', content: toBase64(postsJsonText), sha: postsJsonSha })
+              });
+              if (!res.ok) { alert('儲存失敗：' + ((await res.json()).message || res.status)); return; }
+              setPostsJsonSha((await res.json()).content.sha);
+              setPostsJsonSaved(true);
+            } catch(e) { alert('連線錯誤：' + e.message); }
+          };
+
+          // ===================== Sitemap 更新 =====================
+          const updateSitemap = async (fileKey) => {
+            const newUrl   = `https://cho-kang-a-lang.github.io/article.html?file=${fileKey}`;
+            const newEntry = `  <url><loc>${newUrl}</loc><priority>0.7</priority></url>`;
+            setSitemapStatus('🔄 更新 sitemap.xml...');
+            try {
+              const checkRes = await fetch(ghUrl('sitemap.xml'), { headers: ghHeaders() });
+              if (!checkRes.ok) { setSitemapStatus('⚠️ 無法讀取 sitemap.xml'); return; }
+              const data = await checkRes.json();
+              const currentSitemap = fromBase64(data.content);
+              if (currentSitemap.includes(newUrl)) { setSitemapStatus('✅ sitemap.xml 已包含此項目'); return; }
+              const updated = currentSitemap.replace('</urlset>', `${newEntry}\n\n</urlset>`);
+              const res = await fetch(ghUrl('sitemap.xml'), {
+                method: 'PUT',
+                headers: { ...ghHeaders(), 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: `Update sitemap: add ${fileKey}`, content: toBase64(updated), sha: data.sha })
+              });
+              if (res.ok) setSitemapStatus('✅ sitemap.xml 已自動更新');
+              else setSitemapStatus('⚠️ sitemap 更新失敗：' + ((await res.json()).message || res.status));
+            } catch(e) { setSitemapStatus('⚠️ sitemap 更新失敗：' + e.message); }
+          };
+
+          // ===================== 下載 =====================
+          const downloadFile = () => {
+            if (!output) return;
+            const fname = filename.trim().replace(/\.md$/i, '') + '.md';
+            const blob = new Blob([output], { type: 'text/markdown' });
+            const url  = URL.createObjectURL(blob);
+            const a    = document.createElement('a'); a.href = url; a.download = fname;
+            document.body.appendChild(a); a.click(); document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+          };
+
+          // ===================== UI =====================
+          return (
+            <div className="min-h-screen p-8 font-sans text-gray-800">
+              <div className="max-w-4xl mx-auto space-y-8">
+
+                {/* 標題 */}
+                <div>
+                  <h1 className="text-3xl font-bold text-purple-700">🎮 遊戲文章產生器</h1>
+                  <p className="text-purple-500 text-sm mt-1 font-medium">🐙 GitHub 版 — 直接儲存到 GitHub Repository</p>
+                </div>
+
+                {/* 使用說明 */}
+                <div className="bg-gray-800 text-gray-100 p-5 rounded-xl text-sm space-y-2">
+                  <p className="text-base font-bold text-white">📖 使用說明</p>
+                  <ol className="list-decimal ml-5 space-y-1 text-gray-300">
+                    <li>填入 Token → 按 <strong className="text-white">🔌 連線</strong></li>
+                    <li>填寫遊戲標題、日期</li>
+                    <li>輸入介紹文字段落（可新增多段）</li>
+                    <li>選擇 iframe 類型：<strong className="text-white">外部連結</strong>（Wordwall 等）或 <strong className="text-white">自製 HTML</strong></li>
+                    <li>按 <strong className="text-white">產生 Markdown</strong> → 確認預覽</li>
+                    <li>確認檔名 → 按 <strong className="text-white">💾 儲存到 GitHub</strong>（自製 HTML 會同步上傳到 htmls/）</li>
+                    <li>確認 posts.json → 按 <strong className="text-white">💾 儲存 posts.json</strong></li>
+                  </ol>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* 左欄：基本資料 + 段落 */}
+                  <div className="space-y-6">
+                    {/* 基本資料 */}
+                    <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                      <h2 className="text-lg font-semibold mb-4 border-b pb-2">1. 基本資料</h2>
+                      <div className="space-y-3">
+                        <div>
+                          <label className="block text-sm font-medium mb-1">遊戲標題</label>
+                          <input type="text" className="w-full border rounded p-2 text-sm" value={title} onChange={e => setTitle(e.target.value)} placeholder="例：台語分類卡牌" />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium mb-1">選單顯示名稱</label>
+                          <input type="text" className="w-full border rounded p-2 text-sm" value={menuTitle} onChange={e => setMenuTitle(e.target.value)} placeholder="例：台語分類卡牌（顯示在導覽列）" />
+                          <p className="text-xs text-gray-400 mt-1">顯示在網站「遊戲 Games」選單中的名稱</p>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium mb-1">日期</label>
+                          <input type="datetime-local" className="w-full border rounded p-2 text-sm" value={date} onChange={e => setDate(e.target.value)} />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* 描述段落 */}
+                    <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                      <div className="flex items-center justify-between border-b pb-2 mb-4">
+                        <h2 className="text-lg font-semibold">2. 介紹文字</h2>
+                        <button onClick={addParagraph} className="text-sm bg-purple-100 text-purple-700 px-3 py-1 rounded hover:bg-purple-200 transition">＋ 新增段落</button>
+                      </div>
+                      <p className="text-xs text-gray-400 mb-3">每段會產生一行 <code className="bg-gray-100 px-1 rounded">&lt;font size=5&gt;…&lt;/font&gt;</code></p>
+                      <div className="space-y-3">
+                        {paragraphs.map((p, i) => (
+                          <div key={i} className="flex gap-2 items-start">
+                            <textarea
+                              className="flex-1 border rounded p-2 text-sm h-20 resize-y"
+                              placeholder={`第 ${i+1} 段介紹文字（台語/中文）`}
+                              value={p}
+                              onChange={e => updateParagraph(i, e.target.value)}
+                            />
+                            {paragraphs.length > 1 && (
+                              <button onClick={() => removeParagraph(i)} className="mt-1 text-xs bg-red-100 text-red-600 px-2 py-1 rounded hover:bg-red-200 transition whitespace-nowrap">移除</button>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 右欄：iframe 設定 */}
+                  <div className="space-y-6">
+                    <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                      <h2 className="text-lg font-semibold mb-4 border-b pb-2">3. 遊戲 iframe 設定</h2>
+
+                      {/* 類型選擇 */}
+                      <div className="flex gap-3 mb-5">
+                        <button
+                          onClick={() => setIframeType('external')}
+                          className={`flex-1 py-2.5 rounded-lg font-semibold text-sm border-2 transition ${iframeType === 'external' ? 'border-blue-500 bg-blue-50 text-blue-700' : 'border-gray-200 bg-white text-gray-500 hover:border-gray-300'}`}
+                        >🌐 外部連結<br/><span className="font-normal text-xs">Wordwall / 其他平台</span></button>
+                        <button
+                          onClick={() => setIframeType('selfhosted')}
+                          className={`flex-1 py-2.5 rounded-lg font-semibold text-sm border-2 transition ${iframeType === 'selfhosted' ? 'border-purple-500 bg-purple-50 text-purple-700' : 'border-gray-200 bg-white text-gray-500 hover:border-gray-300'}`}
+                        >🗂️ 自製 HTML<br/><span className="font-normal text-xs">上傳到 htmls/ 資料夾</span></button>
+                      </div>
+
+                      {/* 外部連結 */}
+                      {iframeType === 'external' && (
+                        <div>
+                          <label className="block text-sm font-medium mb-1">Embed URL</label>
+                          <input type="text" className="w-full border rounded p-2 text-sm font-mono" placeholder="https://wordwall.net/embed/..." value={iframeUrl} onChange={e => setIframeUrl(e.target.value)} />
+                          <p className="text-xs text-gray-400 mt-1">貼上遊戲平台的嵌入網址</p>
+                        </div>
+                      )}
+
+                      {/* 自製 HTML */}
+                      {iframeType === 'selfhosted' && (
+                        <div>
+                          <label className="block text-sm font-medium mb-2">上傳遊戲 HTML 檔案</label>
+                          <div
+                            className={`border-2 border-dashed rounded-lg p-4 text-center cursor-pointer transition ${gameFileDrag ? 'border-purple-500 bg-purple-50' : 'border-gray-300 hover:border-gray-400 bg-gray-50'}`}
+                            onDragOver={e => { e.preventDefault(); setGameFileDrag(true); }}
+                            onDragLeave={() => setGameFileDrag(false)}
+                            onDrop={e => { e.preventDefault(); setGameFileDrag(false); const f = e.dataTransfer.files[0]; if (f) handleGameFileSelect(f); }}
+                            onClick={() => document.getElementById('game-html-upload').click()}
+                          >
+                            {gameFile
+                              ? <p className="text-sm text-purple-700 font-semibold">✅ {gameFile.name}</p>
+                              : <p className="text-xs text-gray-400 py-2">🗂️ 拖曳 .html 到此，或點擊選擇</p>
+                            }
+                          </div>
+                          <input id="game-html-upload" type="file" accept=".html,.htm" className="hidden"
+                            onChange={e => { if (e.target.files[0]) handleGameFileSelect(e.target.files[0]); }} />
+                          {gameFile && (
+                            <div className="mt-2 text-xs flex items-center justify-between">
+                              <span className="text-gray-500">→ 上傳至：<code className="bg-gray-100 px-1 rounded">htmls/{gameFile.name}</code></span>
+                              {apiConnected && !gameSaved
+                                ? <button onClick={() => saveGameHtml()} className="bg-purple-600 text-white px-3 py-1 rounded hover:bg-purple-700 transition">💾 立即上傳</button>
+                                : gameSaved ? <span className="text-green-600 font-semibold">✅ 已上傳</span> : <span className="text-gray-400">連線後可上傳</span>
+                              }
+                            </div>
+                          )}
+                        </div>
+                      )}
+
+                      {/* 尺寸設定 */}
+                      <div className="mt-5 pt-4 border-t">
+                        <label className="block text-sm font-medium mb-2">iframe 尺寸</label>
+                        <div className="flex gap-3 items-center">
+                          <div className="flex-1">
+                            <label className="text-xs text-gray-500 mb-1 block">寬度 (width)</label>
+                            <input type="number" className="w-full border rounded p-2 text-sm" value={iframeWidth} onChange={e => setIframeWidth(e.target.value)} />
+                          </div>
+                          <span className="text-gray-400 mt-5">×</span>
+                          <div className="flex-1">
+                            <label className="text-xs text-gray-500 mb-1 block">高度 (height)</label>
+                            <input type="number" className="w-full border rounded p-2 text-sm" value={iframeHeight} onChange={e => setIframeHeight(e.target.value)} />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* GitHub 連線 */}
+                <div className={`p-5 rounded-xl border-2 ${apiConnected ? 'bg-green-50 border-green-300' : 'bg-blue-50 border-blue-300'}`}>
+                  <p className="font-bold text-gray-700 mb-3">{apiConnected ? '🔗 已連線到 GitHub' : '⚠️ 步驟一：連線到 GitHub'}</p>
+                  <div className="space-y-2">
+                    <div className="flex gap-2">
+                      <input type="text" className="w-36 border rounded p-2 text-sm font-mono" placeholder="帳號" value={repoOwner} onChange={e => setRepoOwner(e.target.value)} />
+                      <span className="self-center text-gray-400">/</span>
+                      <input type="text" className="flex-1 border rounded p-2 text-sm font-mono" placeholder="repo 名稱" value={repoName} onChange={e => setRepoName(e.target.value)} />
+                    </div>
+                    <div className="flex gap-2">
+                      <input type="password" className="flex-1 border rounded p-2 text-sm font-mono" placeholder="GitHub Personal Access Token (ghp_...)" value={githubToken} onChange={e => setGithubToken(e.target.value)} onKeyDown={e => e.key === 'Enter' && connectApi()} />
+                      <button onClick={connectApi} className="whitespace-nowrap bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow transition">{apiConnected ? '🔄 重新連線' : '🔌 連線'}</button>
+                    </div>
+                  </div>
+                  {apiStatus && <p className="text-sm mt-2 text-gray-600">{apiStatus}</p>}
+                </div>
+
+                {/* 產生 & 儲存 */}
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                  <button onClick={generateMarkdown} className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded transition mb-4">產生 Markdown</button>
+                  <textarea className="w-full border rounded p-4 font-mono text-sm bg-gray-50 h-64" readOnly value={output} placeholder="點擊「產生 Markdown」後會在這裡顯示…"></textarea>
+
+                  <div className="mt-4 space-y-3">
+                    <div className="flex items-center gap-2">
+                      <label className="text-sm font-semibold whitespace-nowrap text-gray-700">檔案名稱</label>
+                      <div className="flex flex-1 items-center gap-1 font-mono text-sm">
+                        <span className="text-gray-400">markdowns/</span>
+                        <input type="text" className="flex-1 border rounded p-2 focus:ring-2 focus:ring-purple-400" value={filename} onChange={e => setFilename(e.target.value.replace(/\.md$/i,'').replace(/[^a-zA-Z0-9_\-]/g,''))} placeholder="例：game_kinds" />
+                        <span className="text-gray-500">.md</span>
+                      </div>
+                    </div>
+
+                    <button onClick={saveFile} disabled={!output} className={`w-full font-bold py-3 px-4 rounded transition text-lg ${output ? 'bg-purple-600 hover:bg-purple-700 text-white shadow' : 'bg-gray-300 text-gray-500 cursor-not-allowed'}`}>
+                      💾 儲存到 GitHub
+                      {iframeType === 'selfhosted' && gameFile && !gameSaved ? ' （含遊戲 HTML）' : ''}
+                    </button>
+
+                    {savedName && (
+                      <div className="bg-green-50 border border-green-300 rounded-lg p-3 text-sm text-green-800">
+                        ✅ 已儲存：<code className="font-mono font-bold">markdowns/{savedName}</code>
+                        {iframeType === 'selfhosted' && gameFile && gameSaved && (
+                          <span>　＋　<code className="font-mono font-bold">htmls/{gameFile.name}</code></span>
+                        )}
+                        <span className="ml-2 text-gray-500">（GitHub Pages 約 1-2 分鐘後更新）</span>
+                      </div>
+                    )}
+                    {sitemapStatus && <p className="text-xs text-center text-gray-500">{sitemapStatus}</p>}
+
+                    <button onClick={downloadFile} disabled={!output} className={`w-full py-2 px-4 rounded transition text-sm ${output ? 'bg-gray-100 hover:bg-gray-200 text-gray-600 border border-gray-300' : 'bg-gray-100 text-gray-400 cursor-not-allowed'}`}>
+                      ⬇ 只下載（不儲存到 GitHub）
+                    </button>
+                  </div>
+                </div>
+
+                {/* posts.json 編輯器 */}
+                {showPostsEditor && (
+                  <div className="bg-white p-6 rounded-xl shadow-sm border-2 border-purple-300">
+                    <h2 className="text-xl font-bold mb-1 text-purple-800">📋 步驟三：更新 posts.json</h2>
+                    <p className="text-sm text-gray-500 mb-3">
+                      <code className="bg-purple-50 px-1 rounded font-mono font-bold">{savedName.replace(/\.md$/i,'')}</code> 已自動加入「遊戲 Games」選單，確認後儲存到 GitHub。
+                    </p>
+                    <textarea className="w-full border rounded p-3 font-mono text-xs bg-gray-50 h-56 focus:ring-2 focus:ring-purple-400" value={postsJsonText} onChange={e => { setPostsJsonText(e.target.value); setPostsJsonSaved(false); }} />
+                    <button onClick={savePostsJson} className="mt-3 w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded transition">💾 儲存 posts.json 到 GitHub</button>
+                    {postsJsonSaved && <p className="mt-2 text-center text-green-700 font-semibold">✅ posts.json 已更新！GitHub Pages 約 1-2 分鐘後自動部署。</p>}
+                  </div>
+                )}
+
+              </div>
+            </div>
+          );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
