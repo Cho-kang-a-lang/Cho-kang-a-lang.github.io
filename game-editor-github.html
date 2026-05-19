@@ -24,8 +24,8 @@
             return new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
           });
 
-          // --- State: 描述段落 ---
-          const [paragraphs, setParagraphs] = useState(['']);
+          // --- State: 描述文字 ---
+          const [description, setDescription] = useState('');
 
           // --- State: iframe ---
           const [iframeType,   setIframeType]   = useState('external'); // 'external' | 'selfhosted'
@@ -125,18 +125,14 @@
             reader.readAsText(gameFile);
           });
 
-          // ===================== 段落操作 =====================
-          const addParagraph    = ()      => setParagraphs(prev => [...prev, '']);
-          const removeParagraph = (i)     => setParagraphs(prev => prev.filter((_, idx) => idx !== i));
-          const updateParagraph = (i, v)  => setParagraphs(prev => prev.map((p, idx) => idx === i ? v : p));
 
           // ===================== 產生 Markdown（純函式，回傳字串）=====================
           const buildMarkdown = () => {
             const formattedDate = date.replace('T', ' ') + ':00';
             let md = `---\ntitle: ${title}\ndate: ${formattedDate}\n---\n\n`;
 
-            paragraphs.filter(p => p.trim()).forEach(p => {
-              md += `<font size=5>${p}</font>\n<br>\n\n`;
+            description.split('\n').filter(p => p.trim()).forEach(p => {
+              md += `<font size=5>${p.trim()}</font>\n<br>\n\n`;
             });
 
             let iframeSrc = '';
@@ -307,26 +303,14 @@
 
                     {/* 描述段落 */}
                     <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                      <div className="flex items-center justify-between border-b pb-2 mb-4">
-                        <h2 className="text-lg font-semibold">2. 介紹文字</h2>
-                        <button onClick={addParagraph} className="text-sm bg-purple-100 text-purple-700 px-3 py-1 rounded hover:bg-purple-200 transition">＋ 新增段落</button>
-                      </div>
-                      <p className="text-xs text-gray-400 mb-3">每段會產生一行 <code className="bg-gray-100 px-1 rounded">&lt;font size=5&gt;…&lt;/font&gt;</code></p>
-                      <div className="space-y-3">
-                        {paragraphs.map((p, i) => (
-                          <div key={i} className="flex gap-2 items-start">
-                            <textarea
-                              className="flex-1 border rounded p-2 text-sm h-20 resize-y"
-                              placeholder={`第 ${i+1} 段介紹文字（台語/中文）`}
-                              value={p}
-                              onChange={e => updateParagraph(i, e.target.value)}
-                            />
-                            {paragraphs.length > 1 && (
-                              <button onClick={() => removeParagraph(i)} className="mt-1 text-xs bg-red-100 text-red-600 px-2 py-1 rounded hover:bg-red-200 transition whitespace-nowrap">移除</button>
-                            )}
-                          </div>
-                        ))}
-                      </div>
+                      <h2 className="text-lg font-semibold border-b pb-2 mb-4">2. 介紹文字</h2>
+                      <textarea
+                        className="w-full border rounded p-2 text-sm h-48 resize-y"
+                        placeholder={"每一行會產生一個 <font size=5> 段落\n空白行會被略過\n\n例：\n台語分類卡牌線頂ī，ná sńg ná學台語！\n文具、水果、動物……日常生活ê詞彙，你kám知按怎用台語講？"}
+                        value={description}
+                        onChange={e => setDescription(e.target.value)}
+                      />
+                      <p className="text-xs text-gray-400 mt-1">換行 = 新段落，空白行略過</p>
                     </div>
                   </div>
 
