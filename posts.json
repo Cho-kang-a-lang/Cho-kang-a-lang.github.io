@@ -243,6 +243,10 @@
         {
           "title": "A郎",
           "file": "game_alang"
+        },
+        {
+          "title": "台語分類卡牌",
+          "file": "game_kinds"
         }
       ]
     },
