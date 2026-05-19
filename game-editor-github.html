@@ -122,7 +122,7 @@
               } catch(e) { alert('連線錯誤：' + e.message); resolve(false); }
             };
             reader.onerror = () => { alert('讀取檔案失敗'); resolve(false); };
-            reader.readAsText(file);
+            reader.readAsText(gameFile);
           });
 
           // ===================== 段落操作 =====================
@@ -130,8 +130,8 @@
           const removeParagraph = (i)     => setParagraphs(prev => prev.filter((_, idx) => idx !== i));
           const updateParagraph = (i, v)  => setParagraphs(prev => prev.map((p, idx) => idx === i ? v : p));
 
-          // ===================== 產生 Markdown =====================
-          const generateMarkdown = () => {
+          // ===================== 產生 Markdown（純函式，回傳字串）=====================
+          const buildMarkdown = () => {
             const formattedDate = date.replace('T', ' ') + ':00';
             let md = `---\ntitle: ${title}\ndate: ${formattedDate}\n---\n\n`;
 
@@ -139,7 +139,6 @@
               md += `<font size=5>${p}</font>\n<br>\n\n`;
             });
 
-            // iframe
             let iframeSrc = '';
             if (iframeType === 'external') {
               iframeSrc = iframeUrl.trim();
@@ -150,19 +149,31 @@
             if (iframeSrc) {
               md += `<iframe style="max-width:100%" src="${iframeSrc}" width="${iframeWidth}" height="${iframeHeight}" frameborder="0" allowfullscreen></iframe>\n`;
             }
+            return md;
+          };
 
+          const generateMarkdown = () => {
+            const md = buildMarkdown();
             setOutput(md);
             setSavedName('');
           };
 
           // ===================== 儲存 Markdown =====================
           const saveFile = async () => {
-            if (!output) return;
             if (!apiConnected) { alert('請先完成步驟一（連線）再儲存'); return; }
+            // 若還沒產生，自動先產生
+            const currentOutput = output || buildMarkdown();
+            if (!currentOutput.trim()) { alert('請先填寫遊戲標題與內容'); return; }
+            if (!output) { setOutput(currentOutput); setSavedName(''); }
             // 自製遊戲：先上傳 HTML
-            if (iframeType === 'selfhosted' && gameFile && !gameSaved) {
-              const ok = await saveGameHtml();
-              if (!ok) return;
+            if (iframeType === 'selfhosted') {
+              if (!gameFile) { alert('請先上傳遊戲 HTML 檔案（拖曳或點擊選擇）'); return; }
+              if (!gameSaved) {
+                try {
+                  const ok = await saveGameHtml();
+                  if (!ok) return;
+                } catch(e) { alert('遊戲 HTML 上傳失敗：' + e.message); return; }
+              }
             }
             const fname    = filename.trim().replace(/\.md$/i, '') + '.md';
             const fileKey  = fname.replace(/\.md$/i, '');
@@ -176,7 +187,7 @@
                 headers: { ...ghHeaders(), 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                   message: existingSha ? `Update: ${fname}` : `Add: ${fname}`,
-                  content: toBase64(output),
+                  content: toBase64(currentOutput),
                   ...(existingSha ? { sha: existingSha } : {})
                 })
               });
@@ -426,7 +437,7 @@
                       </div>
                     </div>
 
-                    <button onClick={saveFile} disabled={!output} className={`w-full font-bold py-3 px-4 rounded transition text-lg ${output ? 'bg-purple-600 hover:bg-purple-700 text-white shadow' : 'bg-gray-300 text-gray-500 cursor-not-allowed'}`}>
+                    <button onClick={saveFile} className="w-full font-bold py-3 px-4 rounded transition text-lg bg-purple-600 hover:bg-purple-700 text-white shadow">
                       💾 儲存到 GitHub
                       {iframeType === 'selfhosted' && gameFile && !gameSaved ? ' （含遊戲 HTML）' : ''}
                     </button>
