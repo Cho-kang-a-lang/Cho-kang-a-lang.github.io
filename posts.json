@@ -247,6 +247,10 @@
         {
           "title": "台語分類遊戲",
           "file": "game_kinds"
+        },
+        {
+          "title": "來揀！台語九宮格",
+          "file": "game_keng"
         }
       ]
     },
