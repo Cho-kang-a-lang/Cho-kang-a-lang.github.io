@@ -580,6 +580,12 @@
                                 return response.text();
                             })
                             .then(markdownText => {
+                                // 預約發布：若文章的發布時間在未來，跳轉首頁
+                                const meta = parseFrontmatter(markdownText, fileName);
+                                if (meta.publishAt && meta.publishAt > new Date()) {
+                                    window.location.replace('index.html');
+                                    return;
+                                }
                                 let cleanMd = markdownText;
                                 cleanMd = cleanMd.replace(/^---[\s\S]+?---\n/, '');
                                 if (window.currentPostIndex !== -1) {
