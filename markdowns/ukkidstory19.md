@@ -22,6 +22,7 @@ tags:
 ---
 
 <font size=6 color=#3F48CC>THE THREE SILLIES</font>
+
 <font size=5 color=#3F48CC>Once upon a time, when folk were not so wise as they are nowadays, there lived a farmer and his wife who had one daughter. And she, being a pretty lass, was courted by the young squire when he came home from his travels.</font>
 <br>
 
@@ -30,6 +31,7 @@ tags:
 
 
 <font size=6>三ê戇á</font>
+
 <font size=5>古早古早，tī hit ê人iáu無像chit-má chiah-nī巧ê時代，有1 ê做穡人kah in bó͘，in有1 ê cha-bó͘-kiáⁿ。Chit ê cha-bó͘-kiáⁿ生kah真súi，só͘-pái，in hia有1 ê少年ê草地紳士ùi伊ê遊學轉--來了後，to̍h去ka phāⁿ。</font>
 <br>
 
@@ -38,6 +40,7 @@ tags:
 
 
 <font size=6 color=#8E403A>Saⁿ ê Gōng-á</font>
+
 <font size=5 color=#8E403A>Kó͘-chá Kó͘-chá, tī hit ê lâng iáu bô chhiūⁿ chit-má chiah-nī khiáu ê sî-tāi, ū 1 ê chò-sit-lâng kah in bó͘, in ū 1 ê cha-bó͘-kiáⁿ. Chit ê cha-bó͘-kiáⁿ seⁿ kah chin súi, só͘-pái, in hia ū 1 ê siàu-liân ê chháu-tē sin-sū ùi i ê iû-ha̍k tńg--lâi liáu-āu, to̍h khì ka phāⁿ.</font>
 <br>
 

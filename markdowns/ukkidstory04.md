@@ -21,14 +21,17 @@ tags:
 ---
 
 <font size=6 color=#3F48CC>THE GOLDEN SNUFF-BOX</font>
+
 <font size=5 color=#3F48CC>Once upon a time, and a very good time too, though it was not in my time, nor your time, nor for the matter of that in any one's time, there lived a man and a woman who had one son called Jack, and he was just terribly fond of reading books. He read, and he read, and then, because his parents lived in a lonely house in a lonely forest and he never saw any other folk but his father and his mother, he became quite crazy to go out into the world and see charming princesses and the like.</font>
 <br>
 
 <font size=6>金鼻薰Kheh-á</font>
+
 <font size=5>眞久真久進前，有1 ê真好ê時代，sui-bóng講he m̄是我ê時代，mā m̄是你ê時代，凡勢beh認真ka計較，he mā無算是任何人ê時代。Tī hit時，有1對ang-á-bó͘，in有1 ê hāu生，名號做Jia̍k。Jia̍k真愛看冊，伊tiāⁿ-tiāⁿ看，時常看，不時to̍h leh看。因為in爸母to tòa tī稀微ê深山林內koh內底á內底ê 1間孤間厝，伊m̄-bat見過爸母以外ê任何人。Só͘-pái，伊變kah足期待去外口ê花花世界行行看看--leh，去看迷人ê公主，a̍h是講親像chit款ê tāi-chì。 </font>
 <br>
 
 <font size=6 color=#8E403A>Kim phīⁿ-hun Kheh-á</font>
+
 <font size=5 color=#8E403A>Chin-kú chin-kú chìn-chêng, ū 1 ê chin-hó ê sî-tāi, sui-bóng kóng he m̄-sī góa ê sî-tāi, mā m̄-sī lí ê sî-tāi, hoān-sè beh jīn-chin ka kè-kàu, he mā bô sǹg-sī jīm-hô-lâng ê sî-tāi. Tī hit-sî, ū 1 tùi ang-á-bó͘, in ū 1 ê hāu-seⁿ, miâ hō-chò Jia̍k. Jia̍k chin ài khòaⁿ chheh, i tiāⁿ-tiāⁿ khòaⁿ, sî-siông khòaⁿ, put-sî to̍h leh khòaⁿ. In-ūi in pē-bú to tòa tī hi-bî ê chhim-soaⁿ-nâ-lāi koh lāi-té-á lāi-té ê 1 keng ko͘-keng-chhù, i m̄-bat kìⁿ-kòe pē-bú í-gōa ê jīm-hô-lâng. Só͘-pái, i piàn kah chiok kî-thāi khì gōa-kháu ê hoa-hoa-sè-kài kiâⁿ-kiâⁿ khòaⁿ-khòaⁿ--leh, khì khòaⁿ bê-lâng ê kong-chú, a̍h-sī kóng chhin-chhiūⁿ chit-khoán ê tāi-chì.</font>
 <br><br><p>
 

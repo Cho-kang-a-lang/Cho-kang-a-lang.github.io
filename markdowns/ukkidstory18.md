@@ -20,14 +20,17 @@ tags:
 ---
 
 <font size=6 color=#3F48CC>THE LAIDLY WORM</font>
+
 <font size=5 color=#3F48CC>In Bamborough Castle there once lived a King who had two children, a son named Childe Wynde, and a daughter who was called May Margret. Their mother, a fair woman, was dead, and the King mourned her long and faithfully. But, after his son Childe Wynde went to seek his fortune, the King, hunting in the forest, came across a lady of such great beauty that he fell in love with her at once and determined to marry her.</font>
 <br>
 
 <font size=6>恐怖ê蛇龍</font>
+
 <font size=5>Éng-kòe，tī Bián-bu̍h-lò͘城堡--ni̍h，bat有1 ê王tòa tī hia，伊有2 ê gín-á，1 ê是hāu-seⁿ，號做Chhió͘ Oén，koh有1 ê cha-bó͘-kiáⁿ號做Mé Má-koeh。In老母是1位真súi ê女性，m̄-koh已經過身，王長久以來mā lóng誠心誠意teh ka哀悼。M̄-koh to̍h tī in kiáⁿ Chhió͘ Oén出外去走chhōe伊ka-tī ê字運了後，1遍王tī大樹林á內phah獵ê時，去tú tio̍h 1位美麗到極ê女士，伊1-ē to̍h去ho͘ saⁿh--tio̍h，決心beh ka chhōa轉來做牽手。</font>
 <br>
 
 <font size=6 color=#8E403A>KHIÓNG-PÒ͘ Ê CHÔA-LÊNG</font>
+
 <font size=5 color=#8E403A>Éng-kòe, tī Bián-bu̍h-lò͘ siâⁿ-pó--ni̍h, bat ū 1 ê ông tòa tī hia, i ū 2 ê gín-á, 1 ê sī hāu-seⁿ, hō chò Chhió͘ Oén, koh ū 1 ê cha-bó͘-kiáⁿ hō chò Mé Má-koeh. In lāu-bú sī 1 ūi chin súi ê lú-sèng, m̄-koh í-keng kòe-sin, ông tn̂g-kú í-lâi mā lóng sêng-sim-sêng-ì teh ka ai-tō. M̄-koh to̍h tī in kiáⁿ Chhió͘ Oén chhut-gōa khì cháu-chhōe i ka-tī ê jī-ūn liáu-āu, 1 piàn ông tī tōa-chhiū-nâ-á lāi phah-la̍h ê sî, khì tú tio̍h 1 uī bí-lē kàu-ke̍k ê lú-sū, i 1-ē to̍h khì ho͘ saⁿh--tio̍h, koat-sim beh ka chhōa tńg-lâi chò khan-chhiú.</font>
 <br>
 

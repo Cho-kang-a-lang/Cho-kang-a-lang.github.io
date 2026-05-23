@@ -19,14 +19,17 @@ tags:
 [<i class="fab fa-youtube fa-2x" aria-hidden="true"></i>](https://youtu.be/YraYZ5EaxmU "YouTube Podcast")　[<i class="fa fa-podcast fa-2x" aria-hidden="true"></i>](https://player.soundon.fm/p/7c6f4223-1e6f-4cad-86ca-48884313b43a/episodes/a5d5e1dd-f2eb-4a88-a6c6-11bca578368d "SoundOn")　[<i class="fab fa-spotify fa-2x" aria-hidden="true"></i>](https://open.spotify.com/episode/6IbpDVVy6YAhTw7MXoCJCN "Spotify")　[<i class="fa fa-podcast fa-2x" aria-hidden="true"></i>](https://podcast.kkbox.com/tw/episode/T-dU_tLofsrHuqGxjC "KKBOX")　[<i class="fab fa-apple fa-2x" aria-hidden="true"></i>](https://podcasts.apple.com/us/podcast/%E8%8B%B1%E5%9C%8Bg%C3%ADn-%C3%A1%E5%8F%A4-%E7%A0%B4%E8%A3%98%C3%A1-tattercoats/id1730745763?i=1000681743165 "Apple Podcast")
 
 <font size=6 color=#3F48CC>TATTERCOATS</font>
+
 <font size=5 color=#3F48CC>In a great Palace by the sea there once dwelt a very rich old lord, who had neither wife nor children living, only one little granddaughter, whose face he had never seen in all her life. He hated her bitterly, because at her birth his favourite daughter died; and when the old nurse brought him the baby he swore that it might live or die as it liked, but he would never look on its face as long as it lived.</font>
 <br>
 
 <font size=6>破裘á</font>
+
 <font size=5>Éng過，tī海邊á 1棟真lè-táu ê宮--ni̍h，有1 ê老貴族tòa tī hin，伊無bó͘，mā無iáu tī--leh ê gín-á，kan-na有1 ê細漢cha-bó͘孫，chêng in cha-bó͘孫出世，伊to̍h m̄-bat去看過in cha-bó͘孫ê面。伊真怨恨in孫á，因為in孫á出世ê時，伊siōng心愛ê cha-bó͘-kiáⁿ soah死--去。Hit時，老奶母kā嬰á抱去hō͘伊看，伊咒chōa講，不管he死a̍h好，活a̍h好，lóng無伊ê tī-tāi，m̄-koh nā-sī he koh活--leh，伊to̍h絕對bē去看he ê面。</font>
 <br>
 
 <font size=6 color=#8E403A>Phòa Hiû-á</font>
+
 <font size=5 color=#8E403A>Éng-kòe, tī hái-piⁿ-á 1 tòng chin lè-táu ê kiong--ni̍h, ū 1 ê lāu kùi-cho̍k tòa tī hin, i bô bó͘, mā bô iáu tī--leh ê gín-á, kan-na ū 1 ê sè-hàn cha-bó͘-sun, chêng in cha-bó͘-sun chhut-sì, i to̍h m̄-bat khì khòaⁿ-kòe in cha-bó͘-sun ê bīn. I chin oàn-hūn in sun-á, in-ūi in sun-á chhut-sì ê sî, i siōng sim-ài ê cha-bó͘-kiáⁿ soah sí--khì. Hit-sî, lāu leng-bó kā eⁿ-á phō-khì hō͘ i khòaⁿ, i chiù-chōa kóng, put-koán he sí a̍h hó, oa̍h a̍h hó, lóng bô i ê tī-tāi, m̄-koh nā-sī he koh oa̍h--leh, i to̍h choa̍t-tùi bē khì khòaⁿ he ê bīn.</font>
 <br>
 

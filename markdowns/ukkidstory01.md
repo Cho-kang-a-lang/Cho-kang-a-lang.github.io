@@ -22,14 +22,17 @@ tags:
 ---
 
 <font size=6 color=#3F48CC>THE STORY OF THE THREE BEARS</font>
+
 <font size=5 color=#3F48CC>Once upon a time there were three Bears, who lived together in a house of their own, in a wood. One of them was a Little Wee Bear, and one was a Middle-sized Bear, and the other was a Great Big Bear. They had each a bowl for their porridge; a little bowl for the Little Wee Bear; and a middle-sized bowl for the Middle-sized Bear; and a great bowl for the Great Big Bear. And they had each a chair to sit in; a little chair for the Little Wee Bear; and a middle-sized chair for the Middle-sized Bear; and a great chair for the Great Big Bear. And they had each a bed to sleep in; a little bed for the Little Wee Bear; and a middle-sized bed for the Middle-sized Bear; and a great bed for the Great Big Bear.</font>
 <br>
 
 <font size=6>三隻熊ê故事</font>
+
 <font size=5>古早古早，有3隻熊，in做夥tòa tī樹林á內，有1間in ka-tī ê厝。In內底有1隻熊，是細細隻á-kiáⁿ，另外1隻體形中中--á，koh另外1隻to̍h chiok大隻。In kok人lóng有1塊碗thang té moâi，細細隻á--ê碗細細，體態中中--ê碗中中，chiok大隻--ê碗chiok大。In kok人mā lóng有1 liâu椅á thang坐，細細隻á--ê細liâu椅，體態中中--ê椅中範，chiok大隻--ê椅chiok大。In kok人mā lóng有1頂眠床thang睏，細細隻á--ê床細細，體態中中--ê床中中，chiok大隻--ê床chiok大。</font>
 <br>
 
 <font size=6 color=#8E403A>Saⁿ chiah hîm ê kò͘-sū</font>
+
 <font size=5 color=#8E403A>Kó͘-chá kó͘-chá, ū 3 chiah hîm, in chò-hóe tòa tī chhiū-nâ-á lāi, ū 1 keng in ka-tī ê chhù. In lāi-té ū 1 chiah hîm, sī sè-sè-chiah-á-kiáⁿ, lēng-gōa 1 chiah thé-hêng tiong-tiong--á, koh lēng-gōa 1 chiah to̍h chiok tōa chiah. In kok lâng lóng ū 1 tè óaⁿ thang té moâi, sè-sè chiah-á--ê óaⁿ sè-sè, thé-thài tiong-tiong--ê óaⁿ tiong-tiong, chiok- tōa-chiah--ê óaⁿ chiok tōa. In kok lâng mā lóng ū 1 liâu í-á thang chē, sè-sè-chiah-á--ê sè liâu í, thé-thài tiong-tiong--ê í tiong-pān, chiok-tōa-chiah--ê í chiok tōa. In kok lâng mā lóng ū 1 téng bîn-chhn̂g thang khùn, sè-sè-chiah-á--ê chhn̂g sè-sè, thé-thài tiong-tiong--ê chhn̂g tiong-tiong, chiok-tōa-chiah--ê chhn̂g chiok tōa.</font>
 <br><br><p>
 

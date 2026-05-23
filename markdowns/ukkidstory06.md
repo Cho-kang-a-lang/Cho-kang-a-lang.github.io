@@ -18,11 +18,17 @@ tags:
 
 [<i class="fab fa-youtube fa-2x" aria-hidden="true"></i>](https://youtu.be/fAgMh4bNc_E "YouTube Podcast")　[<i class="fa fa-podcast fa-2x" aria-hidden="true"></i>](https://player.soundon.fm/p/7c6f4223-1e6f-4cad-86ca-48884313b43a/episodes/fa733e17-902a-4cc8-ad3d-517b308ae6e9 "SoundOn")　[<i class="fab fa-spotify fa-2x" aria-hidden="true"></i>](https://open.spotify.com/episode/64fPuWJ8ZvmncvBYG6Xcca "Spotify")　[<i class="fa fa-podcast fa-2x" aria-hidden="true"></i>](https://podcast.kkbox.com/tw/episode/4qxgg98CI8oxk5LYel "KKBOX")　[<i class="fab fa-apple fa-2x" aria-hidden="true"></i>](https://podcasts.apple.com/us/podcast/%E8%8B%B1%E5%9C%8Bg%C3%ADn-%C3%A1%E5%8F%A4-%E9%87%91%E9%BC%BB%E8%96%B0kheh-%C3%A1%E4%B8%8B%E9%9B%86-the-golden-snuff-box-part-3/id1730745763?i=1000680961131 "Apple Podcast")
 
+<font size=6 color=#3F48CC>THE GOLDEN SNUFF-BOX</font>
+
 <font size=5 color=#3F48CC>But when they came to the King's chamber, where he sate surrounded by all manner of birds, tomtits, wrens, cormorants, turtle-doves, and the like, the King said he was sorry, but he had no news of the missing Castle. And though he summoned all the birds of all the world to a Grand Assembly next morning, not one of them had seen or heard tell of it.</font>
 <br>
 
+<font size=6>金鼻薰Kheh-á</font>
+
 <font size=5>等in去到王ê議事廳ê時，王to̍h坐tī hia，伊ê四pêng邊--á有各形kok樣ê鳥á，有藍山雀，鷦鷯，鸕鶿，pan-kah等等。王講真抱歉，伊chia無hit ê phàng-kiàn ê城堡ê消息。Sui-bóng講王有召集全世界ê鳥á來參加隔轉工ê大會，m̄-koh mā無1隻鳥á看過a̍h是聽過hit棟城堡ê tāi-chì。</font>
 <br>
+
+<font size=6 color=#8E403A>Kim phīⁿ-hun Kheh-á</font>
 
 <font size=5 color=#8E403A>Tán in khì-kàu ông ê gī-sū-thiaⁿ ê sî, ông to̍h chē tī hia, i ê sì-pêng piⁿ--á ū kok-hêng-kok-iūⁿ ê chiáu-á, ū nâ-soaⁿ-chhiok, chiau-liâu, lô͘-chî, pan-kah téng-téng. Ông kóng chin phō-khiam, i chia bô hit ê phàng-kiàn ê siâⁿ-pó ê siau-sit. Sui-bóng kóng ông ū tiàu-chi̍p choân-sè-kài ê chiáu-á lâi chham-ka keh-tńg-kang ê tāi-hōe, m̄-koh mā bô 1 chiah chiáu-á khòaⁿ-kòe a̍h-sī thiaⁿ-kòe hit tòng siâⁿ-pó ê tāi-chì.</font>
 <br><br><p>

@@ -21,16 +21,19 @@ tags:
 ---
 
 <font size=6 color=#3F48CC>TOM-TIT-TOT</font>
+
 <font size=5 color=#3F48CC>Once upon a time there was a woman and she baked five pies. But when they came out of the oven they were over-baked, and the crust was far too hard to eat. So she said to her daughter:
 "Daughter," says she, "put them pies on to the shelf and leave 'em there awhile. Surely they'll come again in time."</font>
 <br>
 
 <font size=6>Thóm-Thit-Thok</font>
+
 <font size=5>古早古早有1 ê婦人人，伊去烘5塊phái，m̄-koh phái出爐ê時，soah烘過頭--ā，he phái ê皮已經烘kah tēng-khiauh-khiauh，真歹食。婦人人to̍h kā in chŏ͘-kiáⁿ講：
 「Kiáⁿ--ê，你去kā hia ê phái khǹg去架á頂，koh小等--1-時-á，chia ê phái to̍h ē koh變--轉-來。」</font>
 <br>
 
 <font size=6 color=#8E403A>Thóm-Thit-Thok</font>
+
 <font size=5 color=#8E403A>Kó͘-chá kó͘-chá ū 1 ê hū-jîn-lâng, i khì hang 5 tè phái, m̄-koh phái chhut-lô͘ ê sî, soah hang kòe thâu--ā, he phái ê phôe í-keng hang kah tēng-khiauh-khiauh, chin pháiⁿ-chia̍h. Hū-jîn-lâng to̍h kā in chŏ͘-kiáⁿ kóng: 
 “Kiáⁿ--ê, lí khì kā hia ê phái khǹg khì kè-á téng, koh sió-tán--1-sî-á, chia ê phái to̍h ē koh piàn--tńg-lâi.”</font>
 <br><br><p>

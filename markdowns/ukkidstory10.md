@@ -21,14 +21,17 @@ tags:
 ---
 
 <font size=6 color=#3F48CC>LAZY JACK</font>
+
 <font size=5 color=#3F48CC>Once upon a time there was a boy whose name was Jack, and he lived with his mother on a common. They were very poor, and the old woman got her living by spinning, but Jack was so lazy that he would do nothing but bask in the sun in the hot weather, and sit by the corner of the hearth in the winter-time. So they called him Lazy Jack. His mother could not get him to do anything for her, and at last told him, one Monday, that if he did not begin to work for his porridge she would turn him out to get his living as he could.</font>
 <br>
 
 <font size=6>Pân-tōaⁿ Jia̍k</font>
+
 <font size=5>古早古早，有1 ê cha-po͘ gín-á，伊ê名號做Jia̍k，伊kah in老母tòa tī 1塊公地。In sàn kah beh hō͘鬼扛--去，chit ê老chŏ͘人是靠紡紗á teh過日，m̄-koh Jia̍k實在是有夠pân-tōaⁿ，伊熱天to̍h去曝日，寒--人to̍h坐tī壁爐邊角--á ê所在，其他--ê伊siáⁿ to bē-giàn做。Só͘-pái人to̍h lóng叫伊Pân-tōaⁿ Jia̍k。In老母無才調叫伊去ka tàu做任何tāi-chì，最後，to̍h tī 1 ê禮拜一ka講，伊nā m̄開始為伊ka-tī食ê moâi做khang-khòe，to̍h beh ka趕--出-去，叫伊食ka-tī。</font>
 <br>
 
 <font size=6 color=#8E403A>Pân-tōaⁿ Jia̍k</font>
+
 <font size=5 color=#8E403A>Kó͘-chá kó͘-chá, ū 1 ê cha-po͘ gín-á, i ê miâ hō-chò Jia̍k, i kah in lāu-bú tòa tī 1 tè kong-tē. In sàn kah beh hō͘ kúi kng--khì, chit ê lāu chŏ͘-lâng sī khò pháng se-á teh kòe-ji̍t, m̄-koh Jia̍k si̍t-chāi sī ū-kàu pân-tōaⁿ, i joa̍h-thiⁿ to̍h khì pha̍k-ji̍t, kôaⁿ--lâng to̍h chē tī piah-lô͘ piⁿ kak--á ê só͘-chāi, kî-tha--ê i siáⁿ to bē-giàn chò. Só͘-pái lâng to̍h lóng kiò i Pân-tōaⁿ Jia̍k. In lāu-bú bô châi-tiāu kiò i khì ka tàu chò jīm-hô tāi-chì, chòe-āu, to̍h tī 1 ê lé-pài-it ka kóng, i nā m̄ khai-sí ūi i ka-tī chia̍h ê moâi chò khang-khòe, to̍h beh ka kóaⁿ--chhut-khì, kiò i chia̍h ka-tī. </font>
 <br>
 

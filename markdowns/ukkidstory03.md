@@ -21,16 +21,19 @@ tags:
 ---
 
 <font size=6 color=#3F48CC>TOM-TIT-TOT</font>
+
 <font size=5 color=#3F48CC>"Good-morning, my beauty," says That. "Come! hand over the flax, sharp, there's a good girl."
 So she gave That the flax and shut the window and, you may be sure, ate her victuals, for, as you know, she had a good appetite, and the King, her husband, had promised to give her everything she liked to eat. So she ate to her heart's content, and when evening came and she heard that queer knocking at the window again, she upped and opened it, and there was the small, little, black Thing with five spun skeins on his arm!</font>
 <br>
 
 <font size=6>Thóm-Thit-Thok</font>
+
 <font size=5>Hit隻講「美人，gâu-chá！來，kā亞麻hō͘--我，緊--leh，乖hâⁿ！」
 王后to̍h kā亞麻the̍h hō͘--伊，sòa--lòe to̍h kā窗á關--khài。咱ē-tàng想像--lah，koh來王后一定是去食王chhoân hō͘--伊ê物件，你mā知--lah，伊嘴斗真好，王mā有約束講beh hō͘伊所有伊想beh食ê物件，só͘-pái，伊自然是ka食ho͘夠khùi。到下暗ê時陣，伊koh聽tio̍h hit ê奇怪ê lòng窗á ê聲，伊to̍h peh起來kā窗á門開--開，tio̍h，to̍h是hit隻，烏烏koh細細隻hit隻，肩胛頭koh扛5 khûn已經紡好ê紗á！</font>
 <br>
 
 <font size=6 color=#8E403A>Thóm-Thit-Thok</font>
+
 <font size=5 color=#8E403A>Hit chiah kóng: “Bí-jîn, gâu-chá! Lâi, kā a-môa hō͘--góa, kín--leh, koai hâⁿ!”
 Ông-hiō to̍h kā a-môa the̍h hō͘--i, sòa--lòe to̍h kā thang-á koaiⁿ--khài. Lán ē-tàng sióng-siōng--lah, koh lâi ông-hiō it-tēng sī khì chia̍h ông chhoân hō͘--i ê mi̍h-kiāⁿ, lí mā chai--lah, i chhùi-táu chin hó, ông mā ū iok-sok kóng beh hō͘ i só͘-ū i siūⁿ beh chia̍h ê mi̍h-kiāⁿ, só͘-pái, i chū-jiân sī ka chia̍h ho͘ kàu khùi. Kàu e-àm ê sî-chūn, i koh thiaⁿ tio̍h hit ê kî-koài ê lòng thang-á ê siaⁿ, i to̍h peh khí-lâi kā thang-á-mn̂g khui--khui, tio̍h, to̍h sī hit chiah, o͘-o͘ koh sè-sè-chiah hit chiah, keng-kah-thâu koh kng 5 khûn í-keng pháng hó ê se-á!</font>
 <br><br><p>

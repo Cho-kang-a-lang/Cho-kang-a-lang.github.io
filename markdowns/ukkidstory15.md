@@ -21,17 +21,17 @@ tags:
 
 ---
 
-<font size=6 color=#3F48CC>The 2 Sisters</font>
+<font size=6 color=#3F48CC>The 2 Sisters Part 2</font>
 
 <font size=5 color=#3F48CC>Once upon a time there were two sisters who were as like each other as two peas in a pod; but one was good, and the other was bad-tempered. Now their father had no work, so the girls began to think of going to service.</font>
 <br>
 
-<font size=6>2姊妹</font>
+<font size=6>2姊妹 下集</font>
 
 <font size=5>Sòa--lòe，老女術士iû-koh走m̄ tio̍h pêng，chŏ͘-gín-á to̍h koh 1遍ùi in tau hit pêng走--去，m̄-koh to̍h tī伊tú走到hang-pháng窯hia ê時，to̍h聽tio̍h hit ê恐怖ê老女術士iû-koh ùi伊kha-chiah後飛--過-來；só͘-pái伊to̍h chhui盡磅走去hang-pháng窯邊--á，大聲hoah講：</font>
 <br>
 
-<font size=6 color=#8E403A>2chí-mōe</font>
+<font size=6 color=#8E403A>2chí-mōe hā-chi̍p</font>
 
 <font size=5 color=#8E403A>Sòa--lòe, lāu lú-su̍t-sū iû-koh cháu m̄ tio̍h pêng, chŏ͘-gín-á to̍h koh 1 piàn ùi in tau hit pêng cháu--khì, m̄-koh to̍h tī i tú cháu kàu hang-pháng-iô hia ê sî, to̍h thiaⁿ tio̍h hit ê khióng-pò͘ ê lāu lú-su̍t-sū iû-koh ùi i kha-chiah-āu poe--kòe-lâi; só͘-pái i to̍h chhui chīn-pōng cháu khì hang-pháng-iô piⁿ--á, tōa-siaⁿ hoah kóng:</font>
 <br>
