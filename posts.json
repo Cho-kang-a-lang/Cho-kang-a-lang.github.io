@@ -208,12 +208,12 @@
           "title": "其他",
           "children": [
             {
-              "title": "其他",
-              "auto_category": "其他"
-            },
-            {
               "title": "台語語詞",
               "auto_category": "台語語詞"
+            },
+            {
+              "title": "其他",
+              "auto_category": "其他"
             }
           ]
         }
