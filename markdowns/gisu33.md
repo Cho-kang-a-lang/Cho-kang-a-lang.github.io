@@ -13,7 +13,7 @@ tags:
 - 好腳手
 ---
 
-[<i class="fab fa-youtube fa-2x" aria-hidden="true"></i>](https://youtube.com/shorts/xhZiLwvU63k "YouTube Podcast")
+[<i class="fab fa-youtube fa-2x" aria-hidden="true"></i>](https://youtube.com/shorts/PMIQqELdy4M "YouTube Podcast")
 
 ---
 
