@@ -1,27 +1,23 @@
 ---
-title: 【台語語詞】36.樣相
-date: 2025-11-17 20:00:00
+title: 【台語語詞】35.對重
+date: 2025-11-10 20:00:00
 img: /medias/featureimages/gisu35.png
 categories: [台語語詞]
-description: 台語語詞, 樣相
+description: 台語語詞, 對重
 tags:
 - Tâi-gí
 - 台語
 - Tâi-bûn
 - 台文
 - 台語語詞
-- 樣相
+- 對重
 ---
 
-[<i class="fab fa-youtube fa-2x" aria-hidden="true"></i>](https://youtube.com/shorts/RNlaVa68u48 "YouTube Podcast")
+[<i class="fab fa-youtube fa-2x" aria-hidden="true"></i>](https://youtube.com/shorts/dV-fFGQImZ4 "YouTube Podcast")
 
 ---
 
-<font size=6>台語ê「樣相」是teh形容人a̍h是物件ê外表、行為、體態、形式，比華語teh講ê『長相』閣較親切、直接，mā較有台語ê氣口。</font>
-<br>
-
-
-<font size=5>比論講，若講1 ê人「歹樣相」to̍h是teh形容這ê人的行為chiok粗魯、不良；若是講：「此項物做了不止有1 ê樣相」，to̍h是形容此項物件ê製作樣式有chiok chē種變化。</font>
+<font size=6>對重to̍h是teh形容對人iah是對代誌感覺真iàu意、真看重，伊hâm要緊、緊要、致重mā攏是kāng意思ê詞，m̄知 lín kám koh有想tio̍h其他ê講法？歡迎分享hō͘阮知ŏ͘！</font>
 <br>
 
 
