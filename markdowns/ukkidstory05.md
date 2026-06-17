@@ -39,7 +39,7 @@ tags:
 <font size=5>Jia̍k從來to̍h m̄-bat看過chit-lō光景，當然--lah，主人hit ê青春活潑ê chŏ͘-kiáⁿ mā m̄-bat khoàiⁿ，伊睏帽á iáu tì--leh，tng tī隔壁間ê窗á邊teh看外口ê情形。伊看--起-來是hiah-nī-á súi koh hiah-nī-á無煩無惱，só͘-pái in hit 3仙細仙á紅人beh飛倒轉去金鼻薰kheh-á ê時，害Jia̍k感覺真ak-chak，因為Jia̍k to̍h ài倒退1步讓in過，bô-thang koh看súi姑娘á。M̄-koh in 3仙比Jia̍k koh khah ak-chak，一直se̍h-se̍h念講án-ne chông起chông落有夠thiám頭，só͘-pái，tī in 3仙kā kheh-á關--起-來開始kôⁿ ê時，Jia̍k感覺好ka-chài，心內真歡喜。</font>
 <br>
 
-<font size=5 color=#8E403A>Jia̍k chiông-lâi to̍h m̄-bat khòaⁿ-kòe chit-lō kong-kéng, tong-jiân--lah, chú-lâng hit ê chheng-chhun hoa̍h-phoah ê chŏ͘-kiáⁿ mā m̄-bat khoàiⁿ, i khùn-bō-á iáu tì--leh, tng tī keh-piah-keng ê thang-á piⁿ teh khòaⁿ gōa-kháu ê chêng-hêng. I khòaⁿ--khí-lâi sī hiah-nī-á súi koh hiah-nī-á bô-hoân-bô-ló, só͘-pái in hit 3 sian sè-sian-á âng-lâng beh poe tó-tńg-khì kim phīⁿ-hun-kheh-á ê sî, hāi Jia̍k kám-kak chin ak-chak, in-ūi Jia̍k to̍h ài tò-thè 1 pō͘ niū in kòe, bô-thang koh khòaⁿ súi ko͘-niû-á. M̄-koh in 3 sian pí Jia̍k koh khah ak-chak, it-ti̍t se̍h-se̍h-liām kóng án-ne chông-khí-chông-lo̍h ū-kàu thiám-thâu, só͘-pái, tī in 3 sian kā kheh-á koaiⁿ--khí-lâi khai-sí kôⁿ ê sî, Jia̍k kám-kak hó-ka-chài, sim-lāi chin hoaⁿ-hí.</font>
+<font size=5 color=#8E403A>Jia̍k chiông-lâi to̍h m̄-bat khòaⁿ-kòe chit-lō kong-kéng, tong-jiân--lah, chú-lâng hit ê chheng-chhun hoa̍t-phoat ê chŏ͘-kiáⁿ mā m̄-bat khoàiⁿ, i khùn-bō-á iáu tì--leh, tng tī keh-piah-keng ê thang-á piⁿ teh khòaⁿ gōa-kháu ê chêng-hêng. I khòaⁿ--khí-lâi sī hiah-nī-á súi koh hiah-nī-á bô-hoân-bô-ló, só͘-pái in hit 3 sian sè-sian-á âng-lâng beh poe tó-tńg-khì kim phīⁿ-hun-kheh-á ê sî, hāi Jia̍k kám-kak chin ak-chak, in-ūi Jia̍k to̍h ài tò-thè 1 pō͘ niū in kòe, bô-thang koh khòaⁿ súi ko͘-niû-á. M̄-koh in 3 sian pí Jia̍k koh khah ak-chak, it-ti̍t se̍h-se̍h-liām kóng án-ne chông-khí-chông-lo̍h ū-kàu thiám-thâu, só͘-pái, tī in 3 sian kā kheh-á koaiⁿ--khí-lâi khai-sí kôⁿ ê sî, Jia̍k kám-kak hó-ka-chài, sim-lāi chin hoaⁿ-hí.</font>
 <br><br><p>
 
 <font size=5 color=#3F48CC>Well, of course, Jack and the gay young daughter were married, and were as happy as the day is long; and Jack had fine clothes to wear, fine food to eat, fine servants to wait on him, and as many fine friends as he liked.</font>
@@ -54,7 +54,7 @@ tags:
 <font size=5>Só͘-pái，伊chit-má tng好運，m̄-koh伊iáu m̄知影，in老母ê咒讖總有1工ē kā伊帶衰。</font>
 <br>
 
-<font size=5 color=#8E403A>Tong-jiân Jia̍k bóe--á to̍h kah hit ê chheng-chhun hoa̍h-phoah ê chŏ͘-gín-á sêng-chhin--a, in kòe tio̍h hēng-hok koh bí-boán, Jia̍k ū súi-saⁿ thang chhēng, ū hó-mi̍h thang chia̍h, ū iu-siù ê lô͘-po̍k thang ka sū-hāu, koh ū chē-chē chhut-kioh ê pêng-iú sûi-chāi i khì kah lâng kau-pôe.</font>
+<font size=5 color=#8E403A>Tong-jiân Jia̍k bóe--á to̍h kah hit ê chheng-chhun hoa̍t-phoat ê chŏ͘-gín-á sêng-chhin--a, in kòe tio̍h hēng-hok koh bí-boán, Jia̍k ū súi-saⁿ thang chhēng, ū hó-mi̍h thang chia̍h, ū iu-siù ê lô͘-po̍k thang ka sū-hāu, koh ū chē-chē chhut-kioh ê pêng-iú sûi-chāi i khì kah lâng kau-pôe.</font>
 <br>
 
 <font size=5 color=#8E403A>Só͘-pái i chit-má tng hó-ūn, m̄-koh i iáu m̄ chai-iáⁿ, in lāu-bú ê chiù-chhàm chóng ū 1 kang ē kā i tài-soe.</font>
@@ -129,7 +129,7 @@ tags:
 <font size=5>Só͘-pái，Jia̍k騎1 chiah好馬，koh袋kóa錢，人to̍h出發--ah。</font>
 <br>
 
-<font size=5 color=#8E403A>Thâu-khí-seng, ta̍k ê lóng jīn-ûi Jia̍k sī 1 ê lān-mōa ê pián-sian-á, iû-kî sī in tiūⁿ-lâng-á, koh ui-hia̍p kóng beh tùi-hù--i, in-ūi i khi-phiàn i hit ê chheng-chhun hoa̍h-phoah ê chŏ͘-kiáⁿ. M̄-koh chòe-āu, i ū tông-ì hō͘ Jia̍k 12 kò-goe̍h koh kòe 1 kang ê sî-kan, hō͘ i ē-tàng khì chhōe siâⁿ-pó, koh kā siâⁿ-pó chah--tńg-lâi.</font>
+<font size=5 color=#8E403A>Thâu-khí-seng, ta̍k ê lóng jīn-ûi Jia̍k sī 1 ê lān-mōa ê pián-sian-á, iû-kî sī in tiūⁿ-lâng-á, koh ui-hia̍p kóng beh tùi-hù--i, in-ūi i khi-phiàn i hit ê chheng-chhun hoa̍t-phoat ê chŏ͘-kiáⁿ. M̄-koh chòe-āu, i ū tông-ì hō͘ Jia̍k 12 kò-goe̍h koh kòe 1 kang ê sî-kan, hō͘ i ē-tàng khì chhōe siâⁿ-pó, koh kā siâⁿ-pó chah--tńg-lâi.</font>
 <br>
 
 <font size=5 color=#8E403A>Só͘-pái, Jia̍k khiâ 1 chiah hó-bé, koh tē kóa chîⁿ, lâng to̍h chhut-hoat--ah.</font>
