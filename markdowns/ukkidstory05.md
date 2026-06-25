@@ -138,7 +138,7 @@ tags:
 <font size=5 color=#3F48CC>And he travelled far and he travelled fast, and he travelled east and west, north and south, over hills, and dales, and valleys, and mountains, and woods, and sheepwalks, but never a sign of the missing castle did he see. Now at last he came to the palace of the King of all the Mice in the Wide World. And there was a little mousie in a fine hauberk and a steel cap doing sentry at the front gate, and he was not for letting Jack in until he had told his errand. And when Jack had told it, he passed him on to the next mouse sentry at the inner gate; so by degrees he reached the King's chamber, where he sate surrounded by mice courtiers.</font>
 <br>
 
-<font size=5>伊走真遠，mā走真緊，東南西北四界chông，大通小路á走透透，樹林山谷mā sûn了了，盤山過嶺連牧場mā無落勾，to̍h是m̄知影城堡走去siáng in tau。最後，伊來到全世界niáu鼠á ê王ê王宮。王宮ê大門前，有1隻細隻niáu鼠á，穿鏈á甲，tì鋼ê頭盔teh khiā-哨，tī Jia̍k無kā ka-tī ê目的交帶ho͘清楚進前，lóng無ài hō͘ Jia̍k--入-去。Jia̍k kah伊會清楚了後，伊chiah放Jia̍k過去內底門teh khiā-哨ê niáu鼠á hia，to̍h án-ne會過1遍koh 1遍，siāng尾，Jia̍k chiah去到王ê議事廳，王坐tī內底，四pêng邊--á lóng是伊ê niáu鼠á大臣。</font>
+<font size=5>伊走真遠，mā走真緊，東南西北四界chông，大通小路á走透透，樹林山谷mā sûn了了，盤山過嶺連牧場mā無落勾，to̍h是m̄知影城堡走去siáng in tau。最後，伊來到全世界niáu鼠á ê王ê王宮。王宮ê大門前，有1隻細隻niáu鼠á，穿鏈á甲，tì鋼ê頭盔teh khiā哨，tī Jia̍k無kā ka-tī ê目的交帶ho͘清楚進前，lóng無ài hō͘ Jia̍k--入-去。Jia̍k kah伊會清楚了後，伊chiah放Jia̍k過去內底門teh khiā哨ê niáu鼠á hia，to̍h án-ne會過1遍koh 1遍，siāng尾，Jia̍k chiah去到王ê議事廳，王坐tī內底，四pêng邊--á lóng是伊ê niáu鼠á大臣。</font>
 <br>
 
 <font size=5 color=#8E403A>I cháu chin hn̄g, mā cháu chin kín, tang-lâm-sai-pak sì-kè chông, tōa-thong sió-lō͘-á cháu thàu-thàu, chhiū-nâ soaⁿ-kok mā sûn liáu-liáu, pôaⁿ-soaⁿ-kòe-niá liân bo̍k-tiûⁿ mā bô làu-kau, to̍h-sī m̄ chai-iáⁿ siâⁿ-pó cháu-khì siáng in tau. Chòe-āu, i lâi-kàu choân-sè-kài niáu-chhí-á ê ông ê ông-kiong. Ông-kiong ê tōa-mn̂g chêng, ū 1 chiah sè-chiah niáu-chhí-á, chhēng liān-á-kah, tì kǹg ê thâu-khoe teh khiā-sàu, tī Jia̍k bô kā ka-tī ê bo̍k-tek kau-tài ho͘ chheng-chhó chìn-chêng, lóng bô ài hō͘ Jia̍k--ji̍p-khì. Jia̍k kah i hōe chheng-chhó liáu-āu, i chiah pàng Jia̍k kòe-khì lāi-té mn̂g teh khiā-sàu ê niáu-chhí-á hia, to̍h án-ne hōe kòe 1 piàn koh 1 piàn, siāng-bóe, Jia̍k chiah khì kàu ông ê gī-sū-thiaⁿ,  ông chē tī lāi-té, sì-pêng piⁿ--á lóng sī i ê niáu-chhí-á tāi-sîn.</font>
@@ -279,7 +279,7 @@ tags:
 <font size=5>Koh來，馬á to̍h走kah親像sih-nah hiah緊，實在是伊無kah意he黏thi-thi ê水雞“thom”--1-ē lak tī伊ê kha-chiah-phiaⁿ。</font>
 <br>
 
-<font size=5 color=#8E403A>Jia̍k to̍h koh khí-kiâⁿ--ā, Jia̍k sim-koaⁿ bē-bái, i ū lâu 1 kóa àm-tǹg ê pháng-iù-á, to̍h sàng hō͘ hit chiah tú lo̍h-sàu ê chúi-ke-á sàu-peng. Chúi-ke to̍h kóng beh hâm Jia̍k chò-phōaⁿ chò-tīn khì, sòa--lo̍h-lâi Jia̍k ka kī-choa̍t ê sî, i to̍h chò i thiàu-khí-lih bé-tah-tèng, tē 2 thiàu to̍h thiàu khì bé-á kha-chhng, koh thiàu 1-ē to̍h thiàu ji̍p-khì Jia̍k lēng-gōa 1 ê lak-tē-á--ah.</font>
+<font size=5 color=#8E403A>Jia̍k to̍h koh khí-kiâⁿ--ā, Jia̍k sim-koaⁿ bē-bái, i ū lâu 1 kóa àm-tǹg ê pháng-iù-á, to̍h sàng hō͘ hit chiah tú lo̍h-sàu ê chúi-ke-á sàu-peng. Chúi-ke to̍h kóng beh hâm Jia̍k chò-phōaⁿ chò-tīn khì, sòa--lo̍h-lâi Jia̍k ka kī-choa̍t ê sî, i to̍h chò i thiàu-khí-lih bé-ta̍h-tèng, tē 2 thiàu to̍h thiàu khì bé-á kha-chhng, koh thiàu 1-ē to̍h thiàu ji̍p-khì Jia̍k lēng-gōa 1 ê lak-tē-á--ah.</font>
 <br>
 
 <font size=5 color=#8E403A>Koh-lâi, bé-á to̍h cháu kah chhin-chhiūⁿ sih-nah hiah kín, si̍t-chāi sī i bô kah-ì he liâm-thi-thi ê chúi-ke “thom”--1-ē lak tī i ê kha-chiah-phiaⁿ.</font>
