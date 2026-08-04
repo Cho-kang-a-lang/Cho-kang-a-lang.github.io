@@ -8,6 +8,7 @@
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone@7.26.4/babel.min.js"></script>
+    <script src="https://unpkg.com/mammoth@1.8.0/mammoth.browser.min.js"></script>
 </head>
 <body class="bg-gray-50">
     <div id="root"></div>
@@ -138,13 +139,27 @@
           };
 
           // ===================== 文字檔上傳 =====================
+          const setParagraphsFromText = (text, lang) => {
+            const paragraphs = text.split(/\r?\n\r?\n|\r?\n/).filter(p => p.trim() !== '');
+            setTexts(prev => ({ ...prev, [lang]: paragraphs }));
+          };
           const processTextFile = (file, lang) => {
-            const reader = new FileReader();
-            reader.onload = (ev) => {
-              const paragraphs = ev.target.result.split(/\r?\n\r?\n|\r?\n/).filter(p => p.trim() !== '');
-              setTexts(prev => ({ ...prev, [lang]: paragraphs }));
-            };
-            reader.readAsText(file);
+            const name = file.name.toLowerCase();
+            if (name.endsWith('.docx')) {
+              const reader = new FileReader();
+              reader.onload = (ev) => {
+                mammoth.extractRawText({ arrayBuffer: ev.target.result })
+                  .then(result => setParagraphsFromText(result.value, lang))
+                  .catch(e => alert('讀取 Word 檔失敗：' + e.message));
+              };
+              reader.readAsArrayBuffer(file);
+            } else if (name.endsWith('.doc')) {
+              alert('不支援舊版 .doc 格式，請先在 Word 中另存為 .docx 再上傳');
+            } else {
+              const reader = new FileReader();
+              reader.onload = (ev) => setParagraphsFromText(ev.target.result, lang);
+              reader.readAsText(file);
+            }
           };
           const handleFileUpload = (e, lang) => { if (e.target.files[0]) processTextFile(e.target.files[0], lang); };
           const handleClearFile = (lang) => {
@@ -360,7 +375,7 @@
                         <li>點「自動讀取最新單集」從 SoundOn RSS 匯入標題與日期</li>
                         <li>填入圖片路徑、分類、標籤等 Front Matter 資料</li>
                         <li>貼上各平台連結 → 點「一鍵擷取」自動分類</li>
-                        <li>上傳英文、漢字、白話字 .txt 文字檔（可只上傳部分）</li>
+                        <li>上傳英文、漢字、白話字 .txt 或 .docx 檔（可只上傳部分）</li>
                         <li>按 <strong className="text-white">產生 Markdown</strong> → 確認預覽無誤</li>
                         <li>輸入英文檔名 → 按 <strong className="text-white">💾 儲存到 GitHub markdowns/ 資料夾</strong></li>
                         <li>確認 posts.json 內容 → 按 <strong className="text-white">💾 儲存 posts.json</strong></li>
@@ -466,7 +481,7 @@
 
                     {/* 文字檔上傳 */}
                     <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                      <h2 className="text-xl font-semibold mb-4 border-b pb-2">3. 內文檔案 (.txt)</h2>
+                      <h2 className="text-xl font-semibold mb-4 border-b pb-2">3. 內文檔案 (.txt / .docx)</h2>
                       <p className="text-xs text-red-500 mb-3">*可依需求上傳 1 到 3 個檔案（皆為選填）。第一段會被設定為標題字體大小。</p>
                       <div className="space-y-4">
                         {[{lang:'en',label:'英文內容 (English)',color:'text-blue-700'},{lang:'hanji',label:'台語漢字',color:'text-black'},{lang:'poj',label:'台語白話字 (POJ)',color:'text-red-800'}].map(({lang,label,color}) => (
@@ -482,8 +497,8 @@
                               <label className={`block text-sm font-bold ${color} pointer-events-none`}>{label}</label>
                               {texts[lang].length > 0 && <button onClick={e => { e.stopPropagation(); handleClearFile(lang); }} className="text-xs bg-red-100 text-red-600 px-2 py-1 rounded hover:bg-red-200 transition">移除檔案</button>}
                             </div>
-                            <input id={`file-${lang}`} type="file" accept=".txt" onChange={e => handleFileUpload(e, lang)} className="hidden" />
-                            <div className="text-xs text-gray-400 text-center">{texts[lang].length > 0 ? `✅ 已讀取 ${texts[lang].length} 段` : '拖曳 .txt 到此，或點擊選擇'}</div>
+                            <input id={`file-${lang}`} type="file" accept=".txt,.docx" onChange={e => handleFileUpload(e, lang)} className="hidden" />
+                            <div className="text-xs text-gray-400 text-center">{texts[lang].length > 0 ? `✅ 已讀取 ${texts[lang].length} 段` : '拖曳 .txt / .docx 到此，或點擊選擇'}</div>
                           </div>
                         ))}
                       </div>
