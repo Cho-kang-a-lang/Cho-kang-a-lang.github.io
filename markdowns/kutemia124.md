@@ -1,6 +1,6 @@
 ---
 title: 【台灣舊地號名】124. 崁頭屋
-date: 2026-06-27 20:00:00
+date: 2026-07-04 20:00:00
 img: /medias/featureimages/kutemia124.jpg
 categories: [台灣舊地號名]
 description: 台灣舊地號名, 崁頭屋, 頭屋
