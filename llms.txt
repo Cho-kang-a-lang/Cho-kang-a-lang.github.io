@@ -53,6 +53,7 @@
 - [【A郎台語小詞典】 EP. 05-khăn-jió͘](https://cho-kang-a-lang.github.io/markdowns/alongsiosutian05.md)（2024-03-16）
 - [【A郎台語小詞典】 EP. 06-變/Pìⁿ](https://cho-kang-a-lang.github.io/markdowns/alongsiosutian06.md)（2024-03-19）
 - [【A郎台語小詞典】 EP. 07-Tǹg胸坎/Tǹg-heng-khám](https://cho-kang-a-lang.github.io/markdowns/alongsiosutian07.md)（2024-03-23）
+- [【A郎台語小詞典】 EP. 08-仙/Sian](https://cho-kang-a-lang.github.io/markdowns/alongsiosutian08.md)（2024-03-26）
 - [【A郎台語小詞典】 EP. 09-Gâu](https://cho-kang-a-lang.github.io/markdowns/alongsiosutian09.md)（2024-03-30）
 - [【A郎台語小詞典】 EP. 10-So](https://cho-kang-a-lang.github.io/markdowns/alongsiosutian10.md)（2024-04-02）
 - [【A郎台語小詞典】 EP. 11-赴 / Hù](https://cho-kang-a-lang.github.io/markdowns/alongsiosutian11.md)（2024-04-06）
@@ -92,7 +93,6 @@
 
 ## 其他
 
-- [alongsiosutian08](https://cho-kang-a-lang.github.io/markdowns/alongsiosutian08.md)
 - [【狡怪囡仔古】鴨Bî-á A-bái︱Ah-bî-á A-bái](https://cho-kang-a-lang.github.io/markdowns/other01.md)（2025-01-09）
 - [【E暗食啥貨】卵︱Nn̄g](https://cho-kang-a-lang.github.io/markdowns/other02.md)（2025-04-10）
 - [華語ê『嗆』，台語是beh按怎講？](https://cho-kang-a-lang.github.io/markdowns/other03.md)（2025-10-16）
