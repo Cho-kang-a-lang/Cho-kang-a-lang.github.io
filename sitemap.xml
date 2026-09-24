@@ -16,6 +16,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://cho-kang-a-lang.github.io/article.html?file=gisupoki</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://cho-kang-a-lang.github.io/article.html?file=donate</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -349,7 +354,6 @@
 
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kutemia123</loc><priority>0.7</priority></url>
 
-  <url><loc>https://cho-kang-a-lang.github.io/article.html?file=123-2.猴樹港</loc><priority>0.7</priority></url>
 
   <url><loc>https://cho-kang-a-lang.github.io/article.html?file=kutemia123-2</loc><priority>0.7</priority></url>
 

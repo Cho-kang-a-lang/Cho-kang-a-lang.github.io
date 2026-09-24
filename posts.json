@@ -221,12 +221,26 @@
     "gisu70",
     "gisu71",
     "gisu72",
-    "gisu73"
+    "gisu73",
+    "gisupoki"
   ],
   "menu": [
     {
       "title": "首頁 Home",
       "file": "home"
+    },
+    {
+      "title": "辭典 Dict",
+      "children": [
+        {
+          "title": "做工á人語詞補記",
+          "file": "gisupoki"
+        },
+        {
+          "title": "新辭書",
+          "file": "sinsusu"
+        }
+      ]
     },
     {
       "title": "分類 Categories",

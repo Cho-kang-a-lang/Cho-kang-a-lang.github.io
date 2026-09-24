@@ -277,6 +277,7 @@
                             if (item.file === 'home') targetUrl = 'index.html';
                             else if (hasChildren) targetUrl = `category.html?cat=${encodeURIComponent(item.title)}`;
                             else if (item.file) targetUrl = `article.html?file=${item.file}`;
+                            else if (item.url) targetUrl = item.url;
 
                             let arrow = '';
                             if (hasChildren) {
@@ -365,7 +366,11 @@
 
                         document.getElementById('article-title').textContent = currentPost.title;
                         
-                        // 強化日期相容性處理
+                        // 強化日期相容性處理（選單節點無 date 時，回退到 frontmatter 讀出的文章清單）
+                        if (!currentPost.date) {
+                            const metaPost = (data._posts || []).find(p => p.file === fileName);
+                            if (metaPost && metaPost.date) currentPost.date = metaPost.date;
+                        }
                         let dateHtmlText = '';
                         if (currentPost.date) {
                             let dObj = new Date(String(currentPost.date).replace(/-/g, '/'));

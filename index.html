@@ -592,6 +592,7 @@
                             if (item.file === 'home') targetUrl = 'index.html';
                             else if (hasChildren) targetUrl = `category.html?cat=${encodeURIComponent(item.title)}`;
                             else if (item.file) targetUrl = `article.html?file=${item.file}`;
+                            else if (item.url) targetUrl = item.url;
 
                             let arrow = '';
                             if (hasChildren) {

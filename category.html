@@ -272,6 +272,7 @@
                             if (item.file === 'home') targetUrl = 'index.html';
                             else if (hasChildren) targetUrl = `category.html?cat=${encodeURIComponent(item.title)}`;
                             else if (item.file) targetUrl = `article.html?file=${item.file}`;
+                            else if (item.url) targetUrl = item.url;
 
                             let arrow = '';
                             if (hasChildren) {
@@ -340,7 +341,7 @@
                     let collectedArticles = [];
                     function collectArticles(node) {
                         if (!node) return;
-                        if (node.file && node.file !== 'home' && node.file !== 'archives') {
+                        if ((node.file && node.file !== 'home' && node.file !== 'archives') || node.url) {
                             collectedArticles.push(node);
                         }
                         if (node.children) node.children.forEach(collectArticles);
@@ -381,7 +382,8 @@
                         collectedArticles.forEach(item => {
                             const card = document.createElement('article');
                             card.className = 'post-card';
-                            const targetUrl = `article.html?file=${item.file}`;
+                            const isExternal = !item.file && item.url;
+                            const targetUrl = isExternal ? item.url : `article.html?file=${item.file}`;
 
                             let imageHtml = '';
                             if (item.image) {
@@ -408,7 +410,7 @@
                                     <h2 class="post-title"><a href="${targetUrl}">${item.title}</a></h2>
                                     <div class="post-meta">${dateHtml}</div>
                                     ${descHtml}
-                                    <a href="${targetUrl}" class="read-more">繼續閱讀 »</a>
+                                    <a href="${targetUrl}" class="read-more">${isExternal ? '前往網站 »' : '繼續閱讀 »'}</a>
                                 </div>
                             `;
                             postListContainer.appendChild(card);

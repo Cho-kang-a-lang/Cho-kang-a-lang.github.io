@@ -158,6 +158,13 @@ body.article-page .footer { background-color: var(--white); color: var(--text-mu
 .markdown-body code { font-family: Consolas, Monaco, "Courier New", monospace; background-color: rgba(255,255,255,0.08); color: #fb7185; padding: 3px 6px; border-radius: 4px; font-size: 0.9em; }
 .markdown-body pre code { background-color: transparent; color: inherit; padding: 0; }
 .markdown-body audio { width: 100%; margin: 20px 0; outline: none; border-radius: 8px; background-color: rgba(255,255,255,0.05); }
+.markdown-body table { display: block; width: max-content; max-width: 100%; overflow-x: auto; border-collapse: collapse; margin: 2em 0; font-size: 1rem; line-height: 1.8; }
+.markdown-body th, .markdown-body td { border: 1px solid var(--border-color); padding: 12px 16px; text-align: left; vertical-align: top; min-width: 60px; max-width: 380px; }
+.markdown-body th { background-color: var(--white); color: var(--primary-color); font-weight: 700; white-space: nowrap; }
+.markdown-body td small { color: var(--text-muted); font-size: 0.88em; }
+.markdown-body tr.tbl-example td { background-color: rgba(148,163,184,0.08); font-size: 0.95em; border-bottom-width: 2px; }
+.markdown-body tr.tbl-example b { color: var(--primary-color); }
+.markdown-body tbody tr:hover td { background-color: rgba(36,191,137,0.08); }
 
 .post-navigation { display: flex; justify-content: space-between; margin-top: 60px; padding-top: 40px; border-top: 2px solid var(--border-color); gap: 20px; }
 .nav-link-block { flex: 1; display: flex; flex-direction: column; text-decoration: none; padding: 20px 25px; border-radius: 12px; transition: all 0.2s; background-color: var(--white); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); }
