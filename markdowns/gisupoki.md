@@ -31,9 +31,9 @@ tags:
 
 ## 語詞記錄
 
-<table>
+<table class="vocab-tbl">
 <thead>
-<tr><th>#</th><th>語詞</th><th>中文意思</th><th>同義／類似詞</th><th>備註</th><th>提供者</th></tr>
+<tr><th>#</th><th>語詞</th><th>中文意思</th><th>同義／<br>類似詞</th><th>備註</th><th>提供者</th></tr>
 </thead>
 <tbody>
 <tr>

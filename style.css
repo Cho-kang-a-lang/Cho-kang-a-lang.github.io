@@ -163,6 +163,9 @@ body.article-page .footer { background-color: var(--white); color: var(--text-mu
 .markdown-body th { background-color: var(--white); color: var(--primary-color); font-weight: 700; white-space: nowrap; }
 .markdown-body td small { color: var(--text-muted); font-size: 0.88em; }
 .markdown-body tr.tbl-example td { background-color: rgba(148,163,184,0.08); font-size: 0.95em; border-bottom-width: 2px; }
+/* 語詞補記表格：語詞欄加寬、同義詞欄縮窄 */
+.markdown-body table.vocab-tbl th:nth-child(2), .markdown-body table.vocab-tbl tr:not(.tbl-example) td:nth-child(2) { min-width: 210px; }
+.markdown-body table.vocab-tbl th:nth-child(4), .markdown-body table.vocab-tbl tr:not(.tbl-example) td:nth-child(4) { min-width: 0; max-width: 120px; }
 .markdown-body tr.tbl-example b { color: var(--primary-color); }
 .markdown-body tbody tr:hover td { background-color: rgba(36,191,137,0.08); }
 
