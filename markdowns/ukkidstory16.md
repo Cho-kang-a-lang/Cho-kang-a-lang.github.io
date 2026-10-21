@@ -138,10 +138,10 @@ tags:
 <font size=5 color=#3F48CC>Now the lass had been taken to York to be hanged; she was brought out on the scaffold, and the hangman said, "Now, lass, thou must hang by the neck till thou be'st dead." But she cried out:</font>
 <br>
 
-<font size=5>Taⁿ hit ê姑娘á去hông押去Yò͘-khuh beh ka吊--死；伊hông chhōa去絞台，處刑人講：「Chit-má，姑娘á，你ài hông吊頷頸，直透到你無khùi。」M̄-koh姑娘á大聲hoah講：</font>
+<font size=5>Taⁿ hit ê姑娘á去hông押去Iò͘-khuh beh ka吊--死；伊hông chhōa去絞台，處刑人講：「Chit-má，姑娘á，你ài hông吊頷頸，直透到你無khùi。」M̄-koh姑娘á大聲hoah講：</font>
 <br>
 
-<font size=5 color=#8E403A>Taⁿ hit ê ko͘-niû-á khì hông ah khì Yò͘-khuh beh ka tiàu--sí; i hông chhōa khì ká-tâi, chhú-hêng-lâng kóng: “Chit-má, ko͘-niû-á, lí ài hông tiàu ām-kún, ti̍t-thàu kàu lí bô-khùi.” M̄-koh ko͘-niû-á tōa-siaⁿ hoah kóng:</font>
+<font size=5 color=#8E403A>Taⁿ hit ê ko͘-niû-á khì hông ah khì Iò͘-khuh beh ka tiàu--sí; i hông chhōa khì ká-tâi, chhú-hêng-lâng kóng: “Chit-má, ko͘-niû-á, lí ài hông tiàu ām-kún, ti̍t-thàu kàu lí bô-khùi.” M̄-koh ko͘-niû-á tōa-siaⁿ hoah kóng:</font>
 <br>
 
 <font size=5 color=#3F48CC>"Stop, stop, I think I see my mother coming!</font>
