@@ -1,0 +1,175 @@
+/* ==========================================================================
+   台語世界政策島（原型） island.css
+   2.5D 俯視平面風格，配合網站深色主題；所有文字皆為一般 HTML
+   ========================================================================== */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --sea-deep: #0b1e33;
+    --sea-mid: #12304d;
+    --sea-light: #1a4066;
+    --sand: #e8d9a8;
+    --text-main: #e2e8f0;
+    --text-muted: #94a3b8;
+    --primary: #24BF89;
+    --panel-bg: #1e293b;
+    --border: #334155;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang TC", "Microsoft JhengHei", sans-serif;
+    background: var(--sea-deep);
+    color: var(--text-main);
+    min-height: 100vh;
+}
+
+/* === 頂部列 === */
+.isl-header {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; gap: 14px;
+    padding: 12px 20px;
+    background: rgba(11, 30, 51, 0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--border);
+}
+.isl-back { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; white-space: nowrap; }
+.isl-back:hover { color: var(--primary); }
+.isl-title { font-size: 1.25rem; color: var(--text-main); font-weight: 800; }
+.isl-title-poj { color: var(--primary); font-weight: 600; font-size: 1rem; }
+.isl-badge {
+    margin-left: auto; font-size: 0.75rem; color: var(--sand);
+    border: 1px solid rgba(232, 217, 168, 0.4); border-radius: 20px; padding: 3px 10px;
+    white-space: nowrap;
+}
+
+/* === 海洋 === */
+.isl-sea {
+    position: relative;
+    min-height: calc(100vh - 54px);
+    padding: 50px 20px 90px;
+    background:
+        radial-gradient(ellipse 900px 500px at 20% 15%, rgba(36, 191, 137, 0.07), transparent 60%),
+        radial-gradient(ellipse 800px 600px at 85% 75%, rgba(26, 64, 102, 0.55), transparent 65%),
+        linear-gradient(180deg, var(--sea-mid) 0%, var(--sea-deep) 100%);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px 70px;
+}
+.isl-loading { width: 100%; text-align: center; color: var(--text-muted); padding: 80px 0; font-size: 1.05rem; }
+
+/* === 島嶼 === */
+.isl-island { position: relative; flex: 0 0 auto; }
+
+/* 島名牌 */
+.isl-plaque {
+    position: relative; z-index: 5;
+    text-align: center; margin-bottom: 6px;
+}
+.isl-plaque-name {
+    display: inline-block;
+    background: var(--panel-bg);
+    border: 1px solid var(--border);
+    border-bottom: 3px solid var(--island-color, var(--primary));
+    border-radius: 10px;
+    padding: 6px 18px;
+    font-size: 1.05rem; font-weight: 700; color: var(--text-main);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.35);
+}
+.isl-plaque-count { font-size: 0.8rem; color: var(--text-muted); margin-left: 8px; font-weight: 400; }
+
+/* 島的本體：海島 SVG 背景 + 建築層 */
+.isl-town { position: relative; margin: 0 auto; }
+.isl-hex { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
+
+/* === 建築 === */
+.isl-building {
+    position: absolute; z-index: 10;
+    transform: translate(-50%, -50%);
+    display: flex; flex-direction: column; align-items: center;
+    background: none; border: none; cursor: pointer;
+    padding: 2px;
+}
+.isl-building svg { display: block; filter: drop-shadow(0 3px 3px rgba(0,0,0,0.4)); transition: transform 0.15s ease; }
+.isl-building:hover svg, .isl-building:focus-visible svg { transform: translateY(-4px) scale(1.15); }
+.isl-building-label {
+    margin-top: 1px;
+    font-size: 10.5px; line-height: 1.25; color: #243b2e;
+    background: rgba(240, 244, 235, 0.88);
+    border-radius: 6px; padding: 0 5px;
+    max-width: 74px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    pointer-events: none;
+}
+.isl-building:hover .isl-building-label { max-width: none; z-index: 20; position: relative; }
+
+/* === 面板 === */
+.isl-panel-backdrop {
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(0, 0, 0, 0.5);
+}
+.isl-panel {
+    position: fixed; z-index: 201;
+    top: 0; right: 0; bottom: 0;
+    width: min(400px, 100vw);
+    background: var(--panel-bg);
+    border-left: 1px solid var(--border);
+    box-shadow: -10px 0 30px rgba(0,0,0,0.45);
+    overflow-y: auto;
+    animation: isl-slide-in 0.22s ease;
+}
+@keyframes isl-slide-in { from { transform: translateX(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+.isl-panel-close {
+    position: absolute; top: 10px; right: 14px; z-index: 5;
+    background: none; border: none; color: var(--text-muted);
+    font-size: 1.8rem; cursor: pointer; line-height: 1;
+}
+.isl-panel-close:hover { color: #ef4444; }
+.isl-panel-body { padding: 26px 24px 34px; }
+
+.isl-p-cat {
+    display: inline-block; font-size: 0.78rem; font-weight: 600;
+    color: var(--island-color, var(--primary));
+    border: 1px solid currentColor; border-radius: 20px; padding: 2px 10px;
+    margin-bottom: 10px;
+}
+.isl-p-title { font-size: 1.25rem; font-weight: 800; line-height: 1.45; margin-bottom: 6px; }
+.isl-p-date { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 14px; }
+.isl-p-img { width: 100%; border-radius: 10px; margin-bottom: 14px; border: 1px solid var(--border); }
+.isl-p-desc { font-size: 0.98rem; line-height: 1.8; color: var(--text-main); margin-bottom: 18px; }
+
+.isl-p-read {
+    display: block; text-align: center;
+    background: var(--primary); color: #fff; font-weight: 700;
+    border-radius: 10px; padding: 12px; text-decoration: none;
+    margin-bottom: 18px; transition: background 0.15s;
+}
+.isl-p-read:hover { background: #1aab78; }
+
+.isl-p-audio-title { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px; }
+.isl-p-audio { display: flex; flex-wrap: wrap; gap: 8px; }
+.isl-p-audio a {
+    font-size: 0.88rem; color: var(--text-main); text-decoration: none;
+    border: 1px solid var(--border); border-radius: 8px; padding: 7px 12px;
+    background: rgba(255,255,255,0.04);
+}
+.isl-p-audio a:hover { border-color: var(--primary); color: var(--primary); }
+.isl-p-noaudio { font-size: 0.88rem; color: var(--text-muted); font-style: italic; }
+
+/* === 手機 === */
+@media (max-width: 640px) {
+    .isl-sea { padding: 30px 8px 60px; gap: 28px; }
+    .isl-title { font-size: 1.05rem; }
+    .isl-title-poj { display: none; }
+    .isl-building-label { font-size: 9.5px; max-width: 58px; }
+    /* 面板改為下方抽屜 */
+    .isl-panel {
+        top: auto; left: 0; right: 0; bottom: 0;
+        width: 100%; max-height: 78vh;
+        border-left: none; border-top: 1px solid var(--border);
+        border-radius: 16px 16px 0 0;
+        animation: isl-slide-up 0.22s ease;
+    }
+    @keyframes isl-slide-up { from { transform: translateY(50px); opacity: 0; } to { transform: none; opacity: 1; } }
+}
