@@ -124,10 +124,19 @@ body {
     transform: translate(-50%, -85%);
     background: none; border: none; cursor: pointer; padding: 2px;
 }
-.isl-character-svg { transform: scaleX(var(--facing, 1)); }
-.isl-char-body { animation: isl-walk 0.5s ease-in-out infinite alternate; transform-origin: 15px 36px; }
-@keyframes isl-walk { from { transform: translateY(0); } to { transform: translateY(-1.6px); } }
-@media (prefers-reduced-motion: reduce) { .isl-char-body { animation: none; } }
+.isl-character-img {
+    display: block; width: 46px; height: 46px; border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+    animation: isl-walk 0.5s ease-in-out infinite alternate;
+}
+.isl-character::after {
+    content: ''; position: absolute; left: 50%; bottom: -4px;
+    width: 34px; height: 8px; transform: translateX(-50%);
+    background: rgba(0,0,0,0.25); border-radius: 50%;
+}
+@keyframes isl-walk { from { transform: translateY(0); } to { transform: translateY(-2.5px); } }
+@media (prefers-reduced-motion: reduce) { .isl-character-img { animation: none; } }
 
 .isl-bubble {
     position: absolute; bottom: 105%; left: 50%; transform: translateX(-50%);

@@ -316,7 +316,8 @@
         guy.type = 'button';
         guy.className = 'isl-character';
         guy.setAttribute('aria-label', '做工á人（點我）');
-        guy.innerHTML = characterSvg() + '<span class="isl-bubble" hidden></span>';
+        guy.innerHTML = '<img class="isl-character-img" src="images/logo.png" alt="">' +
+            '<span class="isl-bubble" hidden></span>';
         town.appendChild(guy);
 
         const bubble = guy.querySelector('.isl-bubble');
@@ -338,10 +339,8 @@
             theta += 0.012;
             const x = cx + rx * Math.cos(theta);
             const y = cy + ry * Math.sin(theta);
-            const facing = Math.cos(theta + Math.PI / 2) >= 0 ? 1 : -1; // 行進方向
             guy.style.left = x + 'px';
             guy.style.top = y + 'px';
-            guy.style.setProperty('--facing', facing);
         }
 
         step(); // 先放到定位
@@ -350,23 +349,6 @@
 
     function stopCharacter() {
         if (charTimer) { clearInterval(charTimer); charTimer = null; }
-    }
-
-    // 做工á人小工人（戴斗笠；純裝飾圖形，無文字）
-    function characterSvg() {
-        return '<svg width="30" height="38" viewBox="0 0 30 38" aria-hidden="true" class="isl-character-svg">' +
-            '<ellipse cx="15" cy="36" rx="9" ry="2.2" fill="rgba(0,0,0,0.25)"/>' +
-            '<g class="isl-char-body">' +
-            '<rect x="10.5" y="26" width="3.6" height="9" rx="1.6" fill="#4a5568"/>' +
-            '<rect x="15.9" y="26" width="3.6" height="9" rx="1.6" fill="#4a5568"/>' +
-            '<rect x="8.5" y="15" width="13" height="13" rx="3" fill="#2f6fb5"/>' +
-            '<circle cx="15" cy="11" r="5.5" fill="#f0c9a0"/>' +
-            '<path d="M3.5 10 Q15 1 26.5 10 L24 11.5 Q15 5.5 6 11.5 Z" fill="#d9b35c" stroke="#a8863c" stroke-width="0.8"/>' +
-            '<ellipse cx="15" cy="4.8" rx="4.2" ry="2.4" fill="#d9b35c" stroke="#a8863c" stroke-width="0.8"/>' +
-            '<circle cx="13" cy="11.5" r="0.8" fill="#333"/>' +
-            '<circle cx="17" cy="11.5" r="0.8" fill="#333"/>' +
-            '<path d="M13 14 Q15 15.5 17 14" fill="none" stroke="#333" stroke-width="0.8" stroke-linecap="round"/>' +
-            '</g></svg>';
     }
 
     // ===================== 面板 =====================
