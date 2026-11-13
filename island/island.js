@@ -13,19 +13,20 @@
     // 中央廣場（詞語收集）
     const PLAZA = { cat: 'A郎台語小詞典', top: '#c9b98a', side: '#9a8a5e', roof: '#8f8f98' };
 
-    // 各島外觀設定（top=島面、side=側面厚度、roof=屋頂）
-    // 島嶼「順序」由 posts.json 選單的分類順序決定（見 menuCategoryOrder），此處僅定義配色
+    // 各島設定（top=島面、side=側面厚度、roof=屋頂）
+    // 順序依首頁「主題」區塊的卡片順序；未出現在首頁卡片的分類
+    // （A郎片頭尾、台語語詞、平台散文）插在相近主題旁邊
     const ISLANDS = [
-        { cat: '台語講怪奇',   top: '#3f9e6e', side: '#2c6e4d', roof: '#b5543b' },
-        { cat: '民間故事',     top: '#4f9e58', side: '#377040', roof: '#7a5bb5' },
-        { cat: '白蔥仔公主',   top: '#6aa06a', side: '#4a7347', roof: '#c75d8a' },
-        { cat: '英國囡仔古',   top: '#56a083', side: '#3b7260', roof: '#4a7fc1' },
         { cat: 'A郎',          top: '#4a9e8e', side: '#337066', roof: '#d1902f' },
         { cat: 'A郎片頭尾',    top: '#5d9e7c', side: '#41705a', roof: '#9e5dc1' },
+        { cat: '英國囡仔古',   top: '#56a083', side: '#3b7260', roof: '#4a7fc1' },
+        { cat: '民間故事',     top: '#4f9e58', side: '#377040', roof: '#7a5bb5' },
+        { cat: '相招來看戲',   top: '#669e94', side: '#487068', roof: '#c14a4a' },
         { cat: '台灣舊地號名', top: '#8a9e4f', side: '#5f7038', roof: '#3b7ab5' },
+        { cat: '台語講怪奇',   top: '#3f9e6e', side: '#2c6e4d', roof: '#b5543b' },
+        { cat: '白蔥仔公主',   top: '#6aa06a', side: '#4a7347', roof: '#c75d8a' },
         { cat: '台語語詞',     top: '#9e9a4f', side: '#706d38', roof: '#2f9e75' },
         { cat: '平台散文',     top: '#7c9e5d', side: '#587041', roof: '#b5763b' },
-        { cat: '相招來看戲',   top: '#669e94', side: '#487068', roof: '#c14a4a' },
         { cat: '其他',         top: '#74937c', side: '#526858', roof: '#6b7fc1' },
     ];
 
@@ -55,7 +56,6 @@
     const backdrop = document.getElementById('isl-backdrop');
 
     let allPosts = [];
-    let menuOrder = [];
     let collected = loadCollected();
 
     // ===================== 詞語收集（localStorage） =====================
@@ -97,14 +97,8 @@
     // ===================== 初始化 =====================
     document.addEventListener('DOMContentLoaded', async function () {
         try {
-            // loadPostsData 注入選單時會移除 auto_category，
-            // 因此另抓一份原始 posts.json 來讀「分類在選單中的順序」
-            const results = await Promise.all([
-                loadPostsData(), // posts-loader.js（已過濾未發布文章）
-                fetch('posts.json').then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; })
-            ]);
-            allPosts = results[0]._posts || [];
-            menuOrder = menuCategoryOrder(results[1] ? results[1].menu : null);
+            const data = await loadPostsData(); // posts-loader.js（已過濾未發布文章）
+            allPosts = data._posts || [];
             renderAll();
             window.addEventListener('resize', debounce(renderAll, 250));
         } catch (e) {
@@ -115,20 +109,6 @@
     function debounce(fn, ms) {
         let t;
         return function () { clearTimeout(t); t = setTimeout(fn, ms); };
-    }
-
-    // 依選單（首頁分類）的順序列出分類，小詞典（中央廣場）除外
-    function menuCategoryOrder(menu) {
-        const out = [];
-        (function walk(items) {
-            (items || []).forEach(function (it) {
-                if (it.auto_category && it.auto_category !== PLAZA.cat && out.indexOf(it.auto_category) === -1) {
-                    out.push(it.auto_category);
-                }
-                if (it.children) walk(it.children);
-            });
-        })(menu);
-        return out;
     }
 
     function postsOf(cat) {
@@ -159,14 +139,9 @@
             sea.appendChild(row);
         }
 
-        // 各島：順序跟著選單（首頁分類）走；配色查 ISLANDS，查無者用預設色
-        const styleOf = {};
-        ISLANDS.forEach(function (s) { styleOf[s.cat] = s; });
-        const order = menuOrder.length ? menuOrder : ISLANDS.map(function (s) { return s.cat; });
-
-        order.forEach(function (cat) {
-            const island = styleOf[cat] || { cat: cat, top: '#74937c', side: '#526858', roof: '#6b7fc1' };
-            const posts = postsOf(cat);
+        // 各島（順序＝ISLANDS 設定順序，對齊首頁主題區塊）
+        ISLANDS.forEach(function (island) {
+            const posts = postsOf(island.cat);
             if (posts.length > 0) sea.appendChild(buildIsland(island, posts, unit, false));
         });
 
@@ -231,13 +206,15 @@
         return el;
     }
 
-    // 同心六角環排列：中心 1 棟，往外每圈 6×n 棟
+    // 同心環排列：中心 1 棟，往外每圈最多 6×n 棟；
+    // 最外圈若沒排滿，把剩下的棟數均勻繞一整圈分布（避免全部偏向一邊）
     function ringPositions(n) {
         const pos = [{ x: 0, y: 0 }];
         let ring = 1;
         while (pos.length < n) {
-            const count = ring * 6;
-            for (let i = 0; i < count && pos.length < n; i++) {
+            const slots = ring * 6;
+            const count = Math.min(slots, n - pos.length);
+            for (let i = 0; i < count; i++) {
                 const angle = (i / count) * Math.PI * 2 + (ring % 2 ? -Math.PI / 2 : -Math.PI / 2 + Math.PI / count);
                 pos.push({
                     x: ring * Math.cos(angle),
