@@ -104,6 +104,51 @@ body {
 }
 .isl-building:hover .isl-building-label { max-width: none; z-index: 20; position: relative; }
 
+/* === 中央廣場 === */
+.isl-plaza-row { flex-basis: 100%; display: flex; justify-content: center; }
+.isl-progress {
+    margin-top: 6px; font-size: 0.82rem; color: #e8d9a8;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+/* 詞石（收集前灰石、收集後金石） */
+.isl-stone .stone-body { fill: #a8a8b0; }
+.isl-stone .stone-shine { stroke: #d5d5dc; }
+.isl-stone.collected .stone-body { fill: #e8c45a; }
+.isl-stone.collected .stone-shine { stroke: #fff2c4; }
+.isl-stone.collected .isl-building-label { background: rgba(232, 196, 90, 0.92); font-weight: 700; }
+
+/* === 角色彩蛋 === */
+.isl-character {
+    position: absolute; z-index: 30;
+    transform: translate(-50%, -85%);
+    background: none; border: none; cursor: pointer; padding: 2px;
+}
+.isl-character-svg { transform: scaleX(var(--facing, 1)); }
+.isl-char-body { animation: isl-walk 0.5s ease-in-out infinite alternate; transform-origin: 15px 36px; }
+@keyframes isl-walk { from { transform: translateY(0); } to { transform: translateY(-1.6px); } }
+@media (prefers-reduced-motion: reduce) { .isl-char-body { animation: none; } }
+
+.isl-bubble {
+    position: absolute; bottom: 105%; left: 50%; transform: translateX(-50%);
+    background: #fff; color: #1e293b;
+    font-size: 0.82rem; line-height: 1.5; font-weight: 600;
+    border-radius: 10px; padding: 7px 11px;
+    width: max-content; max-width: 190px; white-space: normal;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+    pointer-events: none;
+}
+.isl-bubble::after {
+    content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+    border: 6px solid transparent; border-top-color: #fff;
+}
+
+/* 面板內的收集提示 */
+.isl-p-collected {
+    font-size: 0.88rem; color: #e8c45a; font-weight: 600;
+    margin-bottom: 12px;
+}
+
 /* === 面板 === */
 .isl-panel-backdrop {
     position: fixed; inset: 0; z-index: 200;
