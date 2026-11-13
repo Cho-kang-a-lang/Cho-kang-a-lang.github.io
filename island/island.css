@@ -60,6 +60,9 @@ body {
 }
 .isl-loading { width: 100%; text-align: center; color: var(--text-muted); padding: 80px 0; font-size: 1.05rem; }
 
+/* === 環島航路（島嶼下層） === */
+.isl-routes { position: absolute; top: 0; left: 0; z-index: 0; pointer-events: none; }
+
 /* === 島嶼 === */
 .isl-island { position: relative; flex: 0 0 auto; }
 

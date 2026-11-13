@@ -145,7 +145,51 @@
             if (posts.length > 0) sea.appendChild(buildTaiwanIsland(island, posts, unit));
         });
 
+        drawRoutes();
         updateProgress();
+    }
+
+    // ===================== 環島航路 =====================
+    // 淡色點狀航線，由中央廣場依序串過每一座島（畫在島嶼下層）。
+    // 未來的「協作線」將以亮色實線疊加在此層之上。
+    function drawRoutes() {
+        const old = sea.querySelector('.isl-routes');
+        if (old) old.remove();
+
+        const towns = Array.prototype.slice.call(sea.querySelectorAll('.isl-town'));
+        if (towns.length < 2) return;
+
+        const seaRect = sea.getBoundingClientRect();
+        const w = sea.scrollWidth;
+        const h = sea.scrollHeight;
+
+        const centers = towns.map(function (t) {
+            const r = t.getBoundingClientRect();
+            return { x: r.left - seaRect.left + r.width / 2, y: r.top - seaRect.top + r.height / 2 };
+        });
+
+        let d = '';
+        for (let i = 0; i < centers.length - 1; i++) {
+            const a = centers[i], b = centers[i + 1];
+            const dx = b.x - a.x, dy = b.y - a.y;
+            const len = Math.hypot(dx, dy) || 1;
+            // 控制點往航線垂直方向偏移，左右交替，讓航路蜿蜒
+            const off = Math.min(70, len * 0.18) * (i % 2 ? 1 : -1);
+            const cx = (a.x + b.x) / 2 - (dy / len) * off;
+            const cy = (a.y + b.y) / 2 + (dx / len) * off;
+            d += 'M' + a.x.toFixed(0) + ',' + a.y.toFixed(0) +
+                ' Q' + cx.toFixed(0) + ',' + cy.toFixed(0) +
+                ' ' + b.x.toFixed(0) + ',' + b.y.toFixed(0) + ' ';
+        }
+
+        const dots = centers.map(function (c) {
+            return '<circle cx="' + c.x.toFixed(0) + '" cy="' + c.y.toFixed(0) + '" r="4" fill="#e8d9a8" opacity="0.5"/>';
+        }).join('');
+
+        sea.insertAdjacentHTML('afterbegin',
+            '<svg class="isl-routes" width="' + w + '" height="' + h + '" viewBox="0 0 ' + w + ' ' + h + '" aria-hidden="true">' +
+            '<path d="' + d + '" fill="none" stroke="#e8d9a8" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="1 11" opacity="0.45"/>' +
+            dots + '</svg>');
     }
 
     // ===================== 單座島／廣場 =====================
