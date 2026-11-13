@@ -139,10 +139,10 @@
             sea.appendChild(row);
         }
 
-        // 各島（順序＝ISLANDS 設定順序，對齊首頁主題區塊）
+        // 各島（順序＝ISLANDS 設定順序，對齊首頁主題區塊；島形為台灣本島輪廓）
         ISLANDS.forEach(function (island) {
             const posts = postsOf(island.cat);
-            if (posts.length > 0) sea.appendChild(buildIsland(island, posts, unit, false));
+            if (posts.length > 0) sea.appendChild(buildTaiwanIsland(island, posts, unit));
         });
 
         updateProgress();
@@ -226,21 +226,130 @@
         return pos;
     }
 
-    // 2.5D 六角島面（純裝飾圖形，無文字）
-    function hexSvg(island) {
-        const pts = [];
-        const ptsSide = [];
-        for (let i = 0; i < 6; i++) {
-            const a = Math.PI / 6 + (i / 6) * Math.PI * 2;
-            const x = 50 + 48 * Math.cos(a);
-            const y = 41 + 48 * 0.82 * Math.sin(a);
-            pts.push(x.toFixed(1) + ',' + y.toFixed(1));
-            ptsSide.push(x.toFixed(1) + ',' + (y + 9).toFixed(1));
+    // ===================== 台灣形島嶼 =====================
+    // 簡化台灣本島輪廓（北端起點、順時針：東海岸向南 → 鵝鑾鼻 → 西海岸向北）
+    // 正規化座標系：寬 0–100、高 0–140
+    const TAIWAN_PTS = [
+        [58, 3], [65, 5], [70, 10], [73, 18], [73, 28], [71, 40], [68, 52],
+        [64, 64], [60, 76], [55, 88], [50, 99], [45, 109], [41, 118],
+        [38, 127], [36, 134], [33, 137], [30, 133], [27, 126], [23, 117],
+        [19, 107], [15, 96], [12, 84], [11, 72], [12, 60], [15, 48],
+        [19, 37], [25, 27], [32, 18], [40, 11], [49, 5],
+    ];
+    const TAIWAN_SIDE = 7;   // 2.5D 側面厚度（正規化單位）
+    const TAIWAN_H = 140;
+
+    function polyArea(pts) {
+        let a = 0;
+        for (let i = 0; i < pts.length; i++) {
+            const j = (i + 1) % pts.length;
+            a += pts[i][0] * pts[j][1] - pts[j][0] * pts[i][1];
         }
-        return '<svg class="isl-hex" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">' +
-            '<polygon points="' + ptsSide.join(' ') + '" fill="' + island.side + '"/>' +
-            '<polygon points="' + pts.join(' ') + '" fill="' + island.top + '" stroke="#e8d9a8" stroke-width="1.6"/>' +
+        return Math.abs(a) / 2;
+    }
+
+    function polyCentroid(pts) {
+        let x = 0, y = 0;
+        pts.forEach(function (p) { x += p[0]; y += p[1]; });
+        return [x / pts.length, y / pts.length];
+    }
+
+    function pointInPoly(x, y, pts) {
+        let inside = false;
+        for (let i = 0, j = pts.length - 1; i < pts.length; j = i++) {
+            const xi = pts[i][0], yi = pts[i][1], xj = pts[j][0], yj = pts[j][1];
+            if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) inside = !inside;
+        }
+        return inside;
+    }
+
+    // 在台灣輪廓內產生 n 個建築位置（交錯網格、由島中心向外填）
+    function taiwanSlots(n) {
+        const c = polyCentroid(TAIWAN_PTS);
+        // 內縮輪廓：建築不貼海岸線
+        const inset = TAIWAN_PTS.map(function (p) {
+            return [c[0] + (p[0] - c[0]) * 0.82, c[1] + (p[1] - c[1]) * 0.82];
+        });
+        let d = Math.sqrt(0.83 * polyArea(TAIWAN_PTS) / Math.max(n, 1));
+        for (let tries = 0; tries < 10; tries++) {
+            const pts = [];
+            const rowH = d * 0.866;
+            let row = 0;
+            for (let y = 3; y <= TAIWAN_H; y += rowH, row++) {
+                const offs = (row % 2) * d / 2;
+                for (let x = 3 + offs; x <= 100; x += d) {
+                    if (pointInPoly(x, y, inset)) pts.push([x, y]);
+                }
+            }
+            if (pts.length >= n) {
+                // 由北到南排序後均勻取樣，讓建築像城鎮一樣散布全島（含南端）
+                pts.sort(function (a, b) { return a[1] - b[1] || a[0] - b[0]; });
+                const step = pts.length / n;
+                const chosen = [];
+                for (let i = 0; i < n; i++) {
+                    chosen.push(pts[Math.floor(i * step + step / 2)]);
+                }
+                return { pts: chosen, d: d };
+            }
+            d *= 0.9;
+        }
+        return { pts: TAIWAN_PTS.slice(0, n).map(function () { return [50, 70]; }), d: d };
+    }
+
+    // 2.5D 台灣島面（純裝飾圖形，無文字）
+    function taiwanSvg(island) {
+        const top = TAIWAN_PTS.map(function (p) { return p[0] + ',' + p[1]; }).join(' ');
+        const side = TAIWAN_PTS.map(function (p) { return p[0] + ',' + (p[1] + TAIWAN_SIDE); }).join(' ');
+        return '<svg class="isl-hex" viewBox="0 0 100 ' + (TAIWAN_H + TAIWAN_SIDE) + '" preserveAspectRatio="none" aria-hidden="true">' +
+            '<polygon points="' + side + '" fill="' + island.side + '"/>' +
+            '<polygon points="' + top + '" fill="' + island.top + '" stroke="#e8d9a8" stroke-width="1.2"/>' +
             '</svg>';
+    }
+
+    // 建立一座台灣形狀的島
+    function buildTaiwanIsland(island, posts, unit) {
+        const layout = taiwanSlots(posts.length);
+
+        let pxPerNorm = (unit * 0.95) / layout.d;
+        const avail = Math.min(window.innerWidth, 1100) - 32;
+        pxPerNorm = Math.min(pxPerNorm, avail / 100);
+
+        const width = 100 * pxPerNorm;
+        const height = (TAIWAN_H + TAIWAN_SIDE) * pxPerNorm;
+
+        const el = document.createElement('section');
+        el.className = 'isl-island';
+        el.style.setProperty('--island-color', island.top);
+
+        const plaque = document.createElement('div');
+        plaque.className = 'isl-plaque';
+        plaque.innerHTML = '<span class="isl-plaque-name">' + island.cat +
+            '<span class="isl-plaque-count">' + posts.length + ' 篇</span></span>';
+        el.appendChild(plaque);
+
+        const town = document.createElement('div');
+        town.className = 'isl-town';
+        town.style.width = width + 'px';
+        town.style.height = height + 'px';
+        town.insertAdjacentHTML('afterbegin', taiwanSvg(island));
+
+        posts.forEach(function (post, i) {
+            const slot = layout.pts[i];
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'isl-building';
+            btn.dataset.file = post.file;
+            btn.style.left = (slot[0] * pxPerNorm) + 'px';
+            btn.style.top = (slot[1] * pxPerNorm) + 'px';
+            btn.setAttribute('aria-label', post.title || post.file);
+            btn.innerHTML = houseSvg(island.roof) +
+                '<span class="isl-building-label">' + shortLabel(post.title || post.file) + '</span>';
+            btn.addEventListener('click', function () { openPanel(post, island, false); });
+            town.appendChild(btn);
+        });
+
+        el.appendChild(town);
+        return el;
     }
 
     // 2.5D 圓形石板廣場（純裝飾圖形，無文字）
