@@ -13,7 +13,8 @@
     // 中央廣場（詞語收集）
     const PLAZA = { cat: 'A郎台語小詞典', top: '#c9b98a', side: '#9a8a5e', roof: '#8f8f98' };
 
-    // 各島設定（top=島面、side=側面厚度、roof=屋頂）
+    // 各島外觀設定（top=島面、side=側面厚度、roof=屋頂）
+    // 島嶼「順序」由 posts.json 選單的分類順序決定（見 menuCategoryOrder），此處僅定義配色
     const ISLANDS = [
         { cat: '台語講怪奇',   top: '#3f9e6e', side: '#2c6e4d', roof: '#b5543b' },
         { cat: '民間故事',     top: '#4f9e58', side: '#377040', roof: '#7a5bb5' },
@@ -54,6 +55,7 @@
     const backdrop = document.getElementById('isl-backdrop');
 
     let allPosts = [];
+    let menuOrder = [];
     let collected = loadCollected();
 
     // ===================== 詞語收集（localStorage） =====================
@@ -95,8 +97,14 @@
     // ===================== 初始化 =====================
     document.addEventListener('DOMContentLoaded', async function () {
         try {
-            const data = await loadPostsData(); // posts-loader.js（已過濾未發布文章）
-            allPosts = data._posts || [];
+            // loadPostsData 注入選單時會移除 auto_category，
+            // 因此另抓一份原始 posts.json 來讀「分類在選單中的順序」
+            const results = await Promise.all([
+                loadPostsData(), // posts-loader.js（已過濾未發布文章）
+                fetch('posts.json').then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; })
+            ]);
+            allPosts = results[0]._posts || [];
+            menuOrder = menuCategoryOrder(results[1] ? results[1].menu : null);
             renderAll();
             window.addEventListener('resize', debounce(renderAll, 250));
         } catch (e) {
@@ -107,6 +115,20 @@
     function debounce(fn, ms) {
         let t;
         return function () { clearTimeout(t); t = setTimeout(fn, ms); };
+    }
+
+    // 依選單（首頁分類）的順序列出分類，小詞典（中央廣場）除外
+    function menuCategoryOrder(menu) {
+        const out = [];
+        (function walk(items) {
+            (items || []).forEach(function (it) {
+                if (it.auto_category && it.auto_category !== PLAZA.cat && out.indexOf(it.auto_category) === -1) {
+                    out.push(it.auto_category);
+                }
+                if (it.children) walk(it.children);
+            });
+        })(menu);
+        return out;
     }
 
     function postsOf(cat) {
@@ -137,9 +159,14 @@
             sea.appendChild(row);
         }
 
-        // 各島
-        ISLANDS.forEach(function (island) {
-            const posts = postsOf(island.cat);
+        // 各島：順序跟著選單（首頁分類）走；配色查 ISLANDS，查無者用預設色
+        const styleOf = {};
+        ISLANDS.forEach(function (s) { styleOf[s.cat] = s; });
+        const order = menuOrder.length ? menuOrder : ISLANDS.map(function (s) { return s.cat; });
+
+        order.forEach(function (cat) {
+            const island = styleOf[cat] || { cat: cat, top: '#74937c', side: '#526858', roof: '#6b7fc1' };
+            const posts = postsOf(cat);
             if (posts.length > 0) sea.appendChild(buildIsland(island, posts, unit, false));
         });
 
