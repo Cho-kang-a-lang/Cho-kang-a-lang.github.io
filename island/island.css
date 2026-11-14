@@ -124,25 +124,29 @@ body {
 /* === 角色彩蛋 === */
 .isl-character {
     position: absolute; z-index: 30;
-    transform: translate(-50%, -85%);
+    left: 0; top: 0;
+    transform: translate(-50%, -85%); /* JS 以 translate3d 覆寫（含此錨點位移） */
+    will-change: transform;
     background: none; border: none; cursor: pointer; padding: 2px;
 }
 .isl-character-img {
     display: block; width: 46px; height: 46px; border-radius: 50%;
     border: 2px solid #fff;
     box-shadow: 0 3px 8px rgba(0,0,0,0.4);
-    animation: isl-walk 0.5s ease-in-out infinite alternate;
+    transform-origin: 50% 92%;
+    animation: isl-sway 0.9s ease-in-out infinite alternate;
 }
 /* 去背人物立繪 */
 .isl-char-fig {
     display: block; height: var(--char-h, 52px); width: auto;
     filter: drop-shadow(0 3px 5px rgba(0,0,0,0.45));
-    animation: isl-walk 0.5s ease-in-out infinite alternate;
+    transform-origin: 50% 92%;
+    animation: isl-sway 0.9s ease-in-out infinite alternate;
 }
-.isl-char-flip { transform: scaleX(-1); animation-name: isl-walk-flip; }
-@keyframes isl-walk-flip { from { transform: scaleX(-1) translateY(0); } to { transform: scaleX(-1) translateY(-2.5px); } }
-@media (prefers-reduced-motion: reduce) { .isl-char-fig { animation: none; } }
-/* 歇睏時暫停走路晃動 */
+/* 走路時左右輕搖（像走路擺動，取代原本的上下跳動） */
+@keyframes isl-sway { from { transform: rotate(-3.5deg); } to { transform: rotate(3.5deg); } }
+@media (prefers-reduced-motion: reduce) { .isl-char-fig, .isl-character-img { animation: none; } }
+/* 歇睏時暫停走路搖擺 */
 .isl-character.resting img { animation-play-state: paused; }
 .isl-character::after {
     content: ''; position: absolute; left: 50%; bottom: -4px;

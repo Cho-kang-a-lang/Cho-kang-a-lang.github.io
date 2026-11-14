@@ -18,8 +18,8 @@
     // （A郎片頭尾、台語語詞、平台散文）插在相近主題旁邊
     // char＝島上小人物（去背自該系列特色圖）；flip＝左右翻面；round＝logo 圓徽章樣式
     const ISLANDS = [
-        { cat: 'A郎',          top: '#4a9e8e', side: '#337066', roof: '#d1902f', char: 'island/chars/along.png' },
-        { cat: 'A郎片頭尾',    top: '#5d9e7c', side: '#41705a', roof: '#9e5dc1', char: 'island/chars/alongop.png', flip: true },
+        { cat: 'A郎',          top: '#4a9e8e', side: '#337066', roof: '#d1902f', char: 'island/chars/along2.png' },
+        { cat: 'A郎片頭尾',    top: '#5d9e7c', side: '#41705a', roof: '#9e5dc1', char: 'images/logo.png', round: true },
         { cat: '英國囡仔古',   top: '#56a083', side: '#3b7260', roof: '#4a7fc1', char: 'island/chars/ukkid.png' },
         { cat: '民間故事',     top: '#4f9e58', side: '#377040', roof: '#7a5bb5', char: 'island/chars/folk.png' },
         { cat: '相招來看戲',   top: '#669e94', side: '#487068', roof: '#c14a4a', char: 'island/chars/khoannhi.png' },
@@ -511,9 +511,10 @@
         };
     }
 
-    // 廣場角色：logo 徽章繞橢圓走
+    // 廣場角色：囡仔 A郎（去背立繪）繞橢圓走
     function spawnCharacter(town, width, height, radius) {
-        const guy = makeCharacter(town, 'images/logo.png', true, false, '歡迎來到小詞典中央廣場');
+        const guy = makeCharacter(town, 'island/chars/along.png', false, false, '歡迎來到小詞典中央廣場');
+        guy.style.setProperty('--char-h', '56px');
         const cx = width / 2;
         const cy = (height - 30) / 2;
         const rx = radius * 0.86;
@@ -521,11 +522,15 @@
         let theta = -Math.PI / 2;
 
         function place() {
-            guy.style.left = (cx + rx * Math.cos(theta)) + 'px';
-            guy.style.top = (cy + ry * Math.sin(theta)) + 'px';
+            setCharPos(guy, cx + rx * Math.cos(theta), cy + ry * Math.sin(theta));
         }
         place();
         walkers.push(makeStroll(guy, 0.25, function (d) { theta += d; place(); }));
+    }
+
+    // 以 transform 定位（交給合成器處理，移動較滑順）
+    function setCharPos(guy, x, y) {
+        guy.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0) translate(-50%, -85%)';
     }
 
     // 台灣輪廓周長（供島上角色沿海岸線行走）
@@ -565,8 +570,7 @@
         let dist = Math.random() * TAIWAN_PERIM.total;
         function place() {
             const p = taiwanPointAt(dist);
-            guy.style.left = (p[0] * pxPerNorm) + 'px';
-            guy.style.top = (p[1] * pxPerNorm) + 'px';
+            setCharPos(guy, p[0] * pxPerNorm, p[1] * pxPerNorm);
         }
         place();
         // 巡航速度（正規化單位／秒），各島略有差異
