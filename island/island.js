@@ -10,8 +10,12 @@
 (function () {
     'use strict';
 
-    // 中央廣場（詞語收集）
-    const PLAZA = { cat: 'A郎台語小詞典', top: '#c9b98a', side: '#9a8a5e', roof: '#8f8f98' };
+    // 中央廣場（詞語收集）；廣場導覽員＝囡仔A郎（三視圖）
+    const PLAZA = {
+        cat: 'A郎台語小詞典', top: '#c9b98a', side: '#9a8a5e', roof: '#8f8f98',
+        char: 'island/chars/alongkid_side.png', sideFaces: 'left',
+        views: { side: 'island/chars/alongkid_side.png', front: 'island/chars/alongkid_front.png', back: 'island/chars/alongkid_back.png' },
+    };
 
     // 各島設定（top=島面、side=側面厚度、roof=屋頂）
     // 順序依首頁「主題」區塊的卡片順序；未出現在首頁卡片的分類
@@ -23,17 +27,25 @@
           // 三視圖（角色設定稿）：依行進方向切換；側面圖原始朝向為右
           views: { side: 'island/chars/along_side.png', front: 'island/chars/along_front.png', back: 'island/chars/along_back.png' } },
         { cat: 'A郎片頭尾',    top: '#5d9e7c', side: '#41705a', roof: '#9e5dc1', char: 'images/logo.png', round: true },
-        { cat: '英國囡仔古',   top: '#56a083', side: '#3b7260', roof: '#4a7fc1', char: 'island/chars/ukkid.png' },
+        { cat: '英國囡仔古',   top: '#56a083', side: '#3b7260', roof: '#4a7fc1',
+          char: 'island/chars/ukkid_side.png',
+          views: { side: 'island/chars/ukkid_side.png', front: 'island/chars/ukkid_front.png', back: 'island/chars/ukkid_back.png' } },
         { cat: '民間故事',     top: '#4f9e58', side: '#377040', roof: '#7a5bb5',
           char: 'island/chars/folk_side.png', sideFaces: 'left',
           views: { side: 'island/chars/folk_side.png', front: 'island/chars/folk_front.png', back: 'island/chars/folk_back.png' } },
-        { cat: '相招來看戲',   top: '#669e94', side: '#487068', roof: '#c14a4a', char: 'island/chars/khoannhi.png' },
+        { cat: '相招來看戲',   top: '#669e94', side: '#487068', roof: '#c14a4a',
+          char: 'island/chars/khoannhi_side.png', sideFaces: 'left',
+          views: { side: 'island/chars/khoannhi_side.png', front: 'island/chars/khoannhi_front.png', back: 'island/chars/khoannhi_back.png' } },
         { cat: '台灣舊地號名', top: '#8a9e4f', side: '#5f7038', roof: '#3b7ab5', char: 'island/chars/kutemia.png' },
-        { cat: '台語講怪奇',   top: '#3f9e6e', side: '#2c6e4d', roof: '#b5543b', char: 'island/chars/kongkoaiki.png' },
+        { cat: '台語講怪奇',   top: '#3f9e6e', side: '#2c6e4d', roof: '#b5543b',
+          char: 'island/chars/kongkoaiki_side.png',
+          views: { side: 'island/chars/kongkoaiki_side.png', front: 'island/chars/kongkoaiki_front.png', back: 'island/chars/kongkoaiki_back.png' } },
         { cat: '白蔥仔公主',   top: '#6aa06a', side: '#4a7347', roof: '#c75d8a', char: 'island/chars/pehchhanga.png' },
         { cat: '台語語詞',     top: '#9e9a4f', side: '#706d38', roof: '#2f9e75', char: 'island/chars/gisu.png' },
         { cat: '平台散文',     top: '#7c9e5d', side: '#587041', roof: '#b5763b', char: 'images/logo.png', round: true },
-        { cat: '其他',         top: '#74937c', side: '#526858', roof: '#6b7fc1', char: 'island/chars/other.png' },
+        { cat: '其他',         top: '#74937c', side: '#526858', roof: '#6b7fc1',
+          char: 'island/chars/other_side.png',
+          views: { side: 'island/chars/other_side.png', front: 'island/chars/other_front.png', back: 'island/chars/other_back.png' } },
     ];
 
     // 音檔平台的抽取規則（連結在各篇 markdown 內文開頭的圖示連結中）
@@ -521,9 +533,37 @@
         };
     }
 
-    // 廣場角色：囡仔 A郎（去背立繪）繞橢圓走
+    // 方向感知視圖：依平滑後的行進方向切換 前／後／側（側面依朝向翻面）
+    // 回傳一個以「目前座標」呼叫的更新函數；island 需有 views 設定
+    function makeViewUpdater(guy, island) {
+        const img = guy.querySelector('img');
+        if (!island.views || !img) return function () {};
+        Object.keys(island.views).forEach(function (k) {   // 預先載入，切換不閃爍
+            const pre = new Image(); pre.src = island.views[k];
+        });
+        let prev = null, vx = 0, vy = 0, view = 'side', since = 99;
+        return function (p) {
+            if (prev) {
+                vx = vx * 0.85 + (p[0] - prev[0]) * 0.15;
+                vy = vy * 0.85 + (p[1] - prev[1]) * 0.15;
+                since++;
+                let want = (Math.abs(vy) > Math.abs(vx) * 1.2) ? (vy < 0 ? 'back' : 'front') : 'side';
+                if (want !== view && since > 30) { view = want; since = 0; }
+                if (!guy.classList.contains('resting')) {
+                    const src = island.views[view];
+                    if (img.getAttribute('src') !== src) img.src = src;
+                    const facesLeft = island.sideFaces === 'left';
+                    img.classList.toggle('isl-flip', view === 'side' && (facesLeft ? vx > 0 : vx < 0));
+                }
+            }
+            prev = p;
+        };
+    }
+
+    // 廣場角色：囡仔 A郎（三視圖）繞橢圓走
     function spawnCharacter(town, width, height, radius) {
-        const guy = makeCharacter(town, 'island/chars/along.png', false, false, '歡迎來到小詞典中央廣場');
+        const guy = makeCharacter(town, PLAZA.char, false, false, '歡迎來到小詞典中央廣場');
+        const updateView = makeViewUpdater(guy, PLAZA);
         const cx = width / 2;
         const cy = (height - 30) / 2;
         const rx = radius * 0.86;
@@ -531,7 +571,10 @@
         let theta = -Math.PI / 2;
 
         function place() {
-            setCharPos(guy, cx + rx * Math.cos(theta), cy + ry * Math.sin(theta));
+            const x = cx + rx * Math.cos(theta);
+            const y = cy + ry * Math.sin(theta);
+            setCharPos(guy, x, y);
+            updateView([x, y]);
         }
         place();
         walkers.push(makeStroll(guy, 0.25, function (d) { theta += d; place(); }));
@@ -581,33 +624,12 @@
         }
 
         let dist = Math.random() * TAIWAN_PERIM.total;
-        let prev = taiwanPointAt(dist);
-        let vx = 0, vy = 0;          // 平滑後的行進方向
-        let view = 'side';
-        let sinceSwitch = 99;
-        const img = guy.querySelector('img');
+        const updateView = makeViewUpdater(guy, island);
 
         function place() {
             const p = taiwanPointAt(dist);
             setCharPos(guy, p[0] * pxPerNorm, p[1] * pxPerNorm);
-            // 方向感知視圖（僅限有三視圖的角色）
-            if (island.views && img) {
-                vx = vx * 0.85 + (p[0] - prev[0]) * 0.15;
-                vy = vy * 0.85 + (p[1] - prev[1]) * 0.15;
-                sinceSwitch++;
-                let want = view;
-                if (Math.abs(vy) > Math.abs(vx) * 1.2) want = vy < 0 ? 'back' : 'front';
-                else if (Math.abs(vx) > 0.005) want = 'side';
-                if (want !== view && sinceSwitch > 30) { view = want; sinceSwitch = 0; }
-                if (!guy.classList.contains('resting')) {
-                    const src = island.views[view];
-                    if (img.getAttribute('src') !== src) img.src = src;
-                    // 行進方向與側面圖原始朝向相反時翻面（sideFaces 預設朝右）
-                    const facesLeft = island.sideFaces === 'left';
-                    img.classList.toggle('isl-flip', view === 'side' && (facesLeft ? vx > 0 : vx < 0));
-                }
-            }
-            prev = p;
+            updateView(p);
         }
         place();
         // 巡航速度（正規化單位／秒），各島略有差異
