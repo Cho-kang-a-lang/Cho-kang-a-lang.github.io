@@ -122,6 +122,8 @@
     let lastWidth = 0;
 
     function renderAll() {
+        // 視窗尚未有尺寸（例如分頁在背景被收合）時先不渲染，等 resize 再來
+        if (window.innerWidth < 200) return;
         const unit = window.innerWidth < 520 ? 44 : 60;
         if (window.innerWidth === lastWidth && sea.querySelector('.isl-island')) return;
         lastWidth = window.innerWidth;
@@ -443,18 +445,27 @@
     }
 
     // ===================== 角色（每座島一個小人物） =====================
-    const walkers = [];       // 各角色的移動函數
-    let walkTimer = null;
+    const walkers = [];       // 各角色的移動函數（每影格呼叫，參數為經過秒數）
+    let walkRaf = null;
+    let walkLastTs = 0;
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    function walkTick(ts) {
+        const dt = walkLastTs ? Math.min(0.1, (ts - walkLastTs) / 1000) : 0.016;
+        walkLastTs = ts;
+        walkers.forEach(function (fn) { fn(dt); });
+        walkRaf = requestAnimationFrame(walkTick);
+    }
+
     function startWalkers() {
-        if (!walkTimer && !reduceMotion && walkers.length) {
-            walkTimer = setInterval(function () { walkers.forEach(function (fn) { fn(); }); }, 50);
+        if (!walkRaf && !reduceMotion && walkers.length) {
+            walkLastTs = 0;
+            walkRaf = requestAnimationFrame(walkTick);
         }
     }
 
     function stopWalkers() {
-        if (walkTimer) { clearInterval(walkTimer); walkTimer = null; }
+        if (walkRaf) { cancelAnimationFrame(walkRaf); walkRaf = null; }
         walkers.length = 0;
     }
 
@@ -480,6 +491,26 @@
         return guy;
     }
 
+    // 漫步行為：走一段 → 停下歇睏 → 再走，速度平滑加減速（較自然）
+    function makeStroll(guy, cruise, advance) {
+        let speed = 0;
+        let target = cruise;
+        let modeLeft = 2 + Math.random() * 4;   // 此狀態剩餘秒數
+        let resting = false;
+
+        return function (dt) {
+            modeLeft -= dt;
+            if (modeLeft <= 0) {
+                resting = !resting;
+                target = resting ? 0 : cruise * (0.8 + Math.random() * 0.4);
+                modeLeft = resting ? 1 + Math.random() * 2.5 : 3 + Math.random() * 5;
+                guy.classList.toggle('resting', resting);
+            }
+            speed += (target - speed) * Math.min(1, dt * 2.5); // 平滑加減速
+            if (speed > 0.01) advance(speed * dt);
+        };
+    }
+
     // 廣場角色：logo 徽章繞橢圓走
     function spawnCharacter(town, width, height, radius) {
         const guy = makeCharacter(town, 'images/logo.png', true, false, '歡迎來到小詞典中央廣場');
@@ -489,13 +520,12 @@
         const ry = radius * 0.86 * 0.82;
         let theta = -Math.PI / 2;
 
-        function step() {
-            theta += 0.012;
+        function place() {
             guy.style.left = (cx + rx * Math.cos(theta)) + 'px';
             guy.style.top = (cy + ry * Math.sin(theta)) + 'px';
         }
-        step();
-        walkers.push(step);
+        place();
+        walkers.push(makeStroll(guy, 0.25, function (d) { theta += d; place(); }));
     }
 
     // 台灣輪廓周長（供島上角色沿海岸線行走）
@@ -533,14 +563,15 @@
         guy.style.setProperty('--char-h', size + 'px');
 
         let dist = Math.random() * TAIWAN_PERIM.total;
-        function step() {
-            dist += 0.35;
+        function place() {
             const p = taiwanPointAt(dist);
             guy.style.left = (p[0] * pxPerNorm) + 'px';
             guy.style.top = (p[1] * pxPerNorm) + 'px';
         }
-        step();
-        walkers.push(step);
+        place();
+        // 巡航速度（正規化單位／秒），各島略有差異
+        const cruise = 6 + Math.random() * 3;
+        walkers.push(makeStroll(guy, cruise, function (d) { dist += d; place(); }));
     }
 
     // ===================== 面板 =====================

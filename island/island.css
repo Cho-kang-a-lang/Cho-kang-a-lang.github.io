@@ -142,6 +142,8 @@ body {
 .isl-char-flip { transform: scaleX(-1); animation-name: isl-walk-flip; }
 @keyframes isl-walk-flip { from { transform: scaleX(-1) translateY(0); } to { transform: scaleX(-1) translateY(-2.5px); } }
 @media (prefers-reduced-motion: reduce) { .isl-char-fig { animation: none; } }
+/* 歇睏時暫停走路晃動 */
+.isl-character.resting img { animation-play-state: paused; }
 .isl-character::after {
     content: ''; position: absolute; left: 50%; bottom: -4px;
     width: 34px; height: 8px; transform: translateX(-50%);
