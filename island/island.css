@@ -3,8 +3,6 @@
    2.5D 俯視平面風格，配合網站深色主題；所有文字皆為一般 HTML
    ========================================================================== */
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
     --sea-deep: #0b1e33;
     --sea-mid: #12304d;
@@ -24,29 +22,10 @@ body {
     min-height: 100vh;
 }
 
-/* === 頂部列 === */
-.isl-header {
-    position: sticky; top: 0; z-index: 100;
-    display: flex; align-items: center; gap: 14px;
-    padding: 12px 20px;
-    background: rgba(11, 30, 51, 0.92);
-    backdrop-filter: blur(6px);
-    border-bottom: 1px solid var(--border);
-}
-.isl-back { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; white-space: nowrap; }
-.isl-back:hover { color: var(--primary); }
-.isl-title { font-size: 1.25rem; color: var(--text-main); font-weight: 800; }
-.isl-title-poj { color: var(--primary); font-weight: 600; font-size: 1rem; }
-.isl-badge {
-    margin-left: auto; font-size: 0.75rem; color: var(--sand);
-    border: 1px solid rgba(232, 217, 168, 0.4); border-radius: 20px; padding: 3px 10px;
-    white-space: nowrap;
-}
-
-/* === 海洋 === */
+/* === 海洋 ===（頂部為全站共用導覽列，樣式來自 style.css） */
 .isl-sea {
     position: relative;
-    min-height: calc(100vh - 54px);
+    min-height: calc(100vh - 70px);
     padding: 50px 20px 90px;
     background:
         radial-gradient(ellipse 900px 500px at 20% 15%, rgba(36, 191, 137, 0.07), transparent 60%),
@@ -181,11 +160,11 @@ body {
 
 /* === 面板 === */
 .isl-panel-backdrop {
-    position: fixed; inset: 0; z-index: 200;
+    position: fixed; inset: 0; z-index: 2000; /* 高於導覽列(1000) */
     background: rgba(0, 0, 0, 0.5);
 }
 .isl-panel {
-    position: fixed; z-index: 201;
+    position: fixed; z-index: 2001;
     top: 0; right: 0; bottom: 0;
     width: min(400px, 100vw);
     background: var(--panel-bg);
@@ -235,8 +214,6 @@ body {
 /* === 手機 === */
 @media (max-width: 640px) {
     .isl-sea { padding: 30px 8px 60px; gap: 28px; }
-    .isl-title { font-size: 1.05rem; }
-    .isl-title-poj { display: none; }
     .isl-building-label { font-size: 9.5px; max-width: 58px; }
     /* 面板改為下方抽屜 */
     .isl-panel {

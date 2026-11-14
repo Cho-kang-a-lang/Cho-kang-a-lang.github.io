@@ -226,11 +226,11 @@
   ],
   "menu": [
     {
-      "title": "首頁 Home",
+      "title": "首頁",
       "file": "home"
     },
     {
-      "title": "辭典 Dict",
+      "title": "辭典",
       "children": [
         {
           "title": "做工á人語詞補記",
@@ -243,13 +243,13 @@
       ]
     },
     {
-      "title": "分類 Categories",
+      "title": "分類",
       "children": [
         {
           "title": "A郎",
           "children": [
             {
-              "title": "A郎 Podcast",
+              "title": "A郎廣播劇",
               "auto_category": "A郎"
             },
             {
@@ -306,11 +306,11 @@
       ]
     },
     {
-      "title": "文章 Archives",
+      "title": "文章",
       "file": "archives"
     },
     {
-      "title": "遊戲 Games",
+      "title": "遊戲",
       "children": [
         {
           "title": "12生相",
@@ -355,24 +355,24 @@
       ]
     },
     {
-      "title": "🏝️ 台語世界",
+      "title": "🏝️ 互動島嶼",
       "url": "island.html"
     },
     {
-      "title": "關於 About",
+      "title": "關於",
       "children": [
         {
-          "title": "Koan-î關於",
+          "title": "關於工作室",
           "file": "about"
         },
         {
-          "title": "Pán-koân版權",
+          "title": "版權",
           "file": "copyright"
         }
       ]
     },
     {
-      "title": "💚 寄付支持 Donate",
+      "title": "💚 寄付支持",
       "file": "donate"
     }
   ]
