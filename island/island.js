@@ -16,18 +16,19 @@
     // 各島設定（top=島面、side=側面厚度、roof=屋頂）
     // 順序依首頁「主題」區塊的卡片順序；未出現在首頁卡片的分類
     // （A郎片頭尾、台語語詞、平台散文）插在相近主題旁邊
+    // char＝島上小人物（去背自該系列特色圖）；flip＝左右翻面；round＝logo 圓徽章樣式
     const ISLANDS = [
-        { cat: 'A郎',          top: '#4a9e8e', side: '#337066', roof: '#d1902f' },
-        { cat: 'A郎片頭尾',    top: '#5d9e7c', side: '#41705a', roof: '#9e5dc1' },
-        { cat: '英國囡仔古',   top: '#56a083', side: '#3b7260', roof: '#4a7fc1' },
-        { cat: '民間故事',     top: '#4f9e58', side: '#377040', roof: '#7a5bb5' },
-        { cat: '相招來看戲',   top: '#669e94', side: '#487068', roof: '#c14a4a' },
-        { cat: '台灣舊地號名', top: '#8a9e4f', side: '#5f7038', roof: '#3b7ab5' },
-        { cat: '台語講怪奇',   top: '#3f9e6e', side: '#2c6e4d', roof: '#b5543b' },
-        { cat: '白蔥仔公主',   top: '#6aa06a', side: '#4a7347', roof: '#c75d8a' },
-        { cat: '台語語詞',     top: '#9e9a4f', side: '#706d38', roof: '#2f9e75' },
-        { cat: '平台散文',     top: '#7c9e5d', side: '#587041', roof: '#b5763b' },
-        { cat: '其他',         top: '#74937c', side: '#526858', roof: '#6b7fc1' },
+        { cat: 'A郎',          top: '#4a9e8e', side: '#337066', roof: '#d1902f', char: 'island/chars/along.png' },
+        { cat: 'A郎片頭尾',    top: '#5d9e7c', side: '#41705a', roof: '#9e5dc1', char: 'island/chars/alongop.png', flip: true },
+        { cat: '英國囡仔古',   top: '#56a083', side: '#3b7260', roof: '#4a7fc1', char: 'island/chars/ukkid.png' },
+        { cat: '民間故事',     top: '#4f9e58', side: '#377040', roof: '#7a5bb5', char: 'island/chars/folk.png' },
+        { cat: '相招來看戲',   top: '#669e94', side: '#487068', roof: '#c14a4a', char: 'island/chars/khoannhi.png' },
+        { cat: '台灣舊地號名', top: '#8a9e4f', side: '#5f7038', roof: '#3b7ab5', char: 'island/chars/kutemia.png' },
+        { cat: '台語講怪奇',   top: '#3f9e6e', side: '#2c6e4d', roof: '#b5543b', char: 'island/chars/kongkoaiki.png' },
+        { cat: '白蔥仔公主',   top: '#6aa06a', side: '#4a7347', roof: '#c75d8a', char: 'island/chars/pehchhanga.png' },
+        { cat: '台語語詞',     top: '#9e9a4f', side: '#706d38', roof: '#2f9e75', char: 'island/chars/gisu.png' },
+        { cat: '平台散文',     top: '#7c9e5d', side: '#587041', roof: '#b5763b', char: 'images/logo.png', round: true },
+        { cat: '其他',         top: '#74937c', side: '#526858', roof: '#6b7fc1', char: 'island/chars/other.png' },
     ];
 
     // 音檔平台的抽取規則（連結在各篇 markdown 內文開頭的圖示連結中）
@@ -125,7 +126,7 @@
         if (window.innerWidth === lastWidth && sea.querySelector('.isl-island')) return;
         lastWidth = window.innerWidth;
 
-        stopCharacter();
+        stopWalkers();
         sea.innerHTML = '';
 
         // 中央廣場（獨佔一列）
@@ -146,6 +147,7 @@
         });
 
         drawRoutes();
+        startWalkers();
         updateProgress();
     }
 
@@ -393,6 +395,10 @@
         });
 
         el.appendChild(town);
+
+        // 島上小人物：沿海岸線環島走
+        if (island.char) spawnIslandWalker(town, island, pxPerNorm);
+
         return el;
     }
 
@@ -436,29 +442,47 @@
         return t.split('/')[0].trim() || t;
     }
 
-    // ===================== 角色彩蛋 =====================
-    let charTimer = null;
+    // ===================== 角色（每座島一個小人物） =====================
+    const walkers = [];       // 各角色的移動函數
+    let walkTimer = null;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    function spawnCharacter(town, width, height, radius) {
-        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function startWalkers() {
+        if (!walkTimer && !reduceMotion && walkers.length) {
+            walkTimer = setInterval(function () { walkers.forEach(function (fn) { fn(); }); }, 50);
+        }
+    }
 
+    function stopWalkers() {
+        if (walkTimer) { clearInterval(walkTimer); walkTimer = null; }
+        walkers.length = 0;
+    }
+
+    // 建立角色按鈕（圖、對話泡泡、點擊講話）
+    function makeCharacter(town, imgSrc, isRound, flip, greet) {
         const guy = document.createElement('button');
         guy.type = 'button';
         guy.className = 'isl-character';
-        guy.setAttribute('aria-label', '做工á人（點我）');
-        guy.innerHTML = '<img class="isl-character-img" src="images/logo.png" alt="">' +
+        guy.setAttribute('aria-label', greet + '（點我）');
+        guy.innerHTML = '<img class="' + (isRound ? 'isl-character-img' : 'isl-char-fig' + (flip ? ' isl-char-flip' : '')) +
+            '" src="' + imgSrc + '" alt="">' +
             '<span class="isl-bubble" hidden></span>';
         town.appendChild(guy);
 
         const bubble = guy.querySelector('.isl-bubble');
         guy.addEventListener('click', function () {
-            bubble.textContent = CHARACTER_LINES[Math.floor(Math.random() * CHARACTER_LINES.length)];
+            const lines = [greet + '！'].concat(CHARACTER_LINES);
+            bubble.textContent = lines[Math.floor(Math.random() * lines.length)];
             bubble.hidden = false;
             clearTimeout(bubble._t);
             bubble._t = setTimeout(function () { bubble.hidden = true; }, 3200);
         });
+        return guy;
+    }
 
-        // 繞著廣場外緣走（半徑略小於島緣）
+    // 廣場角色：logo 徽章繞橢圓走
+    function spawnCharacter(town, width, height, radius) {
+        const guy = makeCharacter(town, 'images/logo.png', true, false, '歡迎來到小詞典中央廣場');
         const cx = width / 2;
         const cy = (height - 30) / 2;
         const rx = radius * 0.86;
@@ -467,18 +491,56 @@
 
         function step() {
             theta += 0.012;
-            const x = cx + rx * Math.cos(theta);
-            const y = cy + ry * Math.sin(theta);
-            guy.style.left = x + 'px';
-            guy.style.top = y + 'px';
+            guy.style.left = (cx + rx * Math.cos(theta)) + 'px';
+            guy.style.top = (cy + ry * Math.sin(theta)) + 'px';
         }
-
-        step(); // 先放到定位
-        if (!reduceMotion) charTimer = setInterval(step, 50);
+        step();
+        walkers.push(step);
     }
 
-    function stopCharacter() {
-        if (charTimer) { clearInterval(charTimer); charTimer = null; }
+    // 台灣輪廓周長（供島上角色沿海岸線行走）
+    const TAIWAN_PERIM = (function () {
+        const segs = [];
+        let total = 0;
+        for (let i = 0; i < TAIWAN_PTS.length; i++) {
+            const a = TAIWAN_PTS[i];
+            const b = TAIWAN_PTS[(i + 1) % TAIWAN_PTS.length];
+            const len = Math.hypot(b[0] - a[0], b[1] - a[1]);
+            segs.push({ a: a, b: b, start: total, len: len });
+            total += len;
+        }
+        return { segs: segs, total: total };
+    })();
+
+    function taiwanPointAt(dist) {
+        let d = dist % TAIWAN_PERIM.total;
+        if (d < 0) d += TAIWAN_PERIM.total;
+        for (let i = 0; i < TAIWAN_PERIM.segs.length; i++) {
+            const s = TAIWAN_PERIM.segs[i];
+            if (d <= s.start + s.len) {
+                const t = (d - s.start) / s.len;
+                return [s.a[0] + (s.b[0] - s.a[0]) * t, s.a[1] + (s.b[1] - s.a[1]) * t];
+            }
+        }
+        return [50, 70];
+    }
+
+    // 島嶼角色：沿著台灣海岸線環島走
+    function spawnIslandWalker(town, island, pxPerNorm) {
+        const guy = makeCharacter(town, island.char, !!island.round, !!island.flip, '歡迎來到「' + island.cat + '」');
+        // 角色大小隨島縮放
+        const size = Math.max(36, Math.min(64, Math.round(pxPerNorm * 11)));
+        guy.style.setProperty('--char-h', size + 'px');
+
+        let dist = Math.random() * TAIWAN_PERIM.total;
+        function step() {
+            dist += 0.35;
+            const p = taiwanPointAt(dist);
+            guy.style.left = (p[0] * pxPerNorm) + 'px';
+            guy.style.top = (p[1] * pxPerNorm) + 'px';
+        }
+        step();
+        walkers.push(step);
     }
 
     // ===================== 面板 =====================

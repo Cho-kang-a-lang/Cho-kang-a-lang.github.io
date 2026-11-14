@@ -133,6 +133,15 @@ body {
     box-shadow: 0 3px 8px rgba(0,0,0,0.4);
     animation: isl-walk 0.5s ease-in-out infinite alternate;
 }
+/* 去背人物立繪 */
+.isl-char-fig {
+    display: block; height: var(--char-h, 52px); width: auto;
+    filter: drop-shadow(0 3px 5px rgba(0,0,0,0.45));
+    animation: isl-walk 0.5s ease-in-out infinite alternate;
+}
+.isl-char-flip { transform: scaleX(-1); animation-name: isl-walk-flip; }
+@keyframes isl-walk-flip { from { transform: scaleX(-1) translateY(0); } to { transform: scaleX(-1) translateY(-2.5px); } }
+@media (prefers-reduced-motion: reduce) { .isl-char-fig { animation: none; } }
 .isl-character::after {
     content: ''; position: absolute; left: 50%; bottom: -4px;
     width: 34px; height: 8px; transform: translateX(-50%);
