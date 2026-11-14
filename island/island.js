@@ -24,7 +24,9 @@
           views: { side: 'island/chars/along_side.png', front: 'island/chars/along_front.png', back: 'island/chars/along_back.png' } },
         { cat: 'A郎片頭尾',    top: '#5d9e7c', side: '#41705a', roof: '#9e5dc1', char: 'images/logo.png', round: true },
         { cat: '英國囡仔古',   top: '#56a083', side: '#3b7260', roof: '#4a7fc1', char: 'island/chars/ukkid.png' },
-        { cat: '民間故事',     top: '#4f9e58', side: '#377040', roof: '#7a5bb5', char: 'island/chars/folk.png' },
+        { cat: '民間故事',     top: '#4f9e58', side: '#377040', roof: '#7a5bb5',
+          char: 'island/chars/folk_side.png', sideFaces: 'left',
+          views: { side: 'island/chars/folk_side.png', front: 'island/chars/folk_front.png', back: 'island/chars/folk_back.png' } },
         { cat: '相招來看戲',   top: '#669e94', side: '#487068', roof: '#c14a4a', char: 'island/chars/khoannhi.png' },
         { cat: '台灣舊地號名', top: '#8a9e4f', side: '#5f7038', roof: '#3b7ab5', char: 'island/chars/kutemia.png' },
         { cat: '台語講怪奇',   top: '#3f9e6e', side: '#2c6e4d', roof: '#b5543b', char: 'island/chars/kongkoaiki.png' },
@@ -600,8 +602,9 @@
                 if (!guy.classList.contains('resting')) {
                     const src = island.views[view];
                     if (img.getAttribute('src') !== src) img.src = src;
-                    // 側面原圖朝右；向左行進時翻面
-                    img.classList.toggle('isl-flip', view === 'side' && vx < 0);
+                    // 行進方向與側面圖原始朝向相反時翻面（sideFaces 預設朝右）
+                    const facesLeft = island.sideFaces === 'left';
+                    img.classList.toggle('isl-flip', view === 'side' && (facesLeft ? vx > 0 : vx < 0));
                 }
             }
             prev = p;
