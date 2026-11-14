@@ -10,11 +10,11 @@
 (function () {
     'use strict';
 
-    // 中央廣場（詞語收集）；廣場導覽員＝囡仔A郎（三視圖）
+    // 中央廣場（詞語收集）＝台語語詞；廣場導覽員＝台灣藍鵲（三視圖）
     const PLAZA = {
-        cat: 'A郎台語小詞典', top: '#c9b98a', side: '#9a8a5e', roof: '#8f8f98',
-        char: 'island/chars/alongkid_side.png', sideFaces: 'left',
-        views: { side: 'island/chars/alongkid_side.png', front: 'island/chars/alongkid_front.png', back: 'island/chars/alongkid_back.png' },
+        cat: '台語語詞', top: '#c9b98a', side: '#9a8a5e', roof: '#8f8f98',
+        char: 'island/chars/gisu_side.png', sideFaces: 'left',
+        views: { side: 'island/chars/gisu_side.png', front: 'island/chars/gisu_front.png', back: 'island/chars/gisu_back.png' },
     };
 
     // 各島設定（top=島面、side=側面厚度、roof=屋頂）
@@ -26,6 +26,9 @@
           char: 'island/chars/along_side.png', sit: 'island/chars/along_sit.png',
           // 三視圖（角色設定稿）：依行進方向切換；側面圖原始朝向為右
           views: { side: 'island/chars/along_side.png', front: 'island/chars/along_front.png', back: 'island/chars/along_back.png' } },
+        { cat: 'A郎台語小詞典', top: '#9e9a4f', side: '#706d38', roof: '#2f9e75',
+          char: 'island/chars/alongkid_side.png', sideFaces: 'left',
+          views: { side: 'island/chars/alongkid_side.png', front: 'island/chars/alongkid_front.png', back: 'island/chars/alongkid_back.png' } },
         { cat: 'A郎片頭尾',    top: '#5d9e7c', side: '#41705a', roof: '#9e5dc1', char: 'images/logo.png', round: true },
         { cat: '英國囡仔古',   top: '#56a083', side: '#3b7260', roof: '#4a7fc1',
           char: 'island/chars/ukkid_side.png',
@@ -45,9 +48,6 @@
         { cat: '白蔥仔公主',   top: '#6aa06a', side: '#4a7347', roof: '#c75d8a',
           char: 'island/chars/pehchhanga_side.png', sideFaces: 'left',
           views: { side: 'island/chars/pehchhanga_side.png', front: 'island/chars/pehchhanga_front.png', back: 'island/chars/pehchhanga_back.png' } },
-        { cat: '台語語詞',     top: '#9e9a4f', side: '#706d38', roof: '#2f9e75',
-          char: 'island/chars/gisu_side.png', sideFaces: 'left',
-          views: { side: 'island/chars/gisu_side.png', front: 'island/chars/gisu_front.png', back: 'island/chars/gisu_back.png' } },
         { cat: '平台散文',     top: '#7c9e5d', side: '#587041', roof: '#b5763b', char: 'images/logo.png', round: true },
         { cat: '其他',         top: '#74937c', side: '#526858', roof: '#6b7fc1',
           char: 'island/chars/other_side.png',
@@ -239,7 +239,7 @@
         const plaque = document.createElement('div');
         plaque.className = 'isl-plaque';
         plaque.innerHTML = '<span class="isl-plaque-name">' +
-            (isPlaza ? '🏛️ 小詞典中央廣場' : island.cat) +
+            (isPlaza ? '🏛️ 語詞中央廣場' : island.cat) +
             '<span class="isl-plaque-count">' + posts.length + ' 篇</span></span>' +
             (isPlaza ? '<div class="isl-progress" id="isl-progress"></div>' : '');
         el.appendChild(plaque);
@@ -460,10 +460,12 @@
         return title.replace(/^【[^】]*】\s*/, '').trim() || title;
     }
 
-    // 詞石標籤：取出詞本身（例：「【A郎台語小詞典】 EP. 01-坐賬/Chhē-siàu」→「坐賬」）
+    // 詞石標籤：取出詞本身
+    // 例：「【A郎台語小詞典】 EP. 01-坐賬/Chhē-siàu」→「坐賬」；「【台語語詞】27.面模á」→「面模á」
     function wordLabel(title) {
         let t = shortLabel(title || '');
         t = t.replace(/^EP\.?\s*\d+\s*[-－]?\s*/i, '');
+        t = t.replace(/^\d+\s*[.．]\s*/, '');
         return t.split('/')[0].trim() || t;
     }
 
@@ -568,7 +570,7 @@
 
     // 廣場角色：囡仔 A郎（三視圖）繞橢圓走
     function spawnCharacter(town, width, height, radius) {
-        const guy = makeCharacter(town, PLAZA.char, false, false, '歡迎來到小詞典中央廣場');
+        const guy = makeCharacter(town, PLAZA.char, false, false, '歡迎來到語詞中央廣場');
         const updateView = makeViewUpdater(guy, PLAZA);
         const cx = width / 2;
         const cy = (height - 30) / 2;
