@@ -514,7 +514,6 @@
     // 廣場角色：囡仔 A郎（去背立繪）繞橢圓走
     function spawnCharacter(town, width, height, radius) {
         const guy = makeCharacter(town, 'island/chars/along.png', false, false, '歡迎來到小詞典中央廣場');
-        guy.style.setProperty('--char-h', '56px');
         const cx = width / 2;
         const cy = (height - 30) / 2;
         const rx = radius * 0.86;
@@ -563,9 +562,6 @@
     // 島嶼角色：沿著台灣海岸線環島走
     function spawnIslandWalker(town, island, pxPerNorm) {
         const guy = makeCharacter(town, island.char, !!island.round, !!island.flip, '歡迎來到「' + island.cat + '」');
-        // 角色大小隨島縮放
-        const size = Math.max(36, Math.min(64, Math.round(pxPerNorm * 11)));
-        guy.style.setProperty('--char-h', size + 'px');
 
         let dist = Math.random() * TAIWAN_PERIM.total;
         function place() {

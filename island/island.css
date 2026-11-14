@@ -130,7 +130,7 @@ body {
     background: none; border: none; cursor: pointer; padding: 2px;
 }
 .isl-character-img {
-    display: block; width: 46px; height: 46px; border-radius: 50%;
+    display: block; width: 56px; height: 56px; border-radius: 50%;
     border: 2px solid #fff;
     box-shadow: 0 3px 8px rgba(0,0,0,0.4);
     transform-origin: 50% 92%;
@@ -138,7 +138,7 @@ body {
 }
 /* 去背人物立繪 */
 .isl-char-fig {
-    display: block; height: var(--char-h, 52px); width: auto;
+    display: block; height: 56px; width: auto; /* 所有角色統一高度，等比縮放 */
     filter: drop-shadow(0 3px 5px rgba(0,0,0,0.45));
     transform-origin: 50% 92%;
     animation: isl-sway 0.9s ease-in-out infinite alternate;
