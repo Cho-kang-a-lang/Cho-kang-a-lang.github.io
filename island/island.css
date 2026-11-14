@@ -145,6 +145,9 @@ body {
 }
 /* 走路時左右輕搖（像走路擺動，取代原本的上下跳動） */
 @keyframes isl-sway { from { transform: rotate(-3.5deg); } to { transform: rotate(3.5deg); } }
+/* 向左行進時的翻面版（翻面與搖擺須寫在同一個動畫，避免互相覆蓋） */
+.isl-char-fig.isl-flip { animation-name: isl-sway-flip; }
+@keyframes isl-sway-flip { from { transform: scaleX(-1) rotate(-3.5deg); } to { transform: scaleX(-1) rotate(3.5deg); } }
 @media (prefers-reduced-motion: reduce) { .isl-char-fig, .isl-character-img { animation: none; } }
 /* 歇睏時暫停走路搖擺 */
 .isl-character.resting img { animation-play-state: paused; }

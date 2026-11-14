@@ -18,7 +18,10 @@
     // （A郎片頭尾、台語語詞、平台散文）插在相近主題旁邊
     // char＝島上小人物（去背自該系列特色圖）；flip＝左右翻面；round＝logo 圓徽章樣式
     const ISLANDS = [
-        { cat: 'A郎',          top: '#4a9e8e', side: '#337066', roof: '#d1902f', char: 'island/chars/along2.png', sit: 'island/chars/along_sit.png' },
+        { cat: 'A郎',          top: '#4a9e8e', side: '#337066', roof: '#d1902f',
+          char: 'island/chars/along_side.png', sit: 'island/chars/along_sit.png',
+          // 三視圖（角色設定稿）：依行進方向切換；側面圖原始朝向為右
+          views: { side: 'island/chars/along_side.png', front: 'island/chars/along_front.png', back: 'island/chars/along_back.png' } },
         { cat: 'A郎片頭尾',    top: '#5d9e7c', side: '#41705a', roof: '#9e5dc1', char: 'images/logo.png', round: true },
         { cat: '英國囡仔古',   top: '#56a083', side: '#3b7260', roof: '#4a7fc1', char: 'island/chars/ukkid.png' },
         { cat: '民間故事',     top: '#4f9e58', side: '#377040', roof: '#7a5bb5', char: 'island/chars/folk.png' },
@@ -576,9 +579,32 @@
         }
 
         let dist = Math.random() * TAIWAN_PERIM.total;
+        let prev = taiwanPointAt(dist);
+        let vx = 0, vy = 0;          // 平滑後的行進方向
+        let view = 'side';
+        let sinceSwitch = 99;
+        const img = guy.querySelector('img');
+
         function place() {
             const p = taiwanPointAt(dist);
             setCharPos(guy, p[0] * pxPerNorm, p[1] * pxPerNorm);
+            // 方向感知視圖（僅限有三視圖的角色）
+            if (island.views && img) {
+                vx = vx * 0.85 + (p[0] - prev[0]) * 0.15;
+                vy = vy * 0.85 + (p[1] - prev[1]) * 0.15;
+                sinceSwitch++;
+                let want = view;
+                if (Math.abs(vy) > Math.abs(vx) * 1.2) want = vy < 0 ? 'back' : 'front';
+                else if (Math.abs(vx) > 0.005) want = 'side';
+                if (want !== view && sinceSwitch > 30) { view = want; sinceSwitch = 0; }
+                if (!guy.classList.contains('resting')) {
+                    const src = island.views[view];
+                    if (img.getAttribute('src') !== src) img.src = src;
+                    // 側面原圖朝右；向左行進時翻面
+                    img.classList.toggle('isl-flip', view === 'side' && vx < 0);
+                }
+            }
+            prev = p;
         }
         place();
         // 巡航速度（正規化單位／秒），各島略有差異
