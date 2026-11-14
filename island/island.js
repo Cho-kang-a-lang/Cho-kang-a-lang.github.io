@@ -18,7 +18,7 @@
     // （A郎片頭尾、台語語詞、平台散文）插在相近主題旁邊
     // char＝島上小人物（去背自該系列特色圖）；flip＝左右翻面；round＝logo 圓徽章樣式
     const ISLANDS = [
-        { cat: 'A郎',          top: '#4a9e8e', side: '#337066', roof: '#d1902f', char: 'island/chars/along2.png' },
+        { cat: 'A郎',          top: '#4a9e8e', side: '#337066', roof: '#d1902f', char: 'island/chars/along2.png', sit: 'island/chars/along_sit.png' },
         { cat: 'A郎片頭尾',    top: '#5d9e7c', side: '#41705a', roof: '#9e5dc1', char: 'images/logo.png', round: true },
         { cat: '英國囡仔古',   top: '#56a083', side: '#3b7260', roof: '#4a7fc1', char: 'island/chars/ukkid.png' },
         { cat: '民間故事',     top: '#4f9e58', side: '#377040', roof: '#7a5bb5', char: 'island/chars/folk.png' },
@@ -492,19 +492,24 @@
     }
 
     // 漫步行為：走一段 → 停下歇睏 → 再走，速度平滑加減速（較自然）
+    // 若角色設有坐姿圖（guy.dataset.sitSrc），歇睏時換成坐姿、起行換回走路圖
     function makeStroll(guy, cruise, advance) {
         let speed = 0;
         let target = cruise;
         let modeLeft = 2 + Math.random() * 4;   // 此狀態剩餘秒數
         let resting = false;
+        const img = guy.querySelector('img');
 
         return function (dt) {
             modeLeft -= dt;
             if (modeLeft <= 0) {
                 resting = !resting;
                 target = resting ? 0 : cruise * (0.8 + Math.random() * 0.4);
-                modeLeft = resting ? 1 + Math.random() * 2.5 : 3 + Math.random() * 5;
+                modeLeft = resting ? 1.5 + Math.random() * 3 : 3 + Math.random() * 5;
                 guy.classList.toggle('resting', resting);
+                if (guy.dataset.sitSrc && img) {
+                    img.src = resting ? guy.dataset.sitSrc : guy.dataset.walkSrc;
+                }
             }
             speed += (target - speed) * Math.min(1, dt * 2.5); // 平滑加減速
             if (speed > 0.01) advance(speed * dt);
@@ -562,6 +567,13 @@
     // 島嶼角色：沿著台灣海岸線環島走
     function spawnIslandWalker(town, island, pxPerNorm) {
         const guy = makeCharacter(town, island.char, !!island.round, !!island.flip, '歡迎來到「' + island.cat + '」');
+        if (island.sit) {
+            guy.dataset.walkSrc = island.char;
+            guy.dataset.sitSrc = island.sit;
+            // 預先載入坐姿圖，切換時不閃爍
+            const pre = new Image();
+            pre.src = island.sit;
+        }
 
         let dist = Math.random() * TAIWAN_PERIM.total;
         function place() {
