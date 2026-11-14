@@ -123,6 +123,7 @@
         try {
             const data = await loadPostsData(); // posts-loader.js（已過濾未發布文章）
             allPosts = data._posts || [];
+            renderNavbar(data.menu);
             renderAll();
             window.addEventListener('resize', debounce(renderAll, 250));
         } catch (e) {
@@ -133,6 +134,84 @@
     function debounce(fn, ms) {
         let t;
         return function () { clearTimeout(t); t = setTimeout(fn, ms); };
+    }
+
+    // ===================== 頂部導覽列（與全站相同的選單） =====================
+    function renderNavbar(menu) {
+        const menuContainer = document.getElementById('menu-container');
+        if (!menuContainer || !menu) return;
+
+        function buildMenu(items, level) {
+            const ul = document.createElement('ul');
+            const hasAnySub = items.some(function (item) { return item.children && item.children.length > 0; });
+            if (level === 0) { ul.className = 'nav-list'; ul.id = 'nav-list'; }
+            else if (level === 1) { ul.className = 'dropdown-menu'; }
+            else { ul.className = 'sub-dropdown-menu'; }
+            if (level > 0 && !hasAnySub) ul.classList.add('scrollable-menu');
+
+            items.forEach(function (item) {
+                const li = document.createElement('li');
+                li.className = level === 0 ? 'nav-item' : 'dropdown-item';
+                const hasChildren = item.children && item.children.length > 0;
+                if (hasChildren && level > 0) li.classList.add('has-sub');
+
+                const linkClass = level === 0 ? 'nav-link' : 'dropdown-link';
+                let targetUrl = '#';
+                if (item.file === 'home') targetUrl = 'index.html';
+                else if (hasChildren) targetUrl = 'category.html?cat=' + encodeURIComponent(item.title);
+                else if (item.file) targetUrl = 'article.html?file=' + item.file;
+                else if (item.url) targetUrl = item.url;
+
+                let arrow = '';
+                if (hasChildren) {
+                    arrow = level === 0
+                        ? '<span class="arrow" style="font-size:0.8em; margin-left:5px; transition:transform 0.3s; display:inline-block;">▼</span>'
+                        : '<span class="arrow" style="margin-left:10px; transition:transform 0.3s; display:inline-block;">▶</span>';
+                }
+                li.innerHTML = '<a href="' + targetUrl + '" class="' + linkClass + '">' + item.title + arrow + '</a>';
+
+                if (hasChildren) {
+                    const childUl = buildMenu(item.children, level + 1);
+                    li.appendChild(childUl);
+                    li.querySelector('a').addEventListener('click', function (e) {
+                        if (window.innerWidth <= 768) {
+                            e.preventDefault();
+                            const siblings = li.parentElement.children;
+                            for (let i = 0; i < siblings.length; i++) {
+                                const sibling = siblings[i];
+                                if (sibling !== li && sibling.querySelector('ul')) {
+                                    sibling.querySelector('ul').classList.remove('mobile-open');
+                                    const sa = sibling.querySelector('.arrow');
+                                    if (sa) sa.style.transform = 'rotate(0deg)';
+                                }
+                            }
+                            childUl.classList.toggle('mobile-open');
+                            const arrowSpan = this.querySelector('.arrow');
+                            if (arrowSpan) {
+                                const open = childUl.classList.contains('mobile-open');
+                                arrowSpan.style.transform = open ? (level === 0 ? 'rotate(180deg)' : 'rotate(90deg)') : 'rotate(0deg)';
+                            }
+                        }
+                    });
+                }
+                ul.appendChild(li);
+            });
+            return ul;
+        }
+
+        menuContainer.innerHTML = '';
+        menuContainer.appendChild(buildMenu(menu, 0));
+
+        const mobileToggle = document.getElementById('mobile-toggle');
+        if (mobileToggle) {
+            mobileToggle.addEventListener('click', function () {
+                const nav = document.getElementById('nav-list');
+                if (nav) {
+                    nav.classList.toggle('active');
+                    this.textContent = nav.classList.contains('active') ? '✖' : '☰';
+                }
+            });
+        }
     }
 
     function postsOf(cat) {

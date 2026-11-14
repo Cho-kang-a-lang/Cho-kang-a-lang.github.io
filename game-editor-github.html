@@ -192,7 +192,7 @@
               updateSitemap(fileKey);
               try {
                 const parsed = JSON.parse(postsJsonText);
-                const gamesMenu = parsed.menu && parsed.menu.find(m => m.title === '遊戲 Games');
+                const gamesMenu = parsed.menu && parsed.menu.find(m => m.title === '遊戲');
                 if (gamesMenu && Array.isArray(gamesMenu.children)) {
                   const alreadyExists = gamesMenu.children.some(c => c.file === fileKey);
                   if (!alreadyExists) {
@@ -292,7 +292,7 @@
                         <div>
                           <label className="block text-sm font-medium mb-1">選單顯示名稱</label>
                           <input type="text" className="w-full border rounded p-2 text-sm" value={menuTitle} onChange={e => setMenuTitle(e.target.value)} placeholder="例：台語分類卡牌（顯示在導覽列）" />
-                          <p className="text-xs text-gray-400 mt-1">顯示在網站「遊戲 Games」選單中的名稱</p>
+                          <p className="text-xs text-gray-400 mt-1">顯示在網站「遊戲」選單中的名稱</p>
                         </div>
                         <div>
                           <label className="block text-sm font-medium mb-1">日期</label>
@@ -448,7 +448,7 @@
                   <div className="bg-white p-6 rounded-xl shadow-sm border-2 border-purple-300">
                     <h2 className="text-xl font-bold mb-1 text-purple-800">📋 步驟三：更新 posts.json</h2>
                     <p className="text-sm text-gray-500 mb-3">
-                      <code className="bg-purple-50 px-1 rounded font-mono font-bold">{savedName.replace(/\.md$/i,'')}</code> 已自動加入「遊戲 Games」選單，確認後儲存到 GitHub。
+                      <code className="bg-purple-50 px-1 rounded font-mono font-bold">{savedName.replace(/\.md$/i,'')}</code> 已自動加入「遊戲」選單，確認後儲存到 GitHub。
                     </p>
                     <textarea className="w-full border rounded p-3 font-mono text-xs bg-gray-50 h-56 focus:ring-2 focus:ring-purple-400" value={postsJsonText} onChange={e => { setPostsJsonText(e.target.value); setPostsJsonSaved(false); }} />
                     <button onClick={savePostsJson} className="mt-3 w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded transition">💾 儲存 posts.json 到 GitHub</button>
