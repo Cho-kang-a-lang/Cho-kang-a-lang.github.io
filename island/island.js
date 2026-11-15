@@ -72,6 +72,15 @@
         '台語講kah輾轉，人人o-ló！',
     ];
 
+    // ===================== 協作線（內容關聯，手動維護） =====================
+    // 來源／目標填分類名稱（＝島嶼或中央廣場的 cat）；note 於滑鼠懸停時顯示
+    const COOP_LINES = [
+        { a: '民間故事',   b: '台灣舊地號名',   note: '故事場景會提到舊地名' },
+        { a: 'A郎',        b: 'A郎片頭尾',      note: '同一部廣播劇的本篇與片頭尾' },
+        { a: '英國囡仔古', b: '台語語詞',       note: '故事會講tio̍h ê台語語詞' },
+        { a: 'A郎',        b: 'A郎台語小詞典',  note: '為故事內底chhōe ê語詞' },
+    ];
+
     const COLLECT_KEY = 'chokangalang_island_words';
 
     const sea = document.getElementById('isl-sea');
@@ -251,8 +260,70 @@
         });
 
         drawRoutes();
+        drawCoopLines();
         startWalkers();
         updateProgress();
+    }
+
+    // ===================== 協作線繪製（亮色實線，疊在環島航路上層） =====================
+    function drawCoopLines() {
+        const old = sea.querySelector('.isl-coop');
+        if (old) old.remove();
+        const routesSvg = sea.querySelector('.isl-routes');
+
+        const seaRect = sea.getBoundingClientRect();
+        const w = sea.scrollWidth;
+        const h = sea.scrollHeight;
+
+        function centerOf(cat) {
+            const town = sea.querySelector('.isl-island[data-cat="' + cat + '"] .isl-town');
+            if (!town) return null;
+            const r = town.getBoundingClientRect();
+            return {
+                x: r.left - seaRect.left + r.width / 2,
+                y: r.top - seaRect.top + r.height / 2,
+                rx: r.width / 2 * 0.92,    // 以橢圓近似島形，讓線終止在岸邊
+                ry: r.height / 2 * 0.9,
+            };
+        }
+
+        // 沿方向 (ux,uy) 從中心推到橢圓邊緣的距離
+        function edgeDist(c, ux, uy) {
+            return 1 / Math.sqrt((ux / c.rx) * (ux / c.rx) + (uy / c.ry) * (uy / c.ry));
+        }
+
+        let parts = '';
+        COOP_LINES.forEach(function (line, i) {
+            const ca = centerOf(line.a);
+            const cb = centerOf(line.b);
+            if (!ca || !cb) return;
+            let dx = cb.x - ca.x, dy = cb.y - ca.y;
+            let clen = Math.hypot(dx, dy) || 1;
+            const ux = dx / clen, uy = dy / clen;
+            // 端點由島中心沿連線方向推到橢圓岸邊
+            const da = edgeDist(ca, ux, uy);
+            const db = edgeDist(cb, ux, uy);
+            const a = { x: ca.x + ux * da, y: ca.y + uy * da };
+            const b = { x: cb.x - ux * db, y: cb.y - uy * db };
+            dx = b.x - a.x; dy = b.y - a.y;
+            const len = Math.hypot(dx, dy) || 1;
+            const off = Math.min(90, len * 0.22) * (i % 2 ? -1 : 1);
+            const cx = (a.x + b.x) / 2 - (dy / len) * off;
+            const cy = (a.y + b.y) / 2 + (dx / len) * off;
+            const d = 'M' + a.x.toFixed(0) + ',' + a.y.toFixed(0) +
+                ' Q' + cx.toFixed(0) + ',' + cy.toFixed(0) +
+                ' ' + b.x.toFixed(0) + ',' + b.y.toFixed(0);
+            const label = line.a + ' ↔ ' + line.b + (line.note ? '：' + line.note : '');
+            parts += '<path d="' + d + '" class="isl-coop-glow"><title>' + label + '</title></path>' +
+                '<path d="' + d + '" class="isl-coop-line"><title>' + label + '</title></path>' +
+                '<circle cx="' + a.x.toFixed(0) + '" cy="' + a.y.toFixed(0) + '" r="4.5"/>' +
+                '<circle cx="' + b.x.toFixed(0) + '" cy="' + b.y.toFixed(0) + '" r="4.5"/>';
+        });
+        if (!parts) return;
+
+        const svg = '<svg class="isl-coop" width="' + w + '" height="' + h + '" viewBox="0 0 ' + w + ' ' + h + '" aria-hidden="true">' + parts + '</svg>';
+        if (routesSvg) routesSvg.insertAdjacentHTML('afterend', svg);
+        else sea.insertAdjacentHTML('afterbegin', svg);
     }
 
     // ===================== 環島航路 =====================
@@ -313,6 +384,7 @@
 
         const el = document.createElement('section');
         el.className = 'isl-island' + (isPlaza ? ' isl-plaza' : '');
+        el.dataset.cat = island.cat;
         el.style.setProperty('--island-color', isPlaza ? '#d1902f' : island.top);
 
         const plaque = document.createElement('div');
@@ -469,6 +541,7 @@
 
         const el = document.createElement('section');
         el.className = 'isl-island';
+        el.dataset.cat = island.cat;
         el.style.setProperty('--island-color', island.top);
 
         const plaque = document.createElement('div');

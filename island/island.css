@@ -42,6 +42,14 @@ body {
 /* === 環島航路（島嶼下層） === */
 .isl-routes { position: absolute; top: 0; left: 0; z-index: 0; pointer-events: none; }
 
+/* === 協作線（內容關聯；疊在航路上、島嶼下） === */
+.isl-coop { position: absolute; top: 0; left: 0; z-index: 0; pointer-events: none; }
+.isl-coop path { fill: none; pointer-events: visibleStroke; cursor: help; }
+.isl-coop-glow { stroke: rgba(36, 191, 137, 0.22); stroke-width: 10; stroke-linecap: round; }
+.isl-coop-line { stroke: #24BF89; stroke-width: 2.5; stroke-linecap: round; opacity: 0.9; transition: stroke-width 0.15s, opacity 0.15s; }
+.isl-coop-line:hover { stroke-width: 4; opacity: 1; }
+.isl-coop circle { fill: #24BF89; opacity: 0.9; }
+
 /* === 島嶼 === */
 .isl-island { position: relative; flex: 0 0 auto; }
 
