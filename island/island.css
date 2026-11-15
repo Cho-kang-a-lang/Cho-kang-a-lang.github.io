@@ -139,6 +139,10 @@ body {
 .isl-stone.collected .stone-shine { stroke: #fff2c4; }
 .isl-stone.collected .isl-building-label { background: rgba(232, 196, 90, 0.92); font-weight: 700; }
 
+/* 已讀過的建築（各島閱讀進度）：房子發金光、標籤變金 */
+.isl-building.visited svg { filter: drop-shadow(0 0 5px rgba(232, 196, 90, 0.95)); }
+.isl-building.visited .isl-building-label { background: rgba(232, 196, 90, 0.92); font-weight: 700; }
+
 /* === 角色彩蛋 === */
 .isl-character {
     position: absolute; z-index: 30;

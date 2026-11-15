@@ -82,6 +82,7 @@
     ];
 
     const COLLECT_KEY = 'chokangalang_island_words';
+    const READ_KEY = 'chokangalang_island_read';   // 各島已讀文章（點開建築即算讀過）
 
     const sea = document.getElementById('isl-sea');
     const panel = document.getElementById('isl-panel');
@@ -126,6 +127,28 @@
 
     let plazaTotal = 0;
     let plazaFiles = new Set();
+
+    // ===================== 各島閱讀進度（localStorage） =====================
+    let readSet = (function () {
+        try {
+            const raw = localStorage.getItem(READ_KEY);
+            return new Set(raw ? JSON.parse(raw) : []);
+        } catch (e) { return new Set(); }
+    })();
+
+    function readCountOf(cat) {
+        return postsOf(cat).filter(function (p) { return readSet.has(p.file); }).length;
+    }
+
+    function markRead(file, cat) {
+        if (readSet.has(file)) return;
+        readSet.add(file);
+        try { localStorage.setItem(READ_KEY, JSON.stringify([...readSet])); } catch (e) { /* 忽略 */ }
+        const btn = document.querySelector('.isl-building[data-file="' + file + '"]');
+        if (btn) btn.classList.add('visited');
+        const count = document.querySelector('.isl-island[data-cat="' + cat + '"] .isl-read-num');
+        if (count) count.textContent = readCountOf(cat);
+    }
 
     // ===================== 初始化 =====================
     document.addEventListener('DOMContentLoaded', async function () {
@@ -571,7 +594,8 @@
         const plaque = document.createElement('div');
         plaque.className = 'isl-plaque';
         plaque.innerHTML = '<span class="isl-plaque-name">' + island.cat +
-            '<span class="isl-plaque-count">' + posts.length + ' 篇</span></span>';
+            '<span class="isl-plaque-count"><span class="isl-read-num">' + readCountOf(island.cat) +
+            '</span> / ' + posts.length + ' 篇</span></span>';
         el.appendChild(plaque);
 
         const town = document.createElement('div');
@@ -584,7 +608,7 @@
             const slot = layout.pts[i];
             const btn = document.createElement('button');
             btn.type = 'button';
-            btn.className = 'isl-building';
+            btn.className = 'isl-building' + (readSet.has(post.file) ? ' visited' : '');
             btn.dataset.file = post.file;
             btn.style.left = (slot[0] * pxPerNorm) + 'px';
             btn.style.top = (slot[1] * pxPerNorm) + 'px';
@@ -841,6 +865,7 @@
         panel.scrollTop = 0;
 
         if (isPlaza) collectWord(post.file);
+        else markRead(post.file, island.cat);
         loadAudioLinks(post.file);
     }
 
