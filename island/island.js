@@ -231,6 +231,7 @@
 
     // ===================== 繪製整個世界 =====================
     let lastWidth = 0;
+    let introPlayed = false;   // 開場「島嶼逐一浮現」只播一次
 
     function renderAll() {
         // 視窗尚未有尺寸（例如分頁在背景被收合）時先不渲染，等 resize 再來
@@ -261,6 +262,20 @@
 
         drawRoutes();
         drawCoopLines();
+
+        // 開場動畫：島嶼一座接一座浮出海面，航線最後才浮現
+        if (!introPlayed) {
+            introPlayed = true;
+            const sections = sea.querySelectorAll('.isl-island');
+            sections.forEach(function (el, i) { el.style.animationDelay = (i * 0.3) + 's'; });
+            const linesDelay = (sections.length * 0.3 + 0.5).toFixed(1) + 's';
+            sea.querySelectorAll('.isl-routes, .isl-coop, .isl-coop-label').forEach(function (el) {
+                el.style.animationDelay = linesDelay;
+            });
+        } else {
+            sea.classList.add('no-anim');  // 之後重新排版（如轉向）不重播動畫
+        }
+
         startWalkers();
         updateProgress();
     }
@@ -269,6 +284,7 @@
     function drawCoopLines() {
         const old = sea.querySelector('.isl-coop');
         if (old) old.remove();
+        sea.querySelectorAll('.isl-coop-label').forEach(function (el) { el.remove(); });
         const routesSvg = sea.querySelector('.isl-routes');
 
         const seaRect = sea.getBoundingClientRect();
@@ -293,6 +309,7 @@
         }
 
         let parts = '';
+        const labels = [];
         COOP_LINES.forEach(function (line, i) {
             const ca = centerOf(line.a);
             const cb = centerOf(line.b);
@@ -318,12 +335,19 @@
                 '<path d="' + d + '" class="isl-coop-line"><title>' + label + '</title></path>' +
                 '<circle cx="' + a.x.toFixed(0) + '" cy="' + a.y.toFixed(0) + '" r="4.5"/>' +
                 '<circle cx="' + b.x.toFixed(0) + '" cy="' + b.y.toFixed(0) + '" r="4.5"/>';
+            // 線中點的關聯標籤（常駐顯示連到哪兩座島；懸停看說明）
+            // 沿弧線外側再推一段，避免與島名牌重疊
+            const sgn = off >= 0 ? 1 : -1;
+            const mx = (a.x + 2 * cx + b.x) / 4 - (dy / len) * sgn * 24;
+            const my = (a.y + 2 * cy + b.y) / 4 + (dx / len) * sgn * 24;
+            labels.push('<div class="isl-coop-label" style="left:' + mx.toFixed(0) + 'px; top:' + my.toFixed(0) +
+                'px;" title="' + (line.note || '') + '">🔗 ' + line.a + ' ↔ ' + line.b + '</div>');
         });
         if (!parts) return;
 
         const svg = '<svg class="isl-coop" width="' + w + '" height="' + h + '" viewBox="0 0 ' + w + ' ' + h + '" aria-hidden="true">' + parts + '</svg>';
-        if (routesSvg) routesSvg.insertAdjacentHTML('afterend', svg);
-        else sea.insertAdjacentHTML('afterbegin', svg);
+        if (routesSvg) routesSvg.insertAdjacentHTML('afterend', svg + labels.join(''));
+        else sea.insertAdjacentHTML('afterbegin', svg + labels.join(''));
     }
 
     // ===================== 環島航路 =====================

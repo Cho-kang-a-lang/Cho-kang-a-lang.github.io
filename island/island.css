@@ -50,6 +50,37 @@ body {
 .isl-coop-line:hover { stroke-width: 4; opacity: 1; }
 .isl-coop circle { fill: #24BF89; opacity: 0.9; }
 
+/* === 協作線標籤（線中點，常駐顯示連接對象） === */
+.isl-coop-label {
+    position: absolute; z-index: 0;
+    transform: translate(-50%, -50%);
+    background: rgba(11, 30, 51, 0.88);
+    border: 1px solid rgba(36, 191, 137, 0.65);
+    color: #7fe0bb;
+    font-size: 11.5px; line-height: 1.4;
+    padding: 3px 10px; border-radius: 12px;
+    white-space: nowrap; cursor: help;
+}
+.isl-coop-label:hover { background: rgba(17, 45, 70, 0.95); border-color: #24BF89; color: #a9f0d4; }
+
+/* === 開場動畫：島嶼一座一座浮出海面，航線與協作線最後浮現 === */
+.isl-island { animation: isl-rise 0.9s cubic-bezier(0.18, 0.7, 0.3, 1) both; }
+@keyframes isl-rise {
+    from { opacity: 0; transform: translateY(46px); }
+    to   { opacity: 1; transform: none; }
+}
+.isl-routes, .isl-coop, .isl-coop-label { opacity: 0; animation: isl-fade 1s ease both; }
+@keyframes isl-fade { to { opacity: 1; } }
+/* 重新排版（如縮放視窗）不重播 */
+.isl-sea.no-anim .isl-island,
+.isl-sea.no-anim .isl-routes,
+.isl-sea.no-anim .isl-coop,
+.isl-sea.no-anim .isl-coop-label { animation: none; opacity: 1; transform: none; }
+.isl-sea.no-anim .isl-coop-label { transform: translate(-50%, -50%); }
+@media (prefers-reduced-motion: reduce) {
+    .isl-island, .isl-routes, .isl-coop, .isl-coop-label { animation: none !important; opacity: 1 !important; }
+}
+
 /* === 島嶼 === */
 .isl-island { position: relative; flex: 0 0 auto; }
 
