@@ -966,10 +966,10 @@
         // 相關文章（協作關聯；只列站上已發佈的）
         const rels = (linkIndex[post.file] || []).filter(function (r) { return postByFile[r.file]; });
         if (rels.length) {
-            html += '<div class="isl-p-audio-title">🔗 相關文章：</div><ul class="isl-p-rel">';
+            html += '<div class="isl-p-audio-title">🔗 相關文章（點擊跳到該建築）：</div><ul class="isl-p-rel">';
             rels.forEach(function (r) {
-                html += '<li><a href="article.html?file=' + encodeURIComponent(r.file) + '" title="' + (r.note || '') + '">' +
-                    (postByFile[r.file].title || r.file) + '</a></li>';
+                html += '<li><button type="button" class="isl-p-rel-jump" data-file="' + r.file + '" title="' + (r.note || '') + '">' +
+                    (postByFile[r.file].title || r.file) + '</button></li>';
             });
             html += '</ul>';
         }
@@ -1010,6 +1010,22 @@
                 if (box) box.innerHTML = '<span class="isl-p-noaudio">音檔資訊載入失敗。</span>';
             });
     }
+
+    // 地圖跳轉：捲到目標建築、閃光提示，並開啟它的面板（解決關聯兩端距離太遠的問題）
+    function jumpToBuilding(file) {
+        const btn = sea.querySelector('.isl-building[data-file="' + file + '"]');
+        if (!btn) return;
+        closePanel();
+        btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        btn.classList.add('isl-ping');
+        setTimeout(function () { btn.classList.remove('isl-ping'); }, 2600);
+        setTimeout(function () { btn.click(); }, 700);
+    }
+
+    panelBody.addEventListener('click', function (e) {
+        const j = e.target.closest ? e.target.closest('.isl-p-rel-jump') : null;
+        if (j) jumpToBuilding(j.dataset.file);
+    });
 
     function closePanel() {
         panel.hidden = true;

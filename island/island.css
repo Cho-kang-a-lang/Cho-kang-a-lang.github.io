@@ -224,8 +224,20 @@ body {
 /* 面板相關文章列表 */
 .isl-p-rel { list-style: none; padding: 0; margin: 0 0 18px; }
 .isl-p-rel li { margin-bottom: 7px; }
-.isl-p-rel a { color: var(--primary); text-decoration: none; font-size: 0.92rem; line-height: 1.5; }
-.isl-p-rel a:hover { text-decoration: underline; }
+.isl-p-rel-jump {
+    background: none; border: none; padding: 0; text-align: left; cursor: pointer;
+    color: var(--primary); font-size: 0.92rem; line-height: 1.5; font-family: inherit;
+}
+.isl-p-rel-jump:hover { text-decoration: underline; }
+.isl-p-rel-jump::after { content: ' 🗺️'; font-size: 0.85em; }
+
+/* 跳轉目標的閃光提示 */
+.isl-building.isl-ping svg { animation: isl-ping 0.75s ease-out 3; }
+@keyframes isl-ping {
+    0% { filter: drop-shadow(0 0 2px rgba(255, 215, 102, 0.6)); }
+    50% { filter: drop-shadow(0 0 16px rgba(255, 215, 102, 1)); }
+    100% { filter: drop-shadow(0 0 2px rgba(255, 215, 102, 0.6)); }
+}
 
 /* === 面板 === */
 .isl-panel-backdrop {
