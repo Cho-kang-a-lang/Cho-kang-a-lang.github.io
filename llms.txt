@@ -10,6 +10,7 @@
 - [關於本站](https://cho-kang-a-lang.github.io/markdowns/about.md): 工作室介紹
 - [做工á人語詞補記](https://cho-kang-a-lang.github.io/markdowns/gisupoki.md): 辭典未收錄的台語語詞採集記錄（漢羅、白話字、釋義、例句）
 - [台日新辭書線上版](https://taijit-sinsusu.pages.dev/): 《臺日新辭書》（1931）數位化線上查詢，本工作室製作
+- [台語世界互動地圖](https://cho-kang-a-lang.github.io/island.html): 以台灣形狀島嶼地圖探索全站內容、收集台語詞
 - [網站地圖](https://cho-kang-a-lang.github.io/sitemap.xml)
 
 ## A郎
@@ -200,6 +201,21 @@
 - [【台灣舊地號名】126. 槓仔寮](https://cho-kang-a-lang.github.io/markdowns/kutemia126.md)（2026-07-18）
 - [【台灣舊地號名】127. 唭哩岸](https://cho-kang-a-lang.github.io/markdowns/kutemia127.md)（2026-07-25）
 - [【台灣舊地號名】128. 奇武卒](https://cho-kang-a-lang.github.io/markdowns/kutemia128.md)（2026-08-01）
+- [【台灣舊地號名】129. 鹽埔](https://cho-kang-a-lang.github.io/markdowns/kutemia129.md)（2026-08-08）
+- [【台灣舊地號名】130. 吉野](https://cho-kang-a-lang.github.io/markdowns/kutemia130.md)（2026-08-15）
+- [【台灣舊地號名】131. 金崙](https://cho-kang-a-lang.github.io/markdowns/kutemia131.md)（2026-08-22）
+- [【台灣舊地號名】132. 九芎林](https://cho-kang-a-lang.github.io/markdowns/kutemia132.md)（2026-08-29）
+- [【台灣舊地號名】134. 羌仔寮](https://cho-kang-a-lang.github.io/markdowns/kutemia134.md)（2026-09-05）
+- [【台灣舊地號名】135. 高樹跤](https://cho-kang-a-lang.github.io/markdowns/kutemia135.md)（2026-09-12）
+- [【台灣舊地號名】136. 國姓埔](https://cho-kang-a-lang.github.io/markdowns/kutemia136.md)（2026-09-19）
+- [【台灣舊地號名】137. 公埔](https://cho-kang-a-lang.github.io/markdowns/kutemia137.md)（2026-09-26）
+- [【台灣舊地號名】138. 龜崙社](https://cho-kang-a-lang.github.io/markdowns/kutemia138.md)（2026-10-03）
+- [【台灣舊地號名】139. 關帝廟](https://cho-kang-a-lang.github.io/markdowns/kutemia139.md)（2026-10-10）
+- [【台灣舊地號名】140. 關帝廳](https://cho-kang-a-lang.github.io/markdowns/kutemia140.md)（2026-10-17）
+- [【台灣舊地號名】141. 官佃](https://cho-kang-a-lang.github.io/markdowns/kutemia141.md)（2026-10-24）
+- [【台灣舊地號名】142. 竿(菅)蓁林](https://cho-kang-a-lang.github.io/markdowns/kutemia142.md)（2026-10-31）
+- [【台灣舊地號名】143. 來社](https://cho-kang-a-lang.github.io/markdowns/kutemia143.md)（2026-11-07）
+- [【台灣舊地號名】144. 內埔](https://cho-kang-a-lang.github.io/markdowns/kutemia144.md)（2026-11-14）
 
 ## 台語語詞
 
@@ -249,6 +265,27 @@
 - [【台語語詞】71. U](https://cho-kang-a-lang.github.io/markdowns/gisu71.md)（2026-07-20）
 - [【台語語詞】72. 目白舌吐](https://cho-kang-a-lang.github.io/markdowns/gisu72.md)（2026-07-27）
 - [【台語語詞】73. 觸纏](https://cho-kang-a-lang.github.io/markdowns/gisu73.md)（2026-08-03）
+- [【台語語詞】74. 反嘩](https://cho-kang-a-lang.github.io/markdowns/gisu74.md)（2026-08-10）
+- [【台語語詞】75. 安土](https://cho-kang-a-lang.github.io/markdowns/gisu75.md)（2026-08-17）
+- [【台語語詞】76. 跟人](https://cho-kang-a-lang.github.io/markdowns/gisu76.md)（2026-08-24）
+- [【台語語詞】77. 鬥搭](https://cho-kang-a-lang.github.io/markdowns/gisu77.md)（2026-08-31）
+- [【台語語詞】78. 慷慨](https://cho-kang-a-lang.github.io/markdowns/gisu78.md)（2026-09-07）
+- [【台語語詞】79. Chhòaⁿ](https://cho-kang-a-lang.github.io/markdowns/gisu79.md)（2026-09-14）
+- [【台語語詞】80. 地陷](https://cho-kang-a-lang.github.io/markdowns/gisu80.md)（2026-09-21）
+- [【台語語詞】81. 承諾](https://cho-kang-a-lang.github.io/markdowns/gisu81.md)（2026-09-28）
+- [【台語語詞】82. 文理](https://cho-kang-a-lang.github.io/markdowns/gisu82.md)（2026-10-05）
+- [【台語語詞】83. 筵席](https://cho-kang-a-lang.github.io/markdowns/gisu83.md)（2026-10-12）
+- [【台語語詞】84. 制煞](https://cho-kang-a-lang.github.io/markdowns/gisu84.md)（2026-10-19）
+- [【台語語詞】85. 十全](https://cho-kang-a-lang.github.io/markdowns/gisu85.md)（2026-10-26）
+- [【台語語詞】86. Un-lun-khûn](https://cho-kang-a-lang.github.io/markdowns/gisu86.md)（2026-11-02）
+- [【台語語詞】87. Chùn-būn](https://cho-kang-a-lang.github.io/markdowns/gisu87.md)（2026-11-09）
+- [【Ùi日語來ê台語詞】1. 計程車](https://cho-kang-a-lang.github.io/markdowns/gisujp1.md)（2026-08-13）
+- [【Ùi日語來ê台語詞】2. 機車](https://cho-kang-a-lang.github.io/markdowns/gisujp2.md)（2026-08-20）
+- [【Ùi日語來ê台語詞】3. 卡車](https://cho-kang-a-lang.github.io/markdowns/gisujp3.md)（2026-09-03）
+- [【Ùi日語來ê台語詞】4. 生魚片](https://cho-kang-a-lang.github.io/markdowns/gisujp4.md)（2026-10-08）
+- [【Ùi日語來ê台語詞】5. 便當](https://cho-kang-a-lang.github.io/markdowns/gisujp5.md)（2026-10-15）
+- [【Ùi日語來ê台語詞】6. 天婦羅、甜不辣](https://cho-kang-a-lang.github.io/markdowns/gisujp6.md)（2026-10-23）
+- [【Ùi日語來ê台語詞】7. 黑輪](https://cho-kang-a-lang.github.io/markdowns/gisujp7.md)（2026-11-13）
 
 ## 平台散文
 
