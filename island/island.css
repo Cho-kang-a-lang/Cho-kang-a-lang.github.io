@@ -201,6 +201,17 @@ body {
     margin-bottom: 12px;
 }
 
+/* 懸停建築時的關聯亮線與目標建築 */
+.isl-hl { position: absolute; top: 0; left: 0; z-index: 40; pointer-events: none; }
+.isl-hl path { fill: none; stroke: #ffd766; stroke-width: 2.5; stroke-linecap: round; opacity: 0.9; filter: drop-shadow(0 0 4px rgba(255, 215, 102, 0.8)); }
+.isl-building.isl-rel svg { filter: drop-shadow(0 0 7px rgba(255, 215, 102, 1)); }
+
+/* 面板相關文章列表 */
+.isl-p-rel { list-style: none; padding: 0; margin: 0 0 18px; }
+.isl-p-rel li { margin-bottom: 7px; }
+.isl-p-rel a { color: var(--primary); text-decoration: none; font-size: 0.92rem; line-height: 1.5; }
+.isl-p-rel a:hover { text-decoration: underline; }
+
 /* === 面板 === */
 .isl-panel-backdrop {
     position: fixed; inset: 0; z-index: 2000; /* 高於導覽列(1000) */

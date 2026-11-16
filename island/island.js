@@ -153,8 +153,14 @@
     // ===================== 初始化 =====================
     document.addEventListener('DOMContentLoaded', async function () {
         try {
-            const data = await loadPostsData(); // posts-loader.js（已過濾未發布文章）
+            const results = await Promise.all([
+                loadPostsData(), // posts-loader.js（已過濾未發布文章）
+                fetch('island/cooplinks.json').then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; })
+            ]);
+            const data = results[0];
             allPosts = data._posts || [];
+            allPosts.forEach(function (p) { postByFile[p.file] = p; });
+            buildLinkIndex(results[1]);
             renderNavbar(data.menu);
             renderAll();
             window.addEventListener('resize', debounce(renderAll, 250));
@@ -845,6 +851,60 @@
         walkers.push(makeStroll(guy, cruise, function (d) { dist += d; place(); }));
     }
 
+    // ===================== 文章關聯（cooplinks.json） =====================
+    const postByFile = {};
+    const linkIndex = {};   // file → [{file, note}]
+
+    function buildLinkIndex(links) {
+        (links || []).forEach(function (l) {
+            (linkIndex[l.a] = linkIndex[l.a] || []).push({ file: l.b, note: l.note });
+            (linkIndex[l.b] = linkIndex[l.b] || []).push({ file: l.a, note: l.note });
+        });
+    }
+
+    // 滑鼠移到建築上：亮起它與相關建築之間的線（桌機彩蛋）
+    function showRelationLines(fromBtn) {
+        hideRelationLines();
+        const file = fromBtn.dataset.file;
+        const rels = linkIndex[file];
+        if (!rels) return;
+        const seaRect = sea.getBoundingClientRect();
+        function posOf(el) {
+            const r = el.getBoundingClientRect();
+            return { x: r.left - seaRect.left + r.width / 2, y: r.top - seaRect.top + r.height / 2 };
+        }
+        const a = posOf(fromBtn);
+        let paths = '';
+        rels.forEach(function (rel) {
+            const target = sea.querySelector('.isl-building[data-file="' + rel.file + '"]');
+            if (!target) return;
+            target.classList.add('isl-rel');
+            const b = posOf(target);
+            const mx = (a.x + b.x) / 2;
+            const my = (a.y + b.y) / 2 - Math.min(70, Math.hypot(b.x - a.x, b.y - a.y) * 0.18);
+            paths += '<path d="M' + a.x.toFixed(0) + ',' + a.y.toFixed(0) +
+                ' Q' + mx.toFixed(0) + ',' + my.toFixed(0) +
+                ' ' + b.x.toFixed(0) + ',' + b.y.toFixed(0) + '"/>';
+        });
+        if (!paths) return;
+        sea.insertAdjacentHTML('beforeend',
+            '<svg class="isl-hl" width="' + sea.scrollWidth + '" height="' + sea.scrollHeight +
+            '" viewBox="0 0 ' + sea.scrollWidth + ' ' + sea.scrollHeight + '" aria-hidden="true">' + paths + '</svg>');
+    }
+
+    function hideRelationLines() {
+        sea.querySelectorAll('.isl-hl').forEach(function (el) { el.remove(); });
+        sea.querySelectorAll('.isl-building.isl-rel').forEach(function (el) { el.classList.remove('isl-rel'); });
+    }
+
+    sea.addEventListener('mouseover', function (e) {
+        const btn = e.target.closest ? e.target.closest('.isl-building') : null;
+        if (btn && btn.dataset.file && linkIndex[btn.dataset.file]) showRelationLines(btn);
+    });
+    sea.addEventListener('mouseout', function (e) {
+        if (e.target.closest && e.target.closest('.isl-building')) hideRelationLines();
+    });
+
     // ===================== 面板 =====================
     function openPanel(post, island, isPlaza) {
         let html = '';
@@ -856,6 +916,16 @@
         const desc = post.excerpt || post.description || '';
         if (desc) html += '<div class="isl-p-desc">' + desc + '</div>';
         html += '<a class="isl-p-read" href="article.html?file=' + encodeURIComponent(post.file) + '">📖 閱讀文章</a>';
+        // 相關文章（協作關聯；只列站上已發佈的）
+        const rels = (linkIndex[post.file] || []).filter(function (r) { return postByFile[r.file]; });
+        if (rels.length) {
+            html += '<div class="isl-p-audio-title">🔗 相關文章：</div><ul class="isl-p-rel">';
+            rels.forEach(function (r) {
+                html += '<li><a href="article.html?file=' + encodeURIComponent(r.file) + '" title="' + (r.note || '') + '">' +
+                    (postByFile[r.file].title || r.file) + '</a></li>';
+            });
+            html += '</ul>';
+        }
         html += '<div class="isl-p-audio-title">收聽本篇：</div>';
         html += '<div class="isl-p-audio" id="isl-p-audio">尋揣音檔中⋯⋯</div>';
 
