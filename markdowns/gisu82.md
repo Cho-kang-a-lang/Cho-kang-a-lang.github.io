@@ -33,8 +33,15 @@ tags:
 <br>
 
 
-<font size=5>文理話：雅言、雅語。 
-文理人：高尚優雅ê人。</font>
+<font size=5>文理話：雅言、雅語。</font>
+<br>
+
+
+<font size=5>文理人：高尚優雅ê人。</font>
+<br>
+
+
+<font size=5>聲音、例句來源：英國gín-á古 (接網鍊)</font>
 <br>
 
 

@@ -37,3 +37,7 @@ tags:
 <br>
 
 
+<font size=5>聲音、例句來源：英國gín-á古 (接網鍊)</font>
+<br>
+
+
