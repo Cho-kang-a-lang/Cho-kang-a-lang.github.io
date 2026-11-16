@@ -291,6 +291,7 @@
 
         drawRoutes();
         drawCoopLines();
+        drawAllRelationLines();
 
         // 開場動畫：島嶼一座接一座浮出海面，航線最後才浮現
         if (!introPlayed) {
@@ -855,12 +856,58 @@
     const postByFile = {};
     const linkIndex = {};   // file → [{file, note}]
 
+    let coopLinks = [];
+
     function buildLinkIndex(links) {
-        (links || []).forEach(function (l) {
+        coopLinks = links || [];
+        coopLinks.forEach(function (l) {
             (linkIndex[l.a] = linkIndex[l.a] || []).push({ file: l.b, note: l.note });
             (linkIndex[l.b] = linkIndex[l.b] || []).push({ file: l.a, note: l.note });
         });
     }
+
+    // 「顯示全部關聯線」開關（預設隱藏，避免地圖雜亂）
+    let showAllLinks = false;
+
+    function drawAllRelationLines() {
+        sea.querySelectorAll('.isl-hl-all').forEach(function (el) { el.remove(); });
+        if (!showAllLinks) return;
+        const seaRect = sea.getBoundingClientRect();
+        function posOf(el) {
+            const r = el.getBoundingClientRect();
+            return { x: r.left - seaRect.left + r.width / 2, y: r.top - seaRect.top + r.height / 2 };
+        }
+        let paths = '';
+        coopLinks.forEach(function (l) {
+            const ea = sea.querySelector('.isl-building[data-file="' + l.a + '"]');
+            const eb = sea.querySelector('.isl-building[data-file="' + l.b + '"]');
+            if (!ea || !eb) return;
+            const a = posOf(ea), b = posOf(eb);
+            const mx = (a.x + b.x) / 2;
+            const my = (a.y + b.y) / 2 - Math.min(70, Math.hypot(b.x - a.x, b.y - a.y) * 0.15);
+            paths += '<path d="M' + a.x.toFixed(0) + ',' + a.y.toFixed(0) +
+                ' Q' + mx.toFixed(0) + ',' + my.toFixed(0) +
+                ' ' + b.x.toFixed(0) + ',' + b.y.toFixed(0) + '"/>';
+        });
+        if (!paths) return;
+        sea.insertAdjacentHTML('beforeend',
+            '<svg class="isl-hl-all" width="' + sea.scrollWidth + '" height="' + sea.scrollHeight +
+            '" viewBox="0 0 ' + sea.scrollWidth + ' ' + sea.scrollHeight + '" aria-hidden="true">' + paths + '</svg>');
+    }
+
+    (function initLinkToggle() {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'isl-linkbtn';
+        btn.textContent = '🔗 顯示關聯線';
+        btn.addEventListener('click', function () {
+            showAllLinks = !showAllLinks;
+            btn.textContent = showAllLinks ? '🔗 隱藏關聯線' : '🔗 顯示關聯線';
+            btn.classList.toggle('on', showAllLinks);
+            drawAllRelationLines();
+        });
+        document.body.appendChild(btn);
+    })();
 
     // 滑鼠移到建築上：亮起它與相關建築之間的線（桌機彩蛋）
     function showRelationLines(fromBtn) {

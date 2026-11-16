@@ -206,6 +206,21 @@ body {
 .isl-hl path { fill: none; stroke: #ffd766; stroke-width: 2.5; stroke-linecap: round; opacity: 0.9; filter: drop-shadow(0 0 4px rgba(255, 215, 102, 0.8)); }
 .isl-building.isl-rel svg { filter: drop-shadow(0 0 7px rgba(255, 215, 102, 1)); }
 
+/* 全部關聯線（開關顯示） */
+.isl-hl-all { position: absolute; top: 0; left: 0; z-index: 0; pointer-events: none; }
+.isl-hl-all path { fill: none; stroke: #ffd766; stroke-width: 1.3; stroke-linecap: round; opacity: 0.5; }
+
+/* 關聯線開關按鈕 */
+.isl-linkbtn {
+    position: fixed; right: 18px; bottom: 18px; z-index: 150;
+    background: var(--panel-bg); color: var(--text-main);
+    border: 1px solid var(--border); border-radius: 22px;
+    padding: 9px 16px; font-size: 0.9rem; cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+.isl-linkbtn:hover { border-color: #ffd766; color: #ffd766; }
+.isl-linkbtn.on { background: #3d3418; border-color: #ffd766; color: #ffd766; }
+
 /* 面板相關文章列表 */
 .isl-p-rel { list-style: none; padding: 0; margin: 0 0 18px; }
 .isl-p-rel li { margin-bottom: 7px; }
