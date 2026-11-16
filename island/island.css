@@ -42,6 +42,45 @@ body {
 /* === 環島航路（島嶼下層） === */
 .isl-routes { position: absolute; top: 0; left: 0; z-index: 0; pointer-events: none; }
 
+/* === 協作線（內容關聯；疊在航路上、島嶼下） === */
+.isl-coop { position: absolute; top: 0; left: 0; z-index: 0; pointer-events: none; }
+.isl-coop path { fill: none; pointer-events: visibleStroke; cursor: help; }
+.isl-coop-glow { stroke: rgba(36, 191, 137, 0.22); stroke-width: 10; stroke-linecap: round; }
+.isl-coop-line { stroke: #24BF89; stroke-width: 2.5; stroke-linecap: round; opacity: 0.9; transition: stroke-width 0.15s, opacity 0.15s; }
+.isl-coop-line:hover { stroke-width: 4; opacity: 1; }
+.isl-coop circle { fill: #24BF89; opacity: 0.9; }
+
+/* === 協作線標籤（線中點，常駐顯示連接對象） === */
+.isl-coop-label {
+    position: absolute; z-index: 0;
+    transform: translate(-50%, -50%);
+    background: rgba(11, 30, 51, 0.88);
+    border: 1px solid rgba(36, 191, 137, 0.65);
+    color: #7fe0bb;
+    font-size: 11.5px; line-height: 1.4;
+    padding: 3px 10px; border-radius: 12px;
+    white-space: nowrap; cursor: help;
+}
+.isl-coop-label:hover { background: rgba(17, 45, 70, 0.95); border-color: #24BF89; color: #a9f0d4; }
+
+/* === 開場動畫：島嶼一座一座浮出海面，航線與協作線最後浮現 === */
+.isl-island { animation: isl-rise 0.9s cubic-bezier(0.18, 0.7, 0.3, 1) both; }
+@keyframes isl-rise {
+    from { opacity: 0; transform: translateY(46px); }
+    to   { opacity: 1; transform: none; }
+}
+.isl-routes, .isl-coop, .isl-coop-label { opacity: 0; animation: isl-fade 1s ease both; }
+@keyframes isl-fade { to { opacity: 1; } }
+/* 重新排版（如縮放視窗）不重播 */
+.isl-sea.no-anim .isl-island,
+.isl-sea.no-anim .isl-routes,
+.isl-sea.no-anim .isl-coop,
+.isl-sea.no-anim .isl-coop-label { animation: none; opacity: 1; transform: none; }
+.isl-sea.no-anim .isl-coop-label { transform: translate(-50%, -50%); }
+@media (prefers-reduced-motion: reduce) {
+    .isl-island, .isl-routes, .isl-coop, .isl-coop-label { animation: none !important; opacity: 1 !important; }
+}
+
 /* === 島嶼 === */
 .isl-island { position: relative; flex: 0 0 auto; }
 
@@ -100,6 +139,10 @@ body {
 .isl-stone.collected .stone-shine { stroke: #fff2c4; }
 .isl-stone.collected .isl-building-label { background: rgba(232, 196, 90, 0.92); font-weight: 700; }
 
+/* 已讀過的建築（各島閱讀進度）：房子發金光、標籤變金 */
+.isl-building.visited svg { filter: drop-shadow(0 0 5px rgba(232, 196, 90, 0.95)); }
+.isl-building.visited .isl-building-label { background: rgba(232, 196, 90, 0.92); font-weight: 700; }
+
 /* === 角色彩蛋 === */
 .isl-character {
     position: absolute; z-index: 30;
@@ -156,6 +199,44 @@ body {
 .isl-p-collected {
     font-size: 0.88rem; color: #e8c45a; font-weight: 600;
     margin-bottom: 12px;
+}
+
+/* 懸停建築時的關聯亮線與目標建築 */
+.isl-hl { position: absolute; top: 0; left: 0; z-index: 40; pointer-events: none; }
+.isl-hl path { fill: none; stroke: #ffd766; stroke-width: 2.5; stroke-linecap: round; opacity: 0.9; filter: drop-shadow(0 0 4px rgba(255, 215, 102, 0.8)); }
+.isl-building.isl-rel svg { filter: drop-shadow(0 0 7px rgba(255, 215, 102, 1)); }
+
+/* 全部關聯線（開關顯示） */
+.isl-hl-all { position: absolute; top: 0; left: 0; z-index: 0; pointer-events: none; }
+.isl-hl-all path { fill: none; stroke: #ffd766; stroke-width: 1.3; stroke-linecap: round; opacity: 0.5; }
+
+/* 關聯線開關按鈕 */
+.isl-linkbtn {
+    position: fixed; right: 18px; bottom: 18px; z-index: 150;
+    background: var(--panel-bg); color: var(--text-main);
+    border: 1px solid var(--border); border-radius: 22px;
+    padding: 9px 16px; font-size: 0.9rem; cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+.isl-linkbtn:hover { border-color: #ffd766; color: #ffd766; }
+.isl-linkbtn.on { background: #3d3418; border-color: #ffd766; color: #ffd766; }
+
+/* 面板相關文章列表 */
+.isl-p-rel { list-style: none; padding: 0; margin: 0 0 18px; }
+.isl-p-rel li { margin-bottom: 7px; }
+.isl-p-rel-jump {
+    background: none; border: none; padding: 0; text-align: left; cursor: pointer;
+    color: var(--primary); font-size: 0.92rem; line-height: 1.5; font-family: inherit;
+}
+.isl-p-rel-jump:hover { text-decoration: underline; }
+.isl-p-rel-jump::after { content: ' 🗺️'; font-size: 0.85em; }
+
+/* 跳轉目標的閃光提示 */
+.isl-building.isl-ping svg { animation: isl-ping 0.75s ease-out 3; }
+@keyframes isl-ping {
+    0% { filter: drop-shadow(0 0 2px rgba(255, 215, 102, 0.6)); }
+    50% { filter: drop-shadow(0 0 16px rgba(255, 215, 102, 1)); }
+    100% { filter: drop-shadow(0 0 2px rgba(255, 215, 102, 0.6)); }
 }
 
 /* === 面板 === */

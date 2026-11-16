@@ -72,7 +72,17 @@
         '台語講kah輾轉，人人o-ló！',
     ];
 
+    // ===================== 協作線（內容關聯，手動維護） =====================
+    // 來源／目標填分類名稱（＝島嶼或中央廣場的 cat）；note 於滑鼠懸停時顯示
+    const COOP_LINES = [
+        { a: '民間故事',   b: '台灣舊地號名',   note: '故事場景會提到舊地名' },
+        { a: 'A郎',        b: 'A郎片頭尾',      note: '同一部廣播劇的本篇與片頭尾' },
+        { a: '英國囡仔古', b: '台語語詞',       note: '故事會講tio̍h ê台語語詞' },
+        { a: 'A郎',        b: 'A郎台語小詞典',  note: '為故事內底chhōe ê語詞' },
+    ];
+
     const COLLECT_KEY = 'chokangalang_island_words';
+    const READ_KEY = 'chokangalang_island_read';   // 各島已讀文章（點開建築即算讀過）
 
     const sea = document.getElementById('isl-sea');
     const panel = document.getElementById('isl-panel');
@@ -118,11 +128,39 @@
     let plazaTotal = 0;
     let plazaFiles = new Set();
 
+    // ===================== 各島閱讀進度（localStorage） =====================
+    let readSet = (function () {
+        try {
+            const raw = localStorage.getItem(READ_KEY);
+            return new Set(raw ? JSON.parse(raw) : []);
+        } catch (e) { return new Set(); }
+    })();
+
+    function readCountOf(cat) {
+        return postsOf(cat).filter(function (p) { return readSet.has(p.file); }).length;
+    }
+
+    function markRead(file, cat) {
+        if (readSet.has(file)) return;
+        readSet.add(file);
+        try { localStorage.setItem(READ_KEY, JSON.stringify([...readSet])); } catch (e) { /* 忽略 */ }
+        const btn = document.querySelector('.isl-building[data-file="' + file + '"]');
+        if (btn) btn.classList.add('visited');
+        const count = document.querySelector('.isl-island[data-cat="' + cat + '"] .isl-read-num');
+        if (count) count.textContent = readCountOf(cat);
+    }
+
     // ===================== 初始化 =====================
     document.addEventListener('DOMContentLoaded', async function () {
         try {
-            const data = await loadPostsData(); // posts-loader.js（已過濾未發布文章）
+            const results = await Promise.all([
+                loadPostsData(), // posts-loader.js（已過濾未發布文章）
+                fetch('island/cooplinks.json').then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; })
+            ]);
+            const data = results[0];
             allPosts = data._posts || [];
+            allPosts.forEach(function (p) { postByFile[p.file] = p; });
+            buildLinkIndex(results[1]);
             renderNavbar(data.menu);
             renderAll();
             window.addEventListener('resize', debounce(renderAll, 250));
@@ -222,6 +260,7 @@
 
     // ===================== 繪製整個世界 =====================
     let lastWidth = 0;
+    let introPlayed = false;   // 開場「島嶼逐一浮現」只播一次
 
     function renderAll() {
         // 視窗尚未有尺寸（例如分頁在背景被收合）時先不渲染，等 resize 再來
@@ -251,8 +290,94 @@
         });
 
         drawRoutes();
+        drawCoopLines();
+        drawAllRelationLines();
+
+        // 開場動畫：島嶼一座接一座浮出海面，航線最後才浮現
+        if (!introPlayed) {
+            introPlayed = true;
+            const sections = sea.querySelectorAll('.isl-island');
+            sections.forEach(function (el, i) { el.style.animationDelay = (i * 0.3) + 's'; });
+            const linesDelay = (sections.length * 0.3 + 0.5).toFixed(1) + 's';
+            sea.querySelectorAll('.isl-routes, .isl-coop, .isl-coop-label').forEach(function (el) {
+                el.style.animationDelay = linesDelay;
+            });
+        } else {
+            sea.classList.add('no-anim');  // 之後重新排版（如轉向）不重播動畫
+        }
+
         startWalkers();
         updateProgress();
+    }
+
+    // ===================== 協作線繪製（亮色實線，疊在環島航路上層） =====================
+    function drawCoopLines() {
+        const old = sea.querySelector('.isl-coop');
+        if (old) old.remove();
+        sea.querySelectorAll('.isl-coop-label').forEach(function (el) { el.remove(); });
+        const routesSvg = sea.querySelector('.isl-routes');
+
+        const seaRect = sea.getBoundingClientRect();
+        const w = sea.scrollWidth;
+        const h = sea.scrollHeight;
+
+        function centerOf(cat) {
+            const town = sea.querySelector('.isl-island[data-cat="' + cat + '"] .isl-town');
+            if (!town) return null;
+            const r = town.getBoundingClientRect();
+            return {
+                x: r.left - seaRect.left + r.width / 2,
+                y: r.top - seaRect.top + r.height / 2,
+                rx: r.width / 2 * 0.92,    // 以橢圓近似島形，讓線終止在岸邊
+                ry: r.height / 2 * 0.9,
+            };
+        }
+
+        // 沿方向 (ux,uy) 從中心推到橢圓邊緣的距離
+        function edgeDist(c, ux, uy) {
+            return 1 / Math.sqrt((ux / c.rx) * (ux / c.rx) + (uy / c.ry) * (uy / c.ry));
+        }
+
+        let parts = '';
+        const labels = [];
+        COOP_LINES.forEach(function (line, i) {
+            const ca = centerOf(line.a);
+            const cb = centerOf(line.b);
+            if (!ca || !cb) return;
+            let dx = cb.x - ca.x, dy = cb.y - ca.y;
+            let clen = Math.hypot(dx, dy) || 1;
+            const ux = dx / clen, uy = dy / clen;
+            // 端點由島中心沿連線方向推到橢圓岸邊
+            const da = edgeDist(ca, ux, uy);
+            const db = edgeDist(cb, ux, uy);
+            const a = { x: ca.x + ux * da, y: ca.y + uy * da };
+            const b = { x: cb.x - ux * db, y: cb.y - uy * db };
+            dx = b.x - a.x; dy = b.y - a.y;
+            const len = Math.hypot(dx, dy) || 1;
+            const off = Math.min(90, len * 0.22) * (i % 2 ? -1 : 1);
+            const cx = (a.x + b.x) / 2 - (dy / len) * off;
+            const cy = (a.y + b.y) / 2 + (dx / len) * off;
+            const d = 'M' + a.x.toFixed(0) + ',' + a.y.toFixed(0) +
+                ' Q' + cx.toFixed(0) + ',' + cy.toFixed(0) +
+                ' ' + b.x.toFixed(0) + ',' + b.y.toFixed(0);
+            const label = line.a + ' ↔ ' + line.b + (line.note ? '：' + line.note : '');
+            parts += '<path d="' + d + '" class="isl-coop-glow"><title>' + label + '</title></path>' +
+                '<path d="' + d + '" class="isl-coop-line"><title>' + label + '</title></path>' +
+                '<circle cx="' + a.x.toFixed(0) + '" cy="' + a.y.toFixed(0) + '" r="4.5"/>' +
+                '<circle cx="' + b.x.toFixed(0) + '" cy="' + b.y.toFixed(0) + '" r="4.5"/>';
+            // 線中點的關聯標籤（常駐顯示連到哪兩座島；懸停看說明）
+            // 沿弧線外側再推一段，避免與島名牌重疊
+            const sgn = off >= 0 ? 1 : -1;
+            const mx = (a.x + 2 * cx + b.x) / 4 - (dy / len) * sgn * 24;
+            const my = (a.y + 2 * cy + b.y) / 4 + (dx / len) * sgn * 24;
+            labels.push('<div class="isl-coop-label" style="left:' + mx.toFixed(0) + 'px; top:' + my.toFixed(0) +
+                'px;" title="' + (line.note || '') + '">🔗 ' + line.a + ' ↔ ' + line.b + '</div>');
+        });
+        if (!parts) return;
+
+        const svg = '<svg class="isl-coop" width="' + w + '" height="' + h + '" viewBox="0 0 ' + w + ' ' + h + '" aria-hidden="true">' + parts + '</svg>';
+        if (routesSvg) routesSvg.insertAdjacentHTML('afterend', svg + labels.join(''));
+        else sea.insertAdjacentHTML('afterbegin', svg + labels.join(''));
     }
 
     // ===================== 環島航路 =====================
@@ -313,6 +438,7 @@
 
         const el = document.createElement('section');
         el.className = 'isl-island' + (isPlaza ? ' isl-plaza' : '');
+        el.dataset.cat = island.cat;
         el.style.setProperty('--island-color', isPlaza ? '#d1902f' : island.top);
 
         const plaque = document.createElement('div');
@@ -469,12 +595,14 @@
 
         const el = document.createElement('section');
         el.className = 'isl-island';
+        el.dataset.cat = island.cat;
         el.style.setProperty('--island-color', island.top);
 
         const plaque = document.createElement('div');
         plaque.className = 'isl-plaque';
         plaque.innerHTML = '<span class="isl-plaque-name">' + island.cat +
-            '<span class="isl-plaque-count">' + posts.length + ' 篇</span></span>';
+            '<span class="isl-plaque-count"><span class="isl-read-num">' + readCountOf(island.cat) +
+            '</span> / ' + posts.length + ' 篇</span></span>';
         el.appendChild(plaque);
 
         const town = document.createElement('div');
@@ -487,7 +615,7 @@
             const slot = layout.pts[i];
             const btn = document.createElement('button');
             btn.type = 'button';
-            btn.className = 'isl-building';
+            btn.className = 'isl-building' + (readSet.has(post.file) ? ' visited' : '');
             btn.dataset.file = post.file;
             btn.style.left = (slot[0] * pxPerNorm) + 'px';
             btn.style.top = (slot[1] * pxPerNorm) + 'px';
@@ -724,6 +852,106 @@
         walkers.push(makeStroll(guy, cruise, function (d) { dist += d; place(); }));
     }
 
+    // ===================== 文章關聯（cooplinks.json） =====================
+    const postByFile = {};
+    const linkIndex = {};   // file → [{file, note}]
+
+    let coopLinks = [];
+
+    function buildLinkIndex(links) {
+        coopLinks = links || [];
+        coopLinks.forEach(function (l) {
+            (linkIndex[l.a] = linkIndex[l.a] || []).push({ file: l.b, note: l.note });
+            (linkIndex[l.b] = linkIndex[l.b] || []).push({ file: l.a, note: l.note });
+        });
+    }
+
+    // 「顯示全部關聯線」開關（預設隱藏，避免地圖雜亂）
+    let showAllLinks = false;
+
+    function drawAllRelationLines() {
+        sea.querySelectorAll('.isl-hl-all').forEach(function (el) { el.remove(); });
+        if (!showAllLinks) return;
+        const seaRect = sea.getBoundingClientRect();
+        function posOf(el) {
+            const r = el.getBoundingClientRect();
+            return { x: r.left - seaRect.left + r.width / 2, y: r.top - seaRect.top + r.height / 2 };
+        }
+        let paths = '';
+        coopLinks.forEach(function (l) {
+            const ea = sea.querySelector('.isl-building[data-file="' + l.a + '"]');
+            const eb = sea.querySelector('.isl-building[data-file="' + l.b + '"]');
+            if (!ea || !eb) return;
+            const a = posOf(ea), b = posOf(eb);
+            const mx = (a.x + b.x) / 2;
+            const my = (a.y + b.y) / 2 - Math.min(70, Math.hypot(b.x - a.x, b.y - a.y) * 0.15);
+            paths += '<path d="M' + a.x.toFixed(0) + ',' + a.y.toFixed(0) +
+                ' Q' + mx.toFixed(0) + ',' + my.toFixed(0) +
+                ' ' + b.x.toFixed(0) + ',' + b.y.toFixed(0) + '"/>';
+        });
+        if (!paths) return;
+        sea.insertAdjacentHTML('beforeend',
+            '<svg class="isl-hl-all" width="' + sea.scrollWidth + '" height="' + sea.scrollHeight +
+            '" viewBox="0 0 ' + sea.scrollWidth + ' ' + sea.scrollHeight + '" aria-hidden="true">' + paths + '</svg>');
+    }
+
+    (function initLinkToggle() {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'isl-linkbtn';
+        btn.textContent = '🔗 顯示關聯線';
+        btn.addEventListener('click', function () {
+            showAllLinks = !showAllLinks;
+            btn.textContent = showAllLinks ? '🔗 隱藏關聯線' : '🔗 顯示關聯線';
+            btn.classList.toggle('on', showAllLinks);
+            drawAllRelationLines();
+        });
+        document.body.appendChild(btn);
+    })();
+
+    // 滑鼠移到建築上：亮起它與相關建築之間的線（桌機彩蛋）
+    function showRelationLines(fromBtn) {
+        hideRelationLines();
+        const file = fromBtn.dataset.file;
+        const rels = linkIndex[file];
+        if (!rels) return;
+        const seaRect = sea.getBoundingClientRect();
+        function posOf(el) {
+            const r = el.getBoundingClientRect();
+            return { x: r.left - seaRect.left + r.width / 2, y: r.top - seaRect.top + r.height / 2 };
+        }
+        const a = posOf(fromBtn);
+        let paths = '';
+        rels.forEach(function (rel) {
+            const target = sea.querySelector('.isl-building[data-file="' + rel.file + '"]');
+            if (!target) return;
+            target.classList.add('isl-rel');
+            const b = posOf(target);
+            const mx = (a.x + b.x) / 2;
+            const my = (a.y + b.y) / 2 - Math.min(70, Math.hypot(b.x - a.x, b.y - a.y) * 0.18);
+            paths += '<path d="M' + a.x.toFixed(0) + ',' + a.y.toFixed(0) +
+                ' Q' + mx.toFixed(0) + ',' + my.toFixed(0) +
+                ' ' + b.x.toFixed(0) + ',' + b.y.toFixed(0) + '"/>';
+        });
+        if (!paths) return;
+        sea.insertAdjacentHTML('beforeend',
+            '<svg class="isl-hl" width="' + sea.scrollWidth + '" height="' + sea.scrollHeight +
+            '" viewBox="0 0 ' + sea.scrollWidth + ' ' + sea.scrollHeight + '" aria-hidden="true">' + paths + '</svg>');
+    }
+
+    function hideRelationLines() {
+        sea.querySelectorAll('.isl-hl').forEach(function (el) { el.remove(); });
+        sea.querySelectorAll('.isl-building.isl-rel').forEach(function (el) { el.classList.remove('isl-rel'); });
+    }
+
+    sea.addEventListener('mouseover', function (e) {
+        const btn = e.target.closest ? e.target.closest('.isl-building') : null;
+        if (btn && btn.dataset.file && linkIndex[btn.dataset.file]) showRelationLines(btn);
+    });
+    sea.addEventListener('mouseout', function (e) {
+        if (e.target.closest && e.target.closest('.isl-building')) hideRelationLines();
+    });
+
     // ===================== 面板 =====================
     function openPanel(post, island, isPlaza) {
         let html = '';
@@ -735,6 +963,16 @@
         const desc = post.excerpt || post.description || '';
         if (desc) html += '<div class="isl-p-desc">' + desc + '</div>';
         html += '<a class="isl-p-read" href="article.html?file=' + encodeURIComponent(post.file) + '">📖 閱讀文章</a>';
+        // 相關文章（協作關聯；只列站上已發佈的）
+        const rels = (linkIndex[post.file] || []).filter(function (r) { return postByFile[r.file]; });
+        if (rels.length) {
+            html += '<div class="isl-p-audio-title">🔗 相關文章（點擊跳到該建築）：</div><ul class="isl-p-rel">';
+            rels.forEach(function (r) {
+                html += '<li><button type="button" class="isl-p-rel-jump" data-file="' + r.file + '" title="' + (r.note || '') + '">' +
+                    (postByFile[r.file].title || r.file) + '</button></li>';
+            });
+            html += '</ul>';
+        }
         html += '<div class="isl-p-audio-title">收聽本篇：</div>';
         html += '<div class="isl-p-audio" id="isl-p-audio">尋揣音檔中⋯⋯</div>';
 
@@ -744,6 +982,7 @@
         panel.scrollTop = 0;
 
         if (isPlaza) collectWord(post.file);
+        else markRead(post.file, island.cat);
         loadAudioLinks(post.file);
     }
 
@@ -771,6 +1010,22 @@
                 if (box) box.innerHTML = '<span class="isl-p-noaudio">音檔資訊載入失敗。</span>';
             });
     }
+
+    // 地圖跳轉：捲到目標建築、閃光提示，並開啟它的面板（解決關聯兩端距離太遠的問題）
+    function jumpToBuilding(file) {
+        const btn = sea.querySelector('.isl-building[data-file="' + file + '"]');
+        if (!btn) return;
+        closePanel();
+        btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        btn.classList.add('isl-ping');
+        setTimeout(function () { btn.classList.remove('isl-ping'); }, 2600);
+        setTimeout(function () { btn.click(); }, 700);
+    }
+
+    panelBody.addEventListener('click', function (e) {
+        const j = e.target.closest ? e.target.closest('.isl-p-rel-jump') : null;
+        if (j) jumpToBuilding(j.dataset.file);
+    });
 
     function closePanel() {
         panel.hidden = true;
