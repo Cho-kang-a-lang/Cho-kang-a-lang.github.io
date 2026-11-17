@@ -81,6 +81,14 @@
         { a: 'A郎',        b: 'A郎台語小詞典',  note: '為故事內底chhōe ê語詞' },
     ];
 
+    // 分類名 → 顯示名（島嶼設定有 label 時用 label，例如 A郎 → 阿郎廣播劇）
+    function labelOf(cat) {
+        for (let i = 0; i < ISLANDS.length; i++) {
+            if (ISLANDS[i].cat === cat) return ISLANDS[i].label || cat;
+        }
+        return cat;
+    }
+
     const COLLECT_KEY = 'chokangalang_island_words';
     const READ_KEY = 'chokangalang_island_read';   // 各島已讀文章（點開建築即算讀過）
 
@@ -265,7 +273,7 @@
     function renderAll() {
         // 視窗尚未有尺寸（例如分頁在背景被收合）時先不渲染，等 resize 再來
         if (window.innerWidth < 200) return;
-        const unit = window.innerWidth < 520 ? 44 : 60;
+        const unit = window.innerWidth < 520 ? 52 : 74;
         if (window.innerWidth === lastWidth && sea.querySelector('.isl-island')) return;
         lastWidth = window.innerWidth;
 
@@ -281,6 +289,21 @@
             row.className = 'isl-plaza-row';
             row.appendChild(buildIsland(PLAZA, plazaPosts, unit, true));
             sea.appendChild(row);
+            // 廣場寬過螢幕（手機）時：改為可橫向捲動並捲到中央；
+            // 捲動後航線／協作線位置會偏，停止捲動時重畫
+            if (row.scrollWidth > row.clientWidth + 2) {
+                row.style.justifyContent = 'flex-start';
+                row.scrollLeft = (row.scrollWidth - row.clientWidth) / 2;
+                let t = null;
+                row.addEventListener('scroll', function () {
+                    if (t) clearTimeout(t);
+                    t = setTimeout(function () {
+                        drawRoutes();
+                        drawCoopLines();
+                        drawAllRelationLines();
+                    }, 120);
+                });
+            }
         }
 
         // 各島（順序＝ISLANDS 設定順序，對齊首頁主題區塊；島形為台灣本島輪廓）
@@ -360,7 +383,7 @@
             const d = 'M' + a.x.toFixed(0) + ',' + a.y.toFixed(0) +
                 ' Q' + cx.toFixed(0) + ',' + cy.toFixed(0) +
                 ' ' + b.x.toFixed(0) + ',' + b.y.toFixed(0);
-            const label = line.a + ' ↔ ' + line.b + (line.note ? '：' + line.note : '');
+            const label = labelOf(line.a) + ' ↔ ' + labelOf(line.b) + (line.note ? '：' + line.note : '');
             parts += '<path d="' + d + '" class="isl-coop-glow"><title>' + label + '</title></path>' +
                 '<path d="' + d + '" class="isl-coop-line"><title>' + label + '</title></path>' +
                 '<circle cx="' + a.x.toFixed(0) + '" cy="' + a.y.toFixed(0) + '" r="4.5"/>' +
@@ -371,7 +394,7 @@
             const mx = (a.x + 2 * cx + b.x) / 4 - (dy / len) * sgn * 24;
             const my = (a.y + 2 * cy + b.y) / 4 + (dx / len) * sgn * 24;
             labels.push('<div class="isl-coop-label" style="left:' + mx.toFixed(0) + 'px; top:' + my.toFixed(0) +
-                'px;" title="' + (line.note || '') + '">🔗 ' + line.a + ' ↔ ' + line.b + '</div>');
+                'px;" title="' + (line.note || '') + '">🔗 ' + labelOf(line.a) + ' ↔ ' + labelOf(line.b) + '</div>');
         });
         if (!parts) return;
 
@@ -431,6 +454,9 @@
         // 不可寬過螢幕：必要時縮小此島的建築間距
         const avail = Math.min(window.innerWidth, 1100) - 32;
         unit = Math.min(unit, avail / ((maxR + 1.15) * 2));
+        // 廣場詞石多，間距低於下限時字一定重疊：保留最小間距，
+        // 寬過螢幕時由外層 .isl-plaza-row 橫向捲動（renderAll 會置中）
+        if (isPlaza) unit = Math.max(unit, 52);
 
         const radius = (maxR + 1.15) * unit;
         const width = radius * 2;
@@ -460,7 +486,7 @@
             const pos = positions[i];
             const btn = document.createElement('button');
             btn.type = 'button';
-            btn.className = 'isl-building' + (isPlaza ? ' isl-stone' : '');
+            btn.className = 'isl-building' + (isPlaza ? ' isl-stone' : '') + (i % 2 ? ' label-top' : '');
             if (isPlaza && collected.has(post.file)) btn.classList.add('collected');
             btn.dataset.file = post.file;
             btn.style.left = (50 + (pos.x * unit / width) * 100) + '%';
@@ -613,9 +639,10 @@
 
         posts.forEach(function (post, i) {
             const slot = layout.pts[i];
+            const parity = (Math.round(slot[0] / layout.d) + Math.round(slot[1] / (layout.d * 0.866))) % 2;
             const btn = document.createElement('button');
             btn.type = 'button';
-            btn.className = 'isl-building' + (readSet.has(post.file) ? ' visited' : '');
+            btn.className = 'isl-building' + (readSet.has(post.file) ? ' visited' : '') + (parity ? ' label-top' : '');
             btn.dataset.file = post.file;
             btn.style.left = (slot[0] * pxPerNorm) + 'px';
             btn.style.top = (slot[1] * pxPerNorm) + 'px';
