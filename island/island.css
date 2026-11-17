@@ -105,6 +105,22 @@ body {
 .isl-town { position: relative; margin: 0 auto; }
 .isl-hex { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
 
+/* === 舊地號名縣市分帶 === */
+.isl-bands { z-index: 2; pointer-events: none; }
+.isl-bands line { stroke: #e8d9a8; stroke-width: 0.5; stroke-dasharray: 1.8 2.4; opacity: 0.55; }
+.isl-region-chip {
+    position: absolute; z-index: 6;
+    transform: translateY(-50%);
+    font-size: 12px; line-height: 1; white-space: nowrap;
+    color: #e8d9a8; background: rgba(12, 36, 52, 0.72);
+    border: 1px solid rgba(232, 217, 168, 0.45);
+    border-radius: 999px; padding: 4px 9px;
+    pointer-events: none;
+}
+@media (max-width: 640px) {
+    .isl-region-chip { font-size: 10.5px; padding: 3px 7px; }
+}
+
 /* === 建築 === */
 .isl-building {
     position: absolute; z-index: 10;

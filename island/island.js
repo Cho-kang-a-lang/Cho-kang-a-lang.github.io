@@ -89,6 +89,38 @@
         return cat;
     }
 
+    // ===================== 舊地號名縣市分帶 =====================
+    // 建築依縣市由北到南分帶排列；檔名→縣市對照在 island/kutemia-regions.json
+    // （新文章上架時在該檔補一筆即可；查無縣市的文章排在島尾「待考」帶）
+    const REGION_CAT = '台灣舊地號名';
+    const REGIONS = [
+        { name: '北北基', counties: ['基隆市', '台北市', '新北市'] },
+        { name: '桃竹苗', counties: ['桃園市', '新竹市', '新竹縣', '苗栗縣'] },
+        { name: '中彰投', counties: ['台中市', '彰化縣', '南投縣'] },
+        { name: '雲嘉南', counties: ['雲林縣', '嘉義市', '嘉義縣', '台南市'] },
+        { name: '高屏',   counties: ['高雄市', '屏東縣'] },
+        { name: '宜花東', counties: ['宜蘭縣', '花蓮縣', '台東縣'] },
+        { name: '離島',   counties: ['澎湖縣', '金門縣', '連江縣'] },
+    ];
+    let countyMap = {};   // 檔名 → 縣市
+
+    function regionIndexOf(file) {
+        const county = countyMap[file];
+        if (county) {
+            for (let i = 0; i < REGIONS.length; i++) {
+                if (REGIONS[i].counties.indexOf(county) !== -1) return i;
+            }
+        }
+        return REGIONS.length;   // 待考：排最後
+    }
+
+    // 排序鍵：地區索引 ×100 ＋ 區內縣市索引（皆由北到南）
+    function countyOrderOf(file) {
+        const ri = regionIndexOf(file);
+        if (ri >= REGIONS.length) return REGIONS.length * 100;
+        return ri * 100 + REGIONS[ri].counties.indexOf(countyMap[file]);
+    }
+
     const COLLECT_KEY = 'chokangalang_island_words';
     const READ_KEY = 'chokangalang_island_read';   // 各島已讀文章（點開建築即算讀過）
 
@@ -163,12 +195,14 @@
         try {
             const results = await Promise.all([
                 loadPostsData(), // posts-loader.js（已過濾未發布文章）
-                fetch('island/cooplinks.json').then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; })
+                fetch('island/cooplinks.json').then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; }),
+                fetch('island/kutemia-regions.json').then(function (r) { return r.ok ? r.json() : {}; }).catch(function () { return {}; })
             ]);
             const data = results[0];
             allPosts = data._posts || [];
             allPosts.forEach(function (p) { postByFile[p.file] = p; });
             buildLinkIndex(results[1]);
+            countyMap = results[2] || {};
             renderNavbar(data.menu);
             renderAll();
             window.addEventListener('resize', debounce(renderAll, 250));
@@ -598,6 +632,64 @@
         return { pts: TAIWAN_PTS.slice(0, n).map(function () { return [50, 70]; }), d: d };
     }
 
+    // 分帶版格位：每個地區（北→南）佔整數列，不與其他地區混列。
+    // bands = [{region, count}]（已依北→南排序）；回傳含分帶界線與地區標示的位置
+    function taiwanBandSlots(bands) {
+        const c = polyCentroid(TAIWAN_PTS);
+        const inset = TAIWAN_PTS.map(function (p) {
+            return [c[0] + (p[0] - c[0]) * 0.82, c[1] + (p[1] - c[1]) * 0.82];
+        });
+        const n = bands.reduce(function (s, b) { return s + b.count; }, 0);
+        let d = Math.sqrt(0.83 * polyArea(TAIWAN_PTS) / Math.max(n, 1));
+        for (let tries = 0; tries < 12; tries++) {
+            // 把島內格位整理成列（由北到南）
+            const rows = [];
+            const rowH = d * 0.866;
+            let row = 0;
+            for (let y = 3; y <= TAIWAN_H; y += rowH, row++) {
+                const offs = (row % 2) * d / 2;
+                const xs = [];
+                for (let x = 3 + offs; x <= 100; x += d) {
+                    if (pointInPoly(x, y, inset)) xs.push(x);
+                }
+                if (xs.length) rows.push({ y: y, xs: xs });
+            }
+            // 由北到南依序把整列分給各地區
+            const pts = [];
+            const dividers = [];
+            const chips = [];
+            let r = 0, ok = true;
+            for (let bi = 0; bi < bands.length; bi++) {
+                const band = bands[bi];
+                const bandRows = [];
+                let cap = 0;
+                while (cap < band.count && r < rows.length) {
+                    bandRows.push(rows[r]);
+                    cap += rows[r].xs.length;
+                    r++;
+                }
+                if (cap < band.count) { ok = false; break; }
+                // 帶內格位均勻取樣，讓建築散布整帶
+                const slots = [];
+                bandRows.forEach(function (rw) {
+                    rw.xs.forEach(function (x) { slots.push([x, rw.y]); });
+                });
+                const step = slots.length / band.count;
+                for (let i = 0; i < band.count; i++) {
+                    pts.push(slots[Math.floor(i * step + step / 2)]);
+                }
+                chips.push({
+                    y: (bandRows[0].y + bandRows[bandRows.length - 1].y) / 2,
+                    region: band.region,
+                });
+                if (bi > 0) dividers.push(bandRows[0].y - rowH / 2);
+            }
+            if (ok) return { pts: pts, d: d, dividers: dividers, chips: chips };
+            d *= 0.9;
+        }
+        return taiwanSlots(n);   // 格位不夠時退回原本排法
+    }
+
     // 2.5D 台灣島面（純裝飾圖形，無文字）
     function taiwanSvg(island) {
         const top = TAIWAN_PTS.map(function (p) { return p[0] + ',' + p[1]; }).join(' ');
@@ -610,7 +702,23 @@
 
     // 建立一座台灣形狀的島
     function buildTaiwanIsland(island, posts, unit) {
-        const layout = taiwanSlots(posts.length);
+        // 舊地號名：依縣市由北到南分帶（kutemia-regions.json 載入成功時）
+        let bands = null;
+        if (island.cat === REGION_CAT && posts.some(function (p) { return countyMap[p.file]; })) {
+            posts = posts.slice().sort(function (a, b) {
+                return countyOrderOf(a.file) - countyOrderOf(b.file) ||
+                    a.file.localeCompare(b.file, 'en', { numeric: true });
+            });
+            bands = [];
+            posts.forEach(function (p) {
+                const ri = regionIndexOf(p.file);
+                if (!bands.length || bands[bands.length - 1].region !== ri) {
+                    bands.push({ region: ri, count: 0 });
+                }
+                bands[bands.length - 1].count++;
+            });
+        }
+        const layout = bands ? taiwanBandSlots(bands) : taiwanSlots(posts.length);
 
         let pxPerNorm = (unit * 0.95) / layout.d;
         const avail = Math.min(window.innerWidth, 1100) - 32;
@@ -636,6 +744,30 @@
         town.style.width = width + 'px';
         town.style.height = height + 'px';
         town.insertAdjacentHTML('afterbegin', taiwanSvg(island));
+
+        // 分帶界線（虛線，裁切在島形內）與地區標示（放在島右側海面）
+        if (layout.dividers && layout.dividers.length) {
+            const clip = TAIWAN_PTS.map(function (p) { return p[0] + ',' + p[1]; }).join(' ');
+            let lines = '';
+            layout.dividers.forEach(function (y) {
+                lines += '<line x1="0" y1="' + y.toFixed(1) + '" x2="100" y2="' + y.toFixed(1) + '"/>';
+            });
+            town.insertAdjacentHTML('beforeend',
+                '<svg class="isl-hex isl-bands" viewBox="0 0 100 ' + (TAIWAN_H + TAIWAN_SIDE) +
+                '" preserveAspectRatio="none" aria-hidden="true">' +
+                '<defs><clipPath id="isl-band-clip"><polygon points="' + clip + '"/></clipPath></defs>' +
+                '<g clip-path="url(#isl-band-clip)">' + lines + '</g></svg>');
+        }
+        if (layout.chips) {
+            layout.chips.forEach(function (ch) {
+                const div = document.createElement('div');
+                div.className = 'isl-region-chip';
+                div.textContent = REGIONS[ch.region] ? REGIONS[ch.region].name : '待考';
+                div.style.left = (75 * pxPerNorm) + 'px';
+                div.style.top = (ch.y * pxPerNorm) + 'px';
+                town.appendChild(div);
+            });
+        }
 
         posts.forEach(function (post, i) {
             const slot = layout.pts[i];
