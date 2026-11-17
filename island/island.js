@@ -22,14 +22,14 @@
     // （A郎片頭尾、台語語詞、平台散文）插在相近主題旁邊
     // char＝島上小人物（去背自該系列特色圖）；flip＝左右翻面；round＝logo 圓徽章樣式
     const ISLANDS = [
-        { cat: 'A郎',          top: '#4a9e8e', side: '#337066', roof: '#d1902f',
+        { cat: 'A郎', label: '阿郎廣播劇', top: '#4a9e8e', side: '#337066', roof: '#d1902f',
           char: 'island/chars/along_side.png', sit: 'island/chars/along_sit.png',
           // 三視圖（角色設定稿）：依行進方向切換；側面圖原始朝向為右
           views: { side: 'island/chars/along_side.png', front: 'island/chars/along_front.png', back: 'island/chars/along_back.png' } },
-        { cat: 'A郎台語小詞典', top: '#9e9a4f', side: '#706d38', roof: '#2f9e75',
+        { cat: 'A郎台語小詞典', label: '阿郎台語小詞典', top: '#9e9a4f', side: '#706d38', roof: '#2f9e75',
           char: 'island/chars/alongkid_side.png', sideFaces: 'left',
           views: { side: 'island/chars/alongkid_side.png', front: 'island/chars/alongkid_front.png', back: 'island/chars/alongkid_back.png' } },
-        { cat: 'A郎片頭尾',    top: '#5d9e7c', side: '#41705a', roof: '#9e5dc1', char: 'images/logo.png', round: true },
+        { cat: 'A郎片頭尾', label: '阿郎片頭尾', top: '#5d9e7c', side: '#41705a', roof: '#9e5dc1', char: 'images/logo.png', round: true },
         { cat: '英國囡仔古',   top: '#56a083', side: '#3b7260', roof: '#4a7fc1',
           char: 'island/chars/ukkid_side.png',
           views: { side: 'island/chars/ukkid_side.png', front: 'island/chars/ukkid_front.png', back: 'island/chars/ukkid_back.png' } },
@@ -600,7 +600,7 @@
 
         const plaque = document.createElement('div');
         plaque.className = 'isl-plaque';
-        plaque.innerHTML = '<span class="isl-plaque-name">' + island.cat +
+        plaque.innerHTML = '<span class="isl-plaque-name">' + (island.label || island.cat) +
             '<span class="isl-plaque-count"><span class="isl-read-num">' + readCountOf(island.cat) +
             '</span> / ' + posts.length + ' 篇</span></span>';
         el.appendChild(plaque);
@@ -621,7 +621,7 @@
             btn.style.top = (slot[1] * pxPerNorm) + 'px';
             btn.setAttribute('aria-label', post.title || post.file);
             btn.innerHTML = houseSvg(island.roof) +
-                '<span class="isl-building-label">' + shortLabel(post.title || post.file) + '</span>';
+                '<span class="isl-building-label">' + buildingLabel(post.title || post.file) + '</span>';
             btn.addEventListener('click', function () { openPanel(post, island, false); });
             town.appendChild(btn);
         });
@@ -665,6 +665,16 @@
     // 建築短標籤：去掉開頭【系列】前綴
     function shortLabel(title) {
         return title.replace(/^【[^】]*】\s*/, '').trim() || title;
+    }
+
+    // 建築標籤：優先用文章編號（EP01、80），無編號的系列用短名（CSS 截斷）
+    function buildingLabel(title) {
+        const t = shortLabel(title || '');
+        let m = t.match(/^EP[.．]?\s*(\d+)/i);
+        if (m) return 'EP' + m[1];
+        m = t.match(/^(\d+)\s*[.．]/);
+        if (m) return m[1];
+        return t;
     }
 
     // 詞石標籤：取出詞本身
@@ -829,7 +839,7 @@
 
     // 島嶼角色：沿著台灣海岸線環島走
     function spawnIslandWalker(town, island, pxPerNorm) {
-        const guy = makeCharacter(town, island.char, !!island.round, !!island.flip, '歡迎來到「' + island.cat + '」');
+        const guy = makeCharacter(town, island.char, !!island.round, !!island.flip, '歡迎來到「' + (island.label || island.cat) + '」');
         if (island.sit) {
             guy.dataset.walkSrc = island.char;
             guy.dataset.sitSrc = island.sit;
@@ -955,7 +965,7 @@
     // ===================== 面板 =====================
     function openPanel(post, island, isPlaza) {
         let html = '';
-        html += '<span class="isl-p-cat" style="--island-color:' + island.top + '">' + island.cat + '</span>';
+        html += '<span class="isl-p-cat" style="--island-color:' + island.top + '">' + (island.label || island.cat) + '</span>';
         html += '<div class="isl-p-title">' + (post.title || post.file) + '</div>';
         if (post.date) html += '<div class="isl-p-date">📅 ' + post.date + '</div>';
         if (isPlaza) html += '<div class="isl-p-collected">✨ 詞語「' + wordLabel(post.title) + '」已收入你ê詞袋！</div>';

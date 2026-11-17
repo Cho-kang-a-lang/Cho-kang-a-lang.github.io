@@ -95,8 +95,8 @@ body {
     border: 1px solid var(--border);
     border-bottom: 3px solid var(--island-color, var(--primary));
     border-radius: 10px;
-    padding: 6px 18px;
-    font-size: 1.05rem; font-weight: 700; color: var(--text-main);
+    padding: 7px 20px;
+    font-size: 1.25rem; font-weight: 700; color: var(--text-main);
     box-shadow: 0 4px 10px rgba(0,0,0,0.35);
 }
 .isl-plaque-count { font-size: 0.8rem; color: var(--text-muted); margin-left: 8px; font-weight: 400; }
@@ -117,7 +117,7 @@ body {
 .isl-building:hover svg, .isl-building:focus-visible svg { transform: translateY(-4px) scale(1.15); }
 .isl-building-label {
     margin-top: 1px;
-    font-size: 10.5px; line-height: 1.25; color: #243b2e;
+    font-size: 13px; line-height: 1.3; color: #243b2e;
     background: rgba(240, 244, 235, 0.88);
     border-radius: 6px; padding: 0 5px;
     max-width: 74px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
@@ -295,7 +295,7 @@ body {
 /* === 手機 === */
 @media (max-width: 640px) {
     .isl-sea { padding: 30px 8px 60px; gap: 28px; }
-    .isl-building-label { font-size: 9.5px; max-width: 58px; }
+    .isl-building-label { font-size: 11px; max-width: 62px; }
     /* 面板改為下方抽屜 */
     .isl-panel {
         top: auto; left: 0; right: 0; bottom: 0;
