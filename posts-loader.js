@@ -24,7 +24,15 @@
  *   瀏覽者的當前時間早於該時間時，文章不會出現在選單與列表中。
  */
 
-const POSTS_CACHE_KEY = 'chokangalang_posts_v3'; // v3：加入 publishAt 快取機制
+const POSTS_CACHE_KEY = 'chokangalang_posts_v4'; // v4：標題顯示改名（A郎→阿郎）
+
+/**
+ * 顯示用系列改名：只改網站介面顯示的標題，不動文章檔案本身。
+ * 【A郎】→【阿郎】、【A郎台語小詞典】→【阿郎台語小詞典】、【A郎片頭尾】→【阿郎片頭尾】
+ */
+function displayTitle(title) {
+    return title ? title.replace(/【A郎/g, '【阿郎') : title;
+}
 
 /**
  * 從文章內文中抽取純文字摘要（移除 HTML 標籤與 Markdown 語法）
@@ -76,7 +84,7 @@ function parseFrontmatter(text, filename) {
     };
 
     const title = get('title');
-    if (title) data.title = title;
+    if (title) data.title = displayTitle(title);
 
     const date = get('date');
     if (date) {
