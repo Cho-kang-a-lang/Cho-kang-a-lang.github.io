@@ -648,7 +648,7 @@
             btn.style.top = (slot[1] * pxPerNorm) + 'px';
             btn.setAttribute('aria-label', post.title || post.file);
             btn.innerHTML = houseSvg(island.roof) +
-                '<span class="isl-building-label">' + buildingLabel(post.title || post.file) + '</span>';
+                '<span class="isl-building-label">' + buildingLabel(post.title || post.file, island.cat) + '</span>';
             btn.addEventListener('click', function () { openPanel(post, island, false); });
             town.appendChild(btn);
         });
@@ -694,11 +694,16 @@
         return title.replace(/^【[^】]*】\s*/, '').trim() || title;
     }
 
-    // 建築標籤：去掉開頭的集數編號（EP. 01、80. 等），只留名稱
-    function buildingLabel(title) {
+    // 建築標籤：去掉開頭的集數編號（EP. 01、80.、123-2. 等），只留名稱
+    // 例外：A郎片頭尾每集名稱都一樣（答嘴鼓），保留集數以便區分
+    const KEEP_NUMBER_CATS = ['A郎片頭尾'];
+    function buildingLabel(title, cat) {
         let t = shortLabel(title || '');
+        if (KEEP_NUMBER_CATS.indexOf(cat) !== -1) {
+            return t.replace(/^EP[.．]?\s*(\d+)\s*/i, 'EP.$1 ').trim();
+        }
         t = t.replace(/^EP[.．]?\s*\d+\s*[-－.．]?\s*/i, '');
-        t = t.replace(/^\d+\s*[.．]\s*/, '');
+        t = t.replace(/^\d+(?:[-－]\d+)*\s*[.．]\s*/, '');
         return t.trim() || shortLabel(title || '');
     }
 
