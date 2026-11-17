@@ -36,17 +36,17 @@
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://cho-kang-a-lang.github.io/category.html?cat=A%E9%83%8E</loc>
+    <loc>https://cho-kang-a-lang.github.io/category.html?cat=%E9%98%BF%E9%83%8E</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cho-kang-a-lang.github.io/category.html?cat=A%E9%83%8E%E7%89%87%E9%A0%AD%E5%B0%BE</loc>
+    <loc>https://cho-kang-a-lang.github.io/category.html?cat=%E9%98%BF%E9%83%8E%E7%89%87%E9%A0%AD%E5%B0%BE</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://cho-kang-a-lang.github.io/category.html?cat=A%E9%83%8E%E5%8F%B0%E8%AA%9E%E5%B0%8F%E8%A9%9E%E5%85%B8</loc>
+    <loc>https://cho-kang-a-lang.github.io/category.html?cat=%E9%98%BF%E9%83%8E%E5%8F%B0%E8%AA%9E%E5%B0%8F%E8%A9%9E%E5%85%B8</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
