@@ -125,7 +125,15 @@ body {
     max-width: 92px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
     pointer-events: none;
 }
-.isl-building:hover .isl-building-label { max-width: none; z-index: 20; position: relative; }
+/* 滑鼠移過：整棟建築浮到最上層（避免標籤被鄰棟蓋住），文章名稱放大顯示 */
+.isl-building:hover, .isl-building:focus-visible { z-index: 40; }
+.isl-building:hover .isl-building-label,
+.isl-building:focus-visible .isl-building-label {
+    max-width: none;
+    font-size: 17px; font-weight: 700;
+    background: rgba(255, 252, 240, 0.97);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
 
 /* === 中央廣場 === */
 .isl-plaza-row {
