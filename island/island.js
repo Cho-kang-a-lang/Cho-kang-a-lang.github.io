@@ -667,14 +667,12 @@
         return title.replace(/^【[^】]*】\s*/, '').trim() || title;
     }
 
-    // 建築標籤：優先用文章編號（EP01、80），無編號的系列用短名（CSS 截斷）
+    // 建築標籤：去掉開頭的集數編號（EP. 01、80. 等），只留名稱
     function buildingLabel(title) {
-        const t = shortLabel(title || '');
-        let m = t.match(/^EP[.．]?\s*(\d+)/i);
-        if (m) return 'EP' + m[1];
-        m = t.match(/^(\d+)\s*[.．]/);
-        if (m) return m[1];
-        return t;
+        let t = shortLabel(title || '');
+        t = t.replace(/^EP[.．]?\s*\d+\s*[-－.．]?\s*/i, '');
+        t = t.replace(/^\d+\s*[.．]\s*/, '');
+        return t.trim() || shortLabel(title || '');
     }
 
     // 詞石標籤：取出詞本身
