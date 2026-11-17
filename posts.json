@@ -274,7 +274,7 @@
           "file": "gisupoki"
         },
         {
-          "title": "新辭書",
+          "title": "台日新辭書",
           "file": "sinsusu"
         }
       ]
@@ -283,19 +283,19 @@
       "title": "分類",
       "children": [
         {
-          "title": "A郎",
+          "title": "阿郎",
           "children": [
             {
-              "title": "A郎廣播劇",
-              "auto_category": "A郎"
+              "title": "阿郎廣播劇",
+              "auto_category": "阿郎"
             },
             {
-              "title": "A郎片頭尾",
-              "auto_category": "A郎片頭尾"
+              "title": "阿郎片頭尾",
+              "auto_category": "阿郎片頭尾"
             },
             {
-              "title": "A郎台語小詞典",
-              "auto_category": "A郎台語小詞典"
+              "title": "阿郎台語小詞典",
+              "auto_category": "阿郎台語小詞典"
             }
           ]
         },
