@@ -6,7 +6,7 @@ backend:
   name: github
   repo: Cho-kang-a-lang/Cho-kang-a-lang.github.io
   branch: master
-  base_url: https://REPLACE-WITH-WORKER-URL.workers.dev
+  base_url: https://sveltia-cms-auth.oyster-kowang.workers.dev
 
 site_url: https://cho-kang-a-lang.github.io
 display_url: https://cho-kang-a-lang.github.io
