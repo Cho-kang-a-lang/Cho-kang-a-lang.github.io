@@ -15,7 +15,6 @@ logo_url: https://cho-kang-a-lang.github.io/images/logo.png
 media_folder: medias/featureimages
 public_folder: /medias/featureimages
 
-# 內文含自訂 HTML（<font> 等），用純文字編輯避免被改寫；不顯示預覽
 editor:
   preview: false
 
@@ -48,5 +47,5 @@ collections:
       - { label: layout（勿動）, name: layout, widget: string, required: false }
       - label: 內文
         name: body
-        widget: text
-        hint: 內文是 Markdown＋HTML 原始碼；只改文字，不要動 <font>、連結等標記
+        widget: markdown
+        hint: 預設是易讀的排版模式；右上可切換原始碼模式。只改文字，不要動連結與格式
