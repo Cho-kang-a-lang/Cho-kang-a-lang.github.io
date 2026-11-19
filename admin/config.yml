@@ -1,0 +1,52 @@
+# Sveltia CMS 設定 — 做工á人台語工作室
+# 夥伴修改後直接 commit 到 master（不走 PR 審核），GitHub Pages 1-3 分鐘後生效
+# base_url：Cloudflare Worker（sveltia-cms-auth）部署後填入正式網址
+
+backend:
+  name: github
+  repo: Cho-kang-a-lang/Cho-kang-a-lang.github.io
+  branch: master
+  base_url: https://sveltia-cms-auth.chokangalang.workers.dev
+
+site_url: https://cho-kang-a-lang.github.io
+display_url: https://cho-kang-a-lang.github.io
+logo_url: https://cho-kang-a-lang.github.io/images/logo.png
+
+media_folder: medias/featureimages
+public_folder: /medias/featureimages
+
+# 內文含自訂 HTML（<font> 等），用純文字編輯避免被改寫；不顯示預覽
+editor:
+  preview: false
+
+collections:
+  - name: articles
+    label: 文章
+    folder: markdowns
+    extension: md
+    format: yaml-frontmatter
+    create: false      # 新文章仍由既有同步流程上架（要動 posts.json）
+    delete: false
+    identifier_field: title
+    summary: "{{title}}"
+    sortable_fields: [title, date]
+    fields:
+      - { label: 標題, name: title, widget: string }
+      - label: 發布時間
+        name: date
+        widget: string
+        hint: 格式 YYYY-MM-DD HH:MM:SS；設成未來時間＝預約發布（時間到才會顯示）
+        pattern: ['^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$', '請用 YYYY-MM-DD HH:MM:SS 格式']
+      - { label: 特色圖, name: img, widget: image, required: false }
+      - label: 分類（系列）
+        name: categories
+        widget: list
+        required: false
+        hint: 系列名稱（如 台灣舊地號名）。請勿更改，改了文章會從選單消失
+      - { label: 摘要, name: description, widget: string, required: false }
+      - { label: 標籤, name: tags, widget: list, required: false }
+      - { label: layout（勿動）, name: layout, widget: string, required: false }
+      - label: 內文
+        name: body
+        widget: text
+        hint: 內文是 Markdown＋HTML 原始碼；只改文字，不要動 <font>、連結等標記

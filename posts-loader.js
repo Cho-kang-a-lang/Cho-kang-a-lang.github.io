@@ -78,9 +78,20 @@ function parseFrontmatter(text, filename) {
 
     const yaml = match[1];
 
+    // CMS 可能把值加上引號（title: "xxx"），顯示前去掉
+    const unquote = (v) => {
+        if (v.length >= 2 && v[0] === '"' && v[v.length - 1] === '"') {
+            return v.slice(1, -1).replace(/\\"/g, '"').replace(/\\\\/g, '\\');
+        }
+        if (v.length >= 2 && v[0] === "'" && v[v.length - 1] === "'") {
+            return v.slice(1, -1).replace(/''/g, "'");
+        }
+        return v;
+    };
     const get = (key) => {
-        const m = yaml.match(new RegExp(`^${key}:\\s*(.+)$`, 'm'));
-        return m ? m[1].trim() : null;
+        // 空白只允許同行（\s 會跨行，誤把下一行的多行列表項目當成值）
+        const m = yaml.match(new RegExp(`^${key}:[ \\t]*(.+)$`, 'm'));
+        return m ? unquote(m[1].trim()) : null;
     };
 
     const title = get('title');
@@ -88,9 +99,12 @@ function parseFrontmatter(text, filename) {
 
     const date = get('date');
     if (date) {
-        data.date = date.split(' ')[0]; // 顯示用：只保留 YYYY-MM-DD
-        // 比較用：完整 datetime（用 / 替換 - 以相容各瀏覽器）
-        const publishAt = new Date(String(date).replace(/-/g, '/'));
+        data.date = date.split(/[ T]/)[0]; // 顯示用：只保留 YYYY-MM-DD
+        // 比較用：完整 datetime。相容 "YYYY-MM-DD HH:MM:SS"（用 / 替換 - 以
+        // 相容各瀏覽器）與 CMS 可能寫出的 ISO 格式 "YYYY-MM-DDTHH:MM:SS"
+        const publishAt = date.indexOf('T') !== -1
+            ? new Date(date)
+            : new Date(String(date).replace(/-/g, '/'));
         if (!isNaN(publishAt.getTime())) data.publishAt = publishAt;
     }
 
@@ -105,7 +119,17 @@ function parseFrontmatter(text, filename) {
     const cat = get('categories');
     if (cat) {
         const cleaned = cat.replace(/^\[|\]$/g, '').trim();
-        data.categories = cleaned.split(',').map(s => s.trim()).filter(Boolean);
+        data.categories = cleaned.split(',').map(s => unquote(s.trim())).filter(Boolean);
+    } else {
+        // 相容 YAML 多行列表（CMS 可能用此格式寫出）：
+        //   categories:
+        //     - 分類名稱
+        const bm = yaml.match(/^categories:[ \t]*\r?\n((?:[ \t]*-[ \t]*.*\r?\n?)+)/m);
+        if (bm) {
+            data.categories = bm[1].split('\n')
+                .map(s => unquote(s.replace(/^[ \t]*-[ \t]*/, '').trim()))
+                .filter(Boolean);
+        }
     }
 
     // 從 frontmatter 之後的內文抽取摘要
