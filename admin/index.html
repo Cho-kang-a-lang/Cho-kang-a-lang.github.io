@@ -3,12 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>內容管理 - 做工á人台語工作室</title>
+    <title>做工仔人台語工作室 CMS</title>
     <link rel="icon" href="../images/logo.png" type="image/png">
     <meta name="robots" content="noindex">
 </head>
 <body>
     <!-- Sveltia CMS（釘精確版本；升級時改這裡的版本號） -->
     <script src="https://unpkg.com/@sveltia/cms@0.269.1/dist/sveltia-cms.js" type="module"></script>
+    <script>
+        // 讓右側預覽窗格套用網站的樣式表（表格、字級等看起來跟網站一致）
+        (function () {
+            var tries = 0;
+            var timer = setInterval(function () {
+                if (window.CMS && window.CMS.registerPreviewStyle) {
+                    clearInterval(timer);
+                    window.CMS.registerPreviewStyle('../style.css?v=20261119');
+                } else if (++tries > 100) {
+                    clearInterval(timer);
+                }
+            }, 100);
+        })();
+
+        // Sveltia 載入後會把分頁標題改成「Sveltia CMS」，持續改回工作室名稱
+        (function () {
+            var NAME = '做工仔人台語工作室 CMS';
+            var fix = function () {
+                if (document.title.indexOf('Sveltia CMS') !== -1) {
+                    document.title = document.title.replace('Sveltia CMS', NAME);
+                }
+            };
+            var t = document.querySelector('title');
+            if (t) new MutationObserver(fix).observe(t, { childList: true });
+            setInterval(fix, 2000);
+            fix();
+        })();
+    </script>
 </body>
 </html>
