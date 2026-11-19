@@ -15,8 +15,9 @@ logo_url: https://cho-kang-a-lang.github.io/images/logo.png
 media_folder: medias/featureimages
 public_folder: /medias/featureimages
 
+# 編輯時右側顯示即時預覽（套網站樣式，見 admin/index.html）
 editor:
-  preview: false
+  preview: true
 
 collections:
   - name: articles
