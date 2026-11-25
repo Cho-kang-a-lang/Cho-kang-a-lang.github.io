@@ -23,7 +23,7 @@ layout: ''
 
 ***
 
-<font size=6 color=#3F48CC>THE THREE SILLIES</font> 
+<font size=6 color=#3F48CC>THE THREE SILLIES</font>
 
 <font size=5 color=#3F48CC>Once upon a time, when folk were not so wise as they are nowadays, there lived a farmer and his wife who had one daughter. And she, being a pretty lass, was courted by the young squire when he came home from his travels.</font>
 <br>
